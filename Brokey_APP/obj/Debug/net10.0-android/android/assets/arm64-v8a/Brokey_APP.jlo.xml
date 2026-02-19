@@ -1,0 +1,15 @@
+<api>
+  <jcw-types>
+    <type name="MainActivity" package="crc64ce6f506dc8143fdd" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiAppCompatActivity" partial_assembly_qualified_name="Brokey_APP.MainActivity, Brokey_APP">
+      <constructors>
+        <constructor name="MainActivity" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+        <constructor name="MainActivity" method="n_.ctor:(I)V:" jni_signature="(I)V" managed_parameters="System.Int32, System.Private.CoreLib" params="int p0" retval="void" is_dynamically_registered="True" super_call="p0" activate_call="p0" />
+      </constructors>
+    </type>
+    <type name="MainApplication" package="crc64ce6f506dc8143fdd" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiApplication" is_application="True" partial_assembly_qualified_name="Brokey_APP.MainApplication, Brokey_APP" application_constructor="MainApplication" />
+  </jcw-types>
+  <acw-types partial-assembly-name="Brokey_APP" module-name="Brokey_APP.dll">
+    <type assembly-qualified-name="Brokey_APP.MainActivity, Brokey_APP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="brokey_app.MainActivity" java-key="crc64ce6f506dc8143fdd.MainActivity" managed-key="Brokey_APP.MainActivity" partial-assembly-qualified-name="Brokey_APP.MainActivity, Brokey_APP" />
+    <type assembly-qualified-name="Brokey_APP.MainApplication, Brokey_APP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="brokey_app.MainApplication" java-key="crc64ce6f506dc8143fdd.MainApplication" managed-key="Brokey_APP.MainApplication" partial-assembly-qualified-name="Brokey_APP.MainApplication, Brokey_APP" />
+  </acw-types>
+</api>

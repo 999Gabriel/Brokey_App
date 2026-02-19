@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Brokey_APP</name>
+    </assembly>
+    <members>
+        <member name="T:Brokey_APP.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Button.TextColorTo(Microsoft.Maui.Controls.Button,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_DatePicker.TextColorTo(Microsoft.Maui.Controls.DatePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Editor.TextColorTo(Microsoft.Maui.Controls.Editor,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Entry.TextColorTo(Microsoft.Maui.Controls.Entry,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_InputView.TextColorTo(Microsoft.Maui.Controls.InputView,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Label.TextColorTo(Microsoft.Maui.Controls.Label,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Picker.TextColorTo(Microsoft.Maui.Controls.Picker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_RadioButton.TextColorTo(Microsoft.Maui.Controls.RadioButton,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_SearchBar.TextColorTo(Microsoft.Maui.Controls.SearchBar,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_TimePicker.TextColorTo(Microsoft.Maui.Controls.TimePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.PropertyName">
+            <summary>Name of the Attached Property</summary>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.IsNullable">
+            <summary>Should generate a nullable type for T</summary>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.DefaultValue">
+            <summary>The default value for the property</summary>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.DefaultBindingMode">
+            <summary>The BindingMode to use on SetBinding() if no BindingMode is given. Default is <see cref="!:Microsoft.Maui.Controls.BindableProperty.Default"/></summary>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.ValidateValueMethodName">
+            <summary>Method name for <see cref="!:Microsoft.Maui.Controls.ValidateValueDelegate"/> to be run when a value is set. Default value is null</summary>
+            <remarks>The referenced method must be <see cref="!:Microsoft.Maui.Controls.ValidateValueDelegate"/></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.PropertyChangedMethodName">
+            <summary>Method name for <see cref="!:Microsoft.Maui.Controls.BindingPropertyChangedDelegate"/> to be run when a value has changed. Default value is null</summary>
+            <remarks>The referenced method must be <see cref="!:Microsoft.Maui.Controls.BindingPropertyChangedDelegate"/></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.PropertyChangingMethodName">
+            <summary>Method name for <see cref="!:Microsoft.Maui.Controls.BindingPropertyChangingDelegate"/> to be run when a value is set. Default value is null</summary>
+            <remarks>The referenced method must be <see cref="!:Microsoft.Maui.Controls.BindingPropertyChangingDelegate"/></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.CoerceValueMethodName">
+            <summary>Method name for <see cref="!:Microsoft.Maui.Controls.CoerceValueDelegate"/> used to coerce the range of a value. Default value is null</summary>
+            <remarks>The referenced method must be <see cref="!:Microsoft.Maui.Controls.CoerceValueDelegate"/></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.DefaultValueCreatorMethodName">
+            <summary>Method name for <see cref="!:Microsoft.Maui.Controls.CreateDefaultValueDelegate"/> used to initialize default value for reference types. Default value is null</summary>
+            <remarks>The referenced method must be <see cref="!:Microsoft.Maui.Controls.CreateDefaultValueDelegate"/></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.BindablePropertyXmlDocumentation">
+            <summary>Custom XML Comments added to BindableProperty</summary>
+            <remarks>Must be the entire XML string, including <c>///</c>
+            </remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.GetterMethodXmlDocumentation">
+            <summary>Custom XML Comments added to <c>Get{PropertyName}(BindableProperty bindable)</c></summary>
+            <remarks>Must be the entire XML string, including <c>///</c></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.SetterMethodXmlDocumentation">
+            <summary>Custom XML Comments added to <c>Set{PropertyName}(BindableProperty bindable, T value)</c></summary>
+            <remarks>Must be the entire XML string, including <c>///</c></remarks>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.BindablePropertyAccessibility">
+            <summary>The access modifier applied to the generated field <see cref="T:Microsoft.Maui.Controls.BindableProperty"/></summary>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.GetterAccessibility">
+            <summary>The access modifier applied to the generated method <c>Get{PropertyName}(BindableProperty bindable)</c></summary>
+        </member>
+        <member name="P:CommunityToolkit.Maui.AttachedBindablePropertyAttribute`1.SetterAccessibility">
+            <summary>The access modifier applied to the generated method <c>Set{PropertyName}(BindableProperty bindable, T value)</c></summary>
+        </member>
+        <member name="T:CommunityToolkit.Maui.AccessModifier">
+            <summary>Used by CommunityToolkit.Maui source generators to define access modifiers for generated code</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.Public">
+            <summary>Generates <see langword="public"/> access modifier</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.Internal">
+            <summary>Generates <see langword="internal"/> access modifier</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.ProtectedInternal">
+            <summary>Generates <see langword="protected"/> <see langword="internal"/> access modifier</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.Protected">
+            <summary>Generates <see langword="protected"/> access modifier</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.PrivateProtected">
+            <summary>Generates <see langword="private"/> <see langword="protected"/> access modifier</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.Private">
+            <summary>Generates <see langword="private"/> access modifier</summary>
+        </member>
+        <member name="F:CommunityToolkit.Maui.AccessModifier.None">
+            <summary>Generates no code</summary>
+        </member>
+    </members>
+</doc>

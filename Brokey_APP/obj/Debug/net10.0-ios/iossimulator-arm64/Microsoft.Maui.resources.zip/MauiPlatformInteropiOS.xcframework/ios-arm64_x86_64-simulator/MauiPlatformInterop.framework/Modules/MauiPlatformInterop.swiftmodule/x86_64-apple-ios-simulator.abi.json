@@ -1,0 +1,429 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "MauiPlatformInterop",
+    "printedName": "MauiPlatformInterop",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MauiPlatformInterop"
+      },
+      {
+        "kind": "Import",
+        "name": "QuartzCore",
+        "printedName": "QuartzCore",
+        "declKind": "Import",
+        "moduleName": "MauiPlatformInterop"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "MauiCALayerAutosizeToSuperLayerResult",
+        "printedName": "MauiCALayerAutosizeToSuperLayerResult",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "success",
+            "printedName": "success",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult.Type) -> MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MauiCALayerAutosizeToSuperLayerResult",
+                    "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                    "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "MauiCALayerAutosizeToSuperLayerResult",
+                        "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                        "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult@MauiCALayerAutosizeToSuperLayerResultSuccess",
+            "mangledName": "$s19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO7successyA2CmF",
+            "moduleName": "MauiPlatformInterop",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "missingSuperlayer",
+            "printedName": "missingSuperlayer",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult.Type) -> MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MauiCALayerAutosizeToSuperLayerResult",
+                    "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                    "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "MauiCALayerAutosizeToSuperLayerResult",
+                        "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                        "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult@MauiCALayerAutosizeToSuperLayerResultMissingSuperlayer",
+            "mangledName": "$s19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO17missingSuperlayeryA2CmF",
+            "moduleName": "MauiPlatformInterop",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "MauiCALayerAutosizeToSuperLayerResult",
+                    "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                    "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO8rawValueACSgSi_tcfc",
+            "mangledName": "$s19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO8rawValueACSgSi_tcfc",
+            "moduleName": "MauiPlatformInterop",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO8rawValueSivp",
+            "mangledName": "$s19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO8rawValueSivp",
+            "moduleName": "MauiPlatformInterop",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO8rawValueSivg",
+                "mangledName": "$s19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO8rawValueSivg",
+                "moduleName": "MauiPlatformInterop",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult",
+        "mangledName": "$s19MauiPlatformInterop0A33CALayerAutosizeToSuperLayerResultO",
+        "moduleName": "MauiPlatformInterop",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "MauiCALayerAutosizeToSuperLayerBehavior",
+        "printedName": "MauiCALayerAutosizeToSuperLayerBehavior",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "attach",
+            "printedName": "attach(layer:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "MauiCALayerAutosizeToSuperLayerResult",
+                "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult",
+                "usr": "c:@M@MauiPlatformInterop@E@MauiCALayerAutosizeToSuperLayerResult"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CALayer",
+                "printedName": "QuartzCore.CALayer",
+                "usr": "c:objc(cs)CALayer"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@MauiPlatformInterop@objc(cs)MauiCALayerAutosizeToSuperLayerBehavior(im)attachWithLayer:",
+            "mangledName": "$s19MauiPlatformInterop0A35CALayerAutosizeToSuperLayerBehaviorC6attach5layerAA0adefgH6ResultOSo0D0C_tF",
+            "moduleName": "MauiPlatformInterop",
+            "objc_name": "attachWithLayer:",
+            "declAttributes": [
+              "AccessControl",
+              "DiscardableResult",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "detach",
+            "printedName": "detach()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@MauiPlatformInterop@objc(cs)MauiCALayerAutosizeToSuperLayerBehavior(im)detach",
+            "mangledName": "$s19MauiPlatformInterop0A35CALayerAutosizeToSuperLayerBehaviorC6detachyyF",
+            "moduleName": "MauiPlatformInterop",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "MauiCALayerAutosizeToSuperLayerBehavior",
+                "printedName": "MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerBehavior",
+                "usr": "c:@M@MauiPlatformInterop@objc(cs)MauiCALayerAutosizeToSuperLayerBehavior"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@MauiPlatformInterop@objc(cs)MauiCALayerAutosizeToSuperLayerBehavior(im)init",
+            "mangledName": "$s19MauiPlatformInterop0A35CALayerAutosizeToSuperLayerBehaviorCACycfc",
+            "moduleName": "MauiPlatformInterop",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@MauiPlatformInterop@objc(cs)MauiCALayerAutosizeToSuperLayerBehavior",
+        "mangledName": "$s19MauiPlatformInterop0A35CALayerAutosizeToSuperLayerBehaviorC",
+        "moduleName": "MauiPlatformInterop",
+        "objc_name": "MauiCALayerAutosizeToSuperLayerBehavior",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/runner\/work\/1\/s\/src\/Core\/AppleNative\/PlatformInterop\/MauiPlatformInterop\/CALayerAutosizeToSuperLayerBehavior.swift",
+      "kind": "IntegerLiteral",
+      "offset": 180,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/1\/s\/src\/Core\/AppleNative\/PlatformInterop\/MauiPlatformInterop\/CALayerAutosizeToSuperLayerBehavior.swift",
+      "kind": "IntegerLiteral",
+      "offset": 211,
+      "length": 1,
+      "value": "1"
+    }
+  ]
+}

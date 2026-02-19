@@ -1,0 +1,10 @@
+User 1──N GroupMember N──1 Group
+User 1──N TripMember  N──1 Trip
+Group 1──N Trip
+Trip  1──N Expense
+Expense N──1 ExpenseCategory
+Expense 1──N ExpenseSplit ──1 User
+Expense 1──N Receipt
+User has BaseCurrency
+Trip has Currency (from CountryCurrency)
+ExchangeRate converts between currencies

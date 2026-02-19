@@ -1,0 +1,29 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.1.2 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 6 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -module-name MauiPlatformInterop
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -interface-compiler-version 6.1.2
+import Foundation
+import QuartzCore
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc public enum MauiCALayerAutosizeToSuperLayerResult : Swift.Int {
+  case success = 0
+  case missingSuperlayer = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc(MauiCALayerAutosizeToSuperLayerBehavior) public class MauiCALayerAutosizeToSuperLayerBehavior : ObjectiveC.NSObject {
+  @discardableResult
+  @objc public func attach(layer: QuartzCore.CALayer) -> MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult
+  @objc public func detach()
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult : Swift.Equatable {}
+extension MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult : Swift.Hashable {}
+extension MauiPlatformInterop.MauiCALayerAutosizeToSuperLayerResult : Swift.RawRepresentable {}
