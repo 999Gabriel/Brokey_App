@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.TripsPage"
+             x:DataType="vm:TripsViewModel"
+             Title="My Trips"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <Grid RowDefinitions="*,Auto" Padding="25,20">
+
+        <!-- Empty State -->
+        <VerticalStackLayout Grid.Row="0"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="15">
+            <Image Source="brokey_mascot.png"
+                   HeightRequest="120"
+                   Aspect="AspectFit"
+                   Opacity="0.7"
+                   HorizontalOptions="Center"/>
+            <Label Text="{Binding EmptyMessage}"
+                   FontFamily="PoppinsRegular"
+                   FontSize="15"
+                   TextColor="{StaticResource Gray400}"
+                   HorizontalTextAlignment="Center"
+                   Margin="30,0"/>
+        </VerticalStackLayout>
+
+        <!-- Add Trip FAB -->
+        <Button Grid.Row="1"
+                Text="+ New Trip"
+                HorizontalOptions="Center"
+                Margin="0,0,0,10"
+                WidthRequest="180"/>
+    </Grid>
+</ContentPage>
+

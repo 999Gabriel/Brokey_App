@@ -14,7 +14,7 @@
 		</data>
 		<key>Resources/MauiInfo.plist</key>
 		<data>
-		iEtuUGCV6JM3gxS/pO33swhmpp8=
+		dDz32nip6Z+LPnrlapAoZHhK7CU=
 		</data>
 		<key>Resources/MonoTouchDebugConfiguration.txt</key>
 		<data>
@@ -28,9 +28,45 @@
 		<data>
 		7WbyKaTragN9+Rxb5NtL7q9G1I0=
 		</data>
+		<key>Resources/Pacifico-Regular.ttf</key>
+		<data>
+		PQuesX5kWsNPg8ScP5iDcrJCFzo=
+		</data>
+		<key>Resources/Poppins-Bold.ttf</key>
+		<data>
+		ReTVgsu02rK7rT9iT62a5WfGZUc=
+		</data>
+		<key>Resources/Poppins-Regular.ttf</key>
+		<data>
+		hqQlvlqRnYZym4WyvB0H2lzkE9Q=
+		</data>
+		<key>Resources/Poppins-SemiBold.ttf</key>
+		<data>
+		YiymzL4vIsVhHf+gFrdFvSa+FUw=
+		</data>
+		<key>Resources/about_icon.png</key>
+		<data>
+		y8HEaPr96EJsic6ZWdzKm2DgIkM=
+		</data>
+		<key>Resources/about_icon@2x.png</key>
+		<data>
+		+vzMuvQCqz93jSsScTghWU4xntk=
+		</data>
+		<key>Resources/about_icon@3x.png</key>
+		<data>
+		ZJKCPjAqujr22Py0FXYByZl0/TU=
+		</data>
 		<key>Resources/appicon.icns</key>
 		<data>
 		MpxHfDYfBIXik0uFDpIO5NLt/9Y=
+		</data>
+		<key>Resources/brokey_logo.png</key>
+		<data>
+		sbo/pCSIx6ovbZTf9PBBPadSNfk=
+		</data>
+		<key>Resources/brokey_mascot.png</key>
+		<data>
+		FhoFyY1NxVR3y2KstQyOGbx8Yss=
 		</data>
 		<key>Resources/dotnet_bot.png</key>
 		<data>
@@ -44,6 +80,42 @@
 		<data>
 		fI641eL9jR0ctyTre3xTwKkfsn8=
 		</data>
+		<key>Resources/home_icon.png</key>
+		<data>
+		y7XZR72Ukf3pflBLex2XE/zFmaM=
+		</data>
+		<key>Resources/home_icon@2x.png</key>
+		<data>
+		4lPt5lbNUjAw3jsJGUoX7di12Ww=
+		</data>
+		<key>Resources/home_icon@3x.png</key>
+		<data>
+		/XFeQ9RDWr3psYCO1H6RySBnEo4=
+		</data>
+		<key>Resources/profile_icon.png</key>
+		<data>
+		+5DSaPHDLGNYJpXus13xnGiIEY8=
+		</data>
+		<key>Resources/profile_icon@2x.png</key>
+		<data>
+		I5iUI2+nCmsNNLRQF6g1CC7zE8o=
+		</data>
+		<key>Resources/profile_icon@3x.png</key>
+		<data>
+		Z0ZRHq1N62mBtyBYZU100Xo8ni8=
+		</data>
+		<key>Resources/trips_icon.png</key>
+		<data>
+		EZhoSJIfHU2QA8oWVDAH0eRVTtc=
+		</data>
+		<key>Resources/trips_icon@2x.png</key>
+		<data>
+		p+vPBBmc8PoAWt9JWvRLzvwzfLw=
+		</data>
+		<key>Resources/trips_icon@3x.png</key>
+		<data>
+		TvlTaaJ0HpUfZCRR1bxiA73WJeo=
+		</data>
 		<key>Resources/xml/microsoft_maui_essentials_fileprovider_file_paths.xml</key>
 		<data>
 		0ZugOR08oYUyn+ivNzk266eEOoY=
@@ -55,14 +127,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QJ+kEv1q6HqyHgXvViR3qgQWtf74GOO+GmXsB68aGok=
+			tlAuD3xbWXttp2REkwgZblvuPu7cJROTIQ5/lvq56Pg=
 			</data>
 		</dict>
 		<key>MonoBundle/Brokey_APP.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0bLRUZU4ulJEjK8XST5pRphBqafKL5tUphbz5UFXl1Q=
+			wKw3AZZao0tK7l/O59YrxFFhS83TYl0Xt0hLaXknWFM=
 			</data>
 		</dict>
 		<key>MonoBundle/CommunityToolkit.Maui.Core.dll</key>
@@ -1784,7 +1856,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tx0KXqEC+DvcCGyogQTEQWHcCWJYYqH24NtPwhpQEjo=
+			xzhUJ9JsgP70HdH+znIZL35UhMTbB9YW76xEOkG4HDE=
 			</data>
 		</dict>
 		<key>Resources/MonoTouchDebugConfiguration.txt</key>
@@ -1808,11 +1880,74 @@
 			hc114s1u6CVquqFrrbp9cClig2DK+iXSrBxSDqdZMc8=
 			</data>
 		</dict>
+		<key>Resources/Pacifico-Regular.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			W2wNUzSnv3fepSuXXFoMQIh4wPcRXtW2+xUfY0t79wE=
+			</data>
+		</dict>
+		<key>Resources/Poppins-Bold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mDZ2UWFndIt03m9Hcfs4TGZP2ROsuLRxEi7Kz12l6mw=
+			</data>
+		</dict>
+		<key>Resources/Poppins-Regular.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fmUgHpt5FZ4jACZ8yIXhbI3O8kJM36CaKb+wmAqUp7o=
+			</data>
+		</dict>
+		<key>Resources/Poppins-SemiBold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			078b2vBVDoPamsCx0dn+bbCGg1qDqihXjmCaOUuaAoY=
+			</data>
+		</dict>
+		<key>Resources/about_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			I0Ll4BGYZBpRcNskQcOoIS5CqBuxxpk+1eOL5YpQfJ4=
+			</data>
+		</dict>
+		<key>Resources/about_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TW5lpunJEmW5GegaI03WkPyOnoI+LRkUzLY61wcrxec=
+			</data>
+		</dict>
+		<key>Resources/about_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			IKNJeQBivBt4XN5tVYTV1KIAX0h/RZNMoWhLurDGDQw=
+			</data>
+		</dict>
 		<key>Resources/appicon.icns</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			62G9rft1kp+00mHbpp5l5+SsO5lPoGjgBat+3xXTQVw=
+			</data>
+		</dict>
+		<key>Resources/brokey_logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7IwIpfuFYTtY9fh+iQH3bXkf7uC/VwGdTnsdRlvsCBY=
+			</data>
+		</dict>
+		<key>Resources/brokey_mascot.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JSX0s7gUSjlIim67/sQLr664djz1qspsSGfvAje8IdY=
 			</data>
 		</dict>
 		<key>Resources/dotnet_bot.png</key>
@@ -1834,6 +1969,69 @@
 			<key>hash2</key>
 			<data>
 			rSLn1k43aQXR7mL0G0rG/4hhLC1hBtjJ3USgbIFRDnk=
+			</data>
+		</dict>
+		<key>Resources/home_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			NRqpN+cMA+nsHDW5BVVkELQPT7VE3KvUwsBUT3ZwETo=
+			</data>
+		</dict>
+		<key>Resources/home_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2mR07GVIZejmYHZoo4vfEz3DdgJYKk2VNxgTF2G4Gaw=
+			</data>
+		</dict>
+		<key>Resources/home_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			msp7Wjpkue0VizjZMkwO2n+nvqoccGWD/2wsEZVpxbw=
+			</data>
+		</dict>
+		<key>Resources/profile_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o8Xps24p+3BypohiZSQ7dD/oKCsAJimRybvNBDwbne0=
+			</data>
+		</dict>
+		<key>Resources/profile_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ISM6vLa+W2VDrBz2v2qBtr6y+IgBoGS+iwVRKTcLNb4=
+			</data>
+		</dict>
+		<key>Resources/profile_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wu5IHfuuwHBsr9gjquqfbybGfU1fQJ3KyDPIdSWtUUY=
+			</data>
+		</dict>
+		<key>Resources/trips_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			D9DD6Buv7U8xO87So21rxHNlF3vgp4PFMPW/gMF86AM=
+			</data>
+		</dict>
+		<key>Resources/trips_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0pZH9VV0diN5u11a5R3DEfXusqY1SqL6wGkRV44htOo=
+			</data>
+		</dict>
+		<key>Resources/trips_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			92r06mU+GD/aKYe1X+Ho7shLyITBu0Ua5OR26TZcC8A=
 			</data>
 		</dict>
 		<key>Resources/xml/microsoft_maui_essentials_fileprovider_file_paths.xml</key>

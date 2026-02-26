@@ -52,6 +52,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/AuthShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.AuthShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AuthShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AuthShell.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.MainPage.xaml
@@ -77,6 +87,76 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources/Styles/Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources/Styles/Styles.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/AboutPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.AboutPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/AboutPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/AboutPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/HomePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.HomePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/HomePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/HomePage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/ImpressumPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.ImpressumPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/ImpressumPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/ImpressumPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/LoginPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/ProfilePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.ProfilePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/ProfilePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/ProfilePage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/RegisterPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.RegisterPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/RegisterPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/RegisterPage.xaml
+build_metadata.AdditionalFiles.Inflator = Runtime
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Views/TripsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Brokey_APP.Views.TripsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views/TripsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views/TripsPage.xaml
 build_metadata.AdditionalFiles.Inflator = Runtime
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 

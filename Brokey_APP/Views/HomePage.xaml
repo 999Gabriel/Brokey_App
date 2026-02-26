@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Title="Home"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25,20" Spacing="20">
+
+            <!-- Brokey Header -->
+            <Grid ColumnDefinitions="*,Auto" Margin="0,10,0,0">
+                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                    <Label Text="{Binding UserName, StringFormat='Hey, {0}! 👋'}"
+                           FontFamily="PoppinsBold"
+                           FontSize="24"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    <Label Text="Let's track your expenses"
+                           FontFamily="PoppinsRegular"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray500}"/>
+                </VerticalStackLayout>
+                <Image Grid.Column="1"
+                       Source="brokey_mascot.png"
+                       HeightRequest="60"
+                       Aspect="AspectFit"/>
+            </Grid>
+
+            <!-- Speech Bubble from Brokey -->
+            <Border BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 20"
+                    Stroke="Transparent"
+                    Padding="20,16"
+                    Margin="0,5,0,0">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,3" Radius="10" Opacity="0.15"/>
+                </Border.Shadow>
+                <HorizontalStackLayout Spacing="12">
+                    <Image Source="brokey_mascot.png"
+                           HeightRequest="40"
+                           Aspect="AspectFit"
+                           VerticalOptions="Start"/>
+                    <Label Text="{Binding WelcomeMessage}"
+                           Style="{StaticResource SpeechBubbleText}"
+                           HorizontalTextAlignment="Start"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand"/>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Quick Actions -->
+            <Label Text="Quick Actions"
+                   Style="{StaticResource SectionTitle}"
+                   Margin="0,10,0,0"/>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto" ColumnSpacing="15">
+                <!-- New Trip Card -->
+                <Border Grid.Column="0"
+                        BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="Transparent"
+                        Padding="20"
+                        HeightRequest="140">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="✈️" FontSize="36" HorizontalOptions="Center"/>
+                        <Label Text="New Trip"
+                               FontFamily="PoppinsSemiBold"
+                               FontSize="15"
+                               TextColor="{StaticResource BrokeyDarkBlue}"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Plan ahead"
+                               FontFamily="PoppinsRegular"
+                               FontSize="12"
+                               TextColor="{StaticResource Gray400}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Add Expense Card -->
+                <Border Grid.Column="1"
+                        BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="Transparent"
+                        Padding="20"
+                        HeightRequest="140">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="💰" FontSize="36" HorizontalOptions="Center"/>
+                        <Label Text="Add Expense"
+                               FontFamily="PoppinsSemiBold"
+                               FontSize="15"
+                               TextColor="{StaticResource BrokeyDarkBlue}"
+                               HorizontalOptions="Center"/>
+                        <Label Text="Track spending"
+                               FontFamily="PoppinsRegular"
+                               FontSize="12"
+                               TextColor="{StaticResource Gray400}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Recent Activity placeholder -->
+            <Label Text="Recent Activity"
+                   Style="{StaticResource SectionTitle}"
+                   Margin="0,10,0,0"/>
+
+            <Border BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 20"
+                    Stroke="Transparent"
+                    Padding="30"
+                    HeightRequest="150">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
+                </Border.Shadow>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="🧳" FontSize="40" HorizontalOptions="Center"/>
+                    <Label Text="No recent activity yet"
+                           FontFamily="PoppinsRegular"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray400}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Start a trip to see your expenses here!"
+                           FontFamily="PoppinsRegular"
+                           FontSize="12"
+                           TextColor="{StaticResource Gray300}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+

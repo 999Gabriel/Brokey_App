@@ -14,11 +14,11 @@
 		</data>
 		<key>Brokey_APP.dll</key>
 		<data>
-		wN3muW5L2RKx/dGgdyyWC3+1ZTY=
+		UPPvzzVmlvRSlILYoqshZaYb/Ig=
 		</data>
 		<key>Brokey_APP.pdb</key>
 		<data>
-		YBJRwdcaJjy+gxQKr1ML30xlVZI=
+		OmiV0IHJdivWLLwZe+JuvkpFq8A=
 		</data>
 		<key>CommunityToolkit.Maui.Core.dll</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		JGaUUS0n+iySlVBcxmVfKfxwvH0=
+		hYE120Jz3cOveEBVNGmlnzUsEYU=
 		</data>
 		<key>MauiInfo.plist</key>
 		<data>
-		iEtuUGCV6JM3gxS/pO33swhmpp8=
+		dDz32nip6Z+LPnrlapAoZHhK7CU=
 		</data>
 		<key>MauiSplash.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -196,9 +196,25 @@
 		<data>
 		7WbyKaTragN9+Rxb5NtL7q9G1I0=
 		</data>
+		<key>Pacifico-Regular.ttf</key>
+		<data>
+		PQuesX5kWsNPg8ScP5iDcrJCFzo=
+		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
+		</data>
+		<key>Poppins-Bold.ttf</key>
+		<data>
+		ReTVgsu02rK7rT9iT62a5WfGZUc=
+		</data>
+		<key>Poppins-Regular.ttf</key>
+		<data>
+		hqQlvlqRnYZym4WyvB0H2lzkE9Q=
+		</data>
+		<key>Poppins-SemiBold.ttf</key>
+		<data>
+		YiymzL4vIsVhHf+gFrdFvSa+FUw=
 		</data>
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
@@ -888,6 +904,18 @@
 		<data>
 		Xra47qDA9I+Pw0QW8QDklO7TGoE=
 		</data>
+		<key>about_icon.png</key>
+		<data>
+		y8HEaPr96EJsic6ZWdzKm2DgIkM=
+		</data>
+		<key>about_icon@2x.png</key>
+		<data>
+		+vzMuvQCqz93jSsScTghWU4xntk=
+		</data>
+		<key>about_icon@3x.png</key>
+		<data>
+		ZJKCPjAqujr22Py0FXYByZl0/TU=
+		</data>
 		<key>appicon60x60@2x.png</key>
 		<data>
 		t4umfOZFumJ7QmzKhGEnyAcUk+s=
@@ -899,6 +927,14 @@
 		<key>ar/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
 		0eI1hpvMcWyVRlQ5+XqI4ilYoQM=
+		</data>
+		<key>brokey_logo.png</key>
+		<data>
+		sbo/pCSIx6ovbZTf9PBBPadSNfk=
+		</data>
+		<key>brokey_mascot.png</key>
+		<data>
+		FhoFyY1NxVR3y2KstQyOGbx8Yss=
 		</data>
 		<key>ca/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
@@ -951,6 +987,18 @@
 		<key>hi/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
 		vQeOaJGAUkPUldfrAEcXl7MwMJk=
+		</data>
+		<key>home_icon.png</key>
+		<data>
+		y7XZR72Ukf3pflBLex2XE/zFmaM=
+		</data>
+		<key>home_icon@2x.png</key>
+		<data>
+		4lPt5lbNUjAw3jsJGUoX7di12Ww=
+		</data>
+		<key>home_icon@3x.png</key>
+		<data>
+		/XFeQ9RDWr3psYCO1H6RySBnEo4=
 		</data>
 		<key>hr/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
@@ -1044,6 +1092,18 @@
 		<data>
 		aDNfSm0zHL1zynGRe3/kyjbI8HE=
 		</data>
+		<key>profile_icon.png</key>
+		<data>
+		+5DSaPHDLGNYJpXus13xnGiIEY8=
+		</data>
+		<key>profile_icon@2x.png</key>
+		<data>
+		I5iUI2+nCmsNNLRQF6g1CC7zE8o=
+		</data>
+		<key>profile_icon@3x.png</key>
+		<data>
+		Z0ZRHq1N62mBtyBYZU100Xo8ni8=
+		</data>
 		<key>pt-BR/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
 		f5FmlOuCsXEW9TfnZHQiZ2Dke+0=
@@ -1092,6 +1152,18 @@
 		<data>
 		PgSFsAMGxfU5mMlmPvMpIVFnyVY=
 		</data>
+		<key>trips_icon.png</key>
+		<data>
+		EZhoSJIfHU2QA8oWVDAH0eRVTtc=
+		</data>
+		<key>trips_icon@2x.png</key>
+		<data>
+		p+vPBBmc8PoAWt9JWvRLzvwzfLw=
+		</data>
+		<key>trips_icon@3x.png</key>
+		<data>
+		TvlTaaJ0HpUfZCRR1bxiA73WJeo=
+		</data>
 		<key>uk/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
 		/nTdgv4KAQBZO0+48rFNEZsWekI=
@@ -1137,14 +1209,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			O2tCa0jpx5tEwviyrhIgS0Z/GONaS+jgI2yN4l0sHx8=
+			lGf+u4Fm8PAM2SXJvrhJJ96+Rz4lz0EUSkH54GXriOI=
 			</data>
 		</dict>
 		<key>Brokey_APP.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cMJ6MTDBjj9xjz//NPF2QHqtX39bCq7biDzm6V8LYq8=
+			/UUuxkwdALeYu8JUGNC6TIOoP7/lkD/0020W8ZPKIEU=
 			</data>
 		</dict>
 		<key>CommunityToolkit.Maui.Core.dll</key>
@@ -1172,7 +1244,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tx0KXqEC+DvcCGyogQTEQWHcCWJYYqH24NtPwhpQEjo=
+			xzhUJ9JsgP70HdH+znIZL35UhMTbB9YW76xEOkG4HDE=
 			</data>
 		</dict>
 		<key>MauiSplash.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1446,6 +1518,34 @@
 			<key>hash2</key>
 			<data>
 			hc114s1u6CVquqFrrbp9cClig2DK+iXSrBxSDqdZMc8=
+			</data>
+		</dict>
+		<key>Pacifico-Regular.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			W2wNUzSnv3fepSuXXFoMQIh4wPcRXtW2+xUfY0t79wE=
+			</data>
+		</dict>
+		<key>Poppins-Bold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mDZ2UWFndIt03m9Hcfs4TGZP2ROsuLRxEi7Kz12l6mw=
+			</data>
+		</dict>
+		<key>Poppins-Regular.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fmUgHpt5FZ4jACZ8yIXhbI3O8kJM36CaKb+wmAqUp7o=
+			</data>
+		</dict>
+		<key>Poppins-SemiBold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			078b2vBVDoPamsCx0dn+bbCGg1qDqihXjmCaOUuaAoY=
 			</data>
 		</dict>
 		<key>PrivacyInfo.xcprivacy</key>
@@ -2652,6 +2752,27 @@
 			1asq9qgR1D1H3mBTlOpU7H13/G6E9akNIRelHDydbmU=
 			</data>
 		</dict>
+		<key>about_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			I0Ll4BGYZBpRcNskQcOoIS5CqBuxxpk+1eOL5YpQfJ4=
+			</data>
+		</dict>
+		<key>about_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TW5lpunJEmW5GegaI03WkPyOnoI+LRkUzLY61wcrxec=
+			</data>
+		</dict>
+		<key>about_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			IKNJeQBivBt4XN5tVYTV1KIAX0h/RZNMoWhLurDGDQw=
+			</data>
+		</dict>
 		<key>appicon60x60@2x.png</key>
 		<dict>
 			<key>hash2</key>
@@ -2671,6 +2792,20 @@
 			<key>hash2</key>
 			<data>
 			7c7noi1oMwNoPXo18KDVHFA7TS3uuWv4FKbRqnbIQI8=
+			</data>
+		</dict>
+		<key>brokey_logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7IwIpfuFYTtY9fh+iQH3bXkf7uC/VwGdTnsdRlvsCBY=
+			</data>
+		</dict>
+		<key>brokey_mascot.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JSX0s7gUSjlIim67/sQLr664djz1qspsSGfvAje8IdY=
 			</data>
 		</dict>
 		<key>ca/Microsoft.Maui.Controls.resources.dll</key>
@@ -2762,6 +2897,27 @@
 			<key>hash2</key>
 			<data>
 			v19mms5xTtOrvsyYAsoEBfJesQw8xowmGf6Hmo/AWHc=
+			</data>
+		</dict>
+		<key>home_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			NRqpN+cMA+nsHDW5BVVkELQPT7VE3KvUwsBUT3ZwETo=
+			</data>
+		</dict>
+		<key>home_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2mR07GVIZejmYHZoo4vfEz3DdgJYKk2VNxgTF2G4Gaw=
+			</data>
+		</dict>
+		<key>home_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			msp7Wjpkue0VizjZMkwO2n+nvqoccGWD/2wsEZVpxbw=
 			</data>
 		</dict>
 		<key>hr/Microsoft.Maui.Controls.resources.dll</key>
@@ -2925,6 +3081,27 @@
 			X2ieXSlgIcYa/yOY818D29CYxvrzC3pdQfEx8MZEnPo=
 			</data>
 		</dict>
+		<key>profile_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o8Xps24p+3BypohiZSQ7dD/oKCsAJimRybvNBDwbne0=
+			</data>
+		</dict>
+		<key>profile_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ISM6vLa+W2VDrBz2v2qBtr6y+IgBoGS+iwVRKTcLNb4=
+			</data>
+		</dict>
+		<key>profile_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wu5IHfuuwHBsr9gjquqfbybGfU1fQJ3KyDPIdSWtUUY=
+			</data>
+		</dict>
 		<key>pt-BR/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -3007,6 +3184,27 @@
 			<key>hash2</key>
 			<data>
 			iR1LxYAMKiFmiBhJuYvov5sIbIGTsScFaKLEMppg7QE=
+			</data>
+		</dict>
+		<key>trips_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			D9DD6Buv7U8xO87So21rxHNlF3vgp4PFMPW/gMF86AM=
+			</data>
+		</dict>
+		<key>trips_icon@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0pZH9VV0diN5u11a5R3DEfXusqY1SqL6wGkRV44htOo=
+			</data>
+		</dict>
+		<key>trips_icon@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			92r06mU+GD/aKYe1X+Ho7shLyITBu0Ua5OR26TZcC8A=
 			</data>
 		</dict>
 		<key>uk/Microsoft.Maui.Controls.resources.dll</key>

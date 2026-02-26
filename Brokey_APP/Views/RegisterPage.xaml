@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.RegisterPage"
+             x:DataType="vm:RegisterViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*" Padding="0">
+
+            <!-- Top area with Brokey mascot -->
+            <Grid Grid.Row="0" HeightRequest="260" BackgroundColor="{StaticResource Secondary}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Brokey Mascot -->
+                <Image Grid.Row="0"
+                       Source="brokey_mascot.png"
+                       HeightRequest="130"
+                       Aspect="AspectFit"
+                       Margin="0,35,0,0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+
+                <!-- Speech Bubble -->
+                <Border Grid.Row="1"
+                        BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="Transparent"
+                        Padding="20,12"
+                        Margin="40,0,40,20"
+                        HorizontalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.2"/>
+                    </Border.Shadow>
+                    <Label Text="Let's get you set up! It'll be quick, I promise! ✨"
+                           Style="{StaticResource SpeechBubbleText}"/>
+                </Border>
+            </Grid>
+
+            <!-- Register Form -->
+            <VerticalStackLayout Grid.Row="1" Padding="30,25,30,20" Spacing="14">
+
+                <!-- Brokey Logo Text -->
+                <Label Text="Brokey"
+                       Style="{StaticResource BrokeyLogoText}"
+                       Margin="0,0,0,5"/>
+
+                <!-- Error Message -->
+                <Border BackgroundColor="#FFF0F0"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="#FFD0D0"
+                        Padding="12,10"
+                        IsVisible="{Binding HasError}">
+                    <Label Text="{Binding ErrorMessage}"
+                           TextColor="#D32F2F"
+                           FontFamily="PoppinsRegular"
+                           FontSize="13"
+                           HorizontalTextAlignment="Center"/>
+                </Border>
+
+                <!-- Username -->
+                <Border BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="{StaticResource Gray200}"
+                        Padding="16,4"
+                        HeightRequest="55">
+                    <Entry Placeholder="Username"
+                           Text="{Binding Username}"
+                           ReturnType="Next"
+                           FontFamily="PoppinsRegular"/>
+                </Border>
+
+                <!-- Email -->
+                <Border BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="{StaticResource Gray200}"
+                        Padding="16,4"
+                        HeightRequest="55">
+                    <Entry Placeholder="Email"
+                           Text="{Binding Email}"
+                           Keyboard="Email"
+                           ReturnType="Next"
+                           FontFamily="PoppinsRegular"/>
+                </Border>
+
+                <!-- Password -->
+                <Border BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="{StaticResource Gray200}"
+                        Padding="16,4"
+                        HeightRequest="55">
+                    <Entry Placeholder="Password"
+                           Text="{Binding Password}"
+                           IsPassword="True"
+                           ReturnType="Next"
+                           FontFamily="PoppinsRegular"/>
+                </Border>
+
+                <!-- Confirm Password -->
+                <Border BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="{StaticResource Gray200}"
+                        Padding="16,4"
+                        HeightRequest="55">
+                    <Entry Placeholder="Confirm Password"
+                           Text="{Binding ConfirmPassword}"
+                           IsPassword="True"
+                           ReturnType="Done"
+                           FontFamily="PoppinsRegular"/>
+                </Border>
+
+                <!-- Base Currency Picker -->
+                <Border BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 15"
+                        Stroke="{StaticResource Gray200}"
+                        Padding="16,4"
+                        HeightRequest="55">
+                    <Picker Title="Base Currency"
+                            SelectedItem="{Binding BaseCurrency}"
+                            ItemsSource="{Binding Currencies}"
+                            FontFamily="PoppinsRegular"/>
+                </Border>
+
+                <!-- Register Button -->
+                <Button Text="Create Account"
+                        Command="{Binding RegisterCommand}"
+                        HorizontalOptions="Fill"
+                        Margin="0,8,0,0"/>
+
+                <!-- Go to Login -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="0" Margin="0,5,0,0">
+                    <Label Text="Already have an account? "
+                           TextColor="{StaticResource Gray500}"
+                           FontFamily="PoppinsRegular"
+                           FontSize="14"
+                           VerticalOptions="Center"/>
+                    <Button Text="Login"
+                            Style="{StaticResource LinkButton}"
+                            TextColor="{StaticResource BrokeyOrange}"
+                            FontFamily="PoppinsSemiBold"
+                            Command="{Binding GoToLoginCommand}"/>
+                </HorizontalStackLayout>
+
+                <!-- Loading -->
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"
+                                   HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
+

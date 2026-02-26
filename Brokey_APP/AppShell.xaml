@@ -3,12 +3,34 @@
     x:Class="Brokey_APP.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Brokey_APP"
-    Title="Brokey_APP">
+    xmlns:views="clr-namespace:Brokey_APP.Views"
+    Title="Brokey"
+    Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            Icon="home_icon"
+            ContentTemplate="{DataTemplate views:HomePage}"
+            Route="home" />
+
+        <ShellContent
+            Title="Trips"
+            Icon="trips_icon"
+            ContentTemplate="{DataTemplate views:TripsPage}"
+            Route="trips" />
+
+        <ShellContent
+            Title="Profile"
+            Icon="profile_icon"
+            ContentTemplate="{DataTemplate views:ProfilePage}"
+            Route="profile" />
+
+        <ShellContent
+            Title="About"
+            Icon="about_icon"
+            ContentTemplate="{DataTemplate views:AboutPage}"
+            Route="about" />
+    </TabBar>
 
 </Shell>

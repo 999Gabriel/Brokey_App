@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.AboutPage"
+             x:DataType="vm:AboutViewModel"
+             Title="About"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25,20" Spacing="20">
+
+            <!-- Brokey Logo Area -->
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="10" Margin="0,20,0,10">
+                <Image Source="brokey_mascot.png"
+                       HeightRequest="120"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"/>
+                <Label Text="Brokey"
+                       Style="{StaticResource BrokeyLogoText}"/>
+                <Label Text="{Binding Version, StringFormat='Version {0}'}"
+                       FontFamily="PoppinsRegular"
+                       FontSize="13"
+                       TextColor="{StaticResource Gray400}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Description Card -->
+            <Border BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 20"
+                    Stroke="Transparent"
+                    Padding="24">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="What is Brokey?"
+                           FontFamily="PoppinsSemiBold"
+                           FontSize="18"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    <Label Text="{Binding AppDescription}"
+                           FontFamily="PoppinsRegular"
+                           FontSize="14"
+                           TextColor="{StaticResource Gray600}"
+                           LineHeight="1.5"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Features List -->
+            <Border BackgroundColor="{StaticResource White}"
+                    StrokeShape="RoundRectangle 20"
+                    Stroke="Transparent"
+                    Padding="24">
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Features"
+                           FontFamily="PoppinsSemiBold"
+                           FontSize="18"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="💰" FontSize="20"/>
+                        <Label Text="Track expenses on every trip"
+                               FontFamily="PoppinsRegular" FontSize="14"
+                               TextColor="{StaticResource Gray600}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="👥" FontSize="20"/>
+                        <Label Text="Split costs fairly with friends"
+                               FontFamily="PoppinsRegular" FontSize="14"
+                               TextColor="{StaticResource Gray600}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="🧾" FontSize="20"/>
+                        <Label Text="Upload receipts as proof"
+                               FontFamily="PoppinsRegular" FontSize="14"
+                               TextColor="{StaticResource Gray600}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="💱" FontSize="20"/>
+                        <Label Text="Automatic currency conversion"
+                               FontFamily="PoppinsRegular" FontSize="14"
+                               TextColor="{StaticResource Gray600}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="📍" FontSize="20"/>
+                        <Label Text="Pin expenses on a map"
+                               FontFamily="PoppinsRegular" FontSize="14"
+                               TextColor="{StaticResource Gray600}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="🧳" FontSize="20"/>
+                        <Label Text="Brokey guides you through it all"
+                               FontFamily="PoppinsRegular" FontSize="14"
+                               TextColor="{StaticResource Gray600}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Impressum Link -->
+            <Button Text="Impressum"
+                    Style="{StaticResource LinkButton}"
+                    TextColor="{StaticResource BrokeyDarkBlue}"
+                    FontFamily="PoppinsSemiBold"
+                    Command="{Binding OpenImpressumCommand}"
+                    HorizontalOptions="Center"
+                    Margin="0,5,0,20"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+

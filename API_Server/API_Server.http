@@ -1,6 +1,27 @@
 @API_Server_HostAddress = http://localhost:5224
 
-GET {{API_Server_HostAddress}}/weatherforecast/
-Accept: application/json
+### Register a new user
+POST {{API_Server_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "TestUser",
+  "email": "test@brokey.app",
+  "password": "Test1234!",
+  "baseCurrency": "EUR"
+}
+
+### Login
+POST {{API_Server_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@brokey.app",
+  "password": "Test1234!"
+}
+
+### Get current user profile (replace <TOKEN> with actual JWT from login response)
+GET {{API_Server_HostAddress}}/api/auth/me
+Authorization: Bearer <TOKEN>
 
 ###
