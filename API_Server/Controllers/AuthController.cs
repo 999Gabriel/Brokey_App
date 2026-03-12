@@ -1,4 +1,5 @@
 using API_Server.DTOs;
+using API_Server.Extensions;
 using API_Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,42 +27,34 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest request)
     {
-        // Check if email already exists
-        if (await _context.Users.AnyAsync(u => u.Email == request.Email))
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+        var normalizedUsername = request.Username.Trim();
+
+        if (await _context.Users.AnyAsync(u => u.Email.ToLower() == normalizedEmail))
         {
             return Conflict(new { message = "A user with this email already exists." });
         }
 
-        // Check if username already exists
-        if (await _context.Users.AnyAsync(u => u.Username == request.Username))
+        if (await _context.Users.AnyAsync(u => u.Username.ToLower() == normalizedUsername.ToLower()))
         {
             return Conflict(new { message = "This username is already taken." });
         }
 
-        // Create user
         var user = new Models.User
         {
-            Username = request.Username,
-            Email = request.Email.ToLower().Trim(),
+            Username = normalizedUsername,
+            Email = normalizedEmail,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
             BaseCurrency = request.BaseCurrency.ToUpper().Trim(),
             CreatedAt = DateTime.UtcNow
         };
 
         _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(HttpContext.RequestAborted);
 
-        // Generate JWT token
-        var token = _tokenService.GenerateToken(user);
+        var response = BuildAuthResponse(user);
 
-        return CreatedAtAction(nameof(GetMe), new AuthResponse
-        {
-            UserId = user.Id,
-            Username = user.Username,
-            Email = user.Email,
-            BaseCurrency = user.BaseCurrency,
-            Token = token
-        });
+        return CreatedAtAction(nameof(GetMe), routeValues: null, value: response);
     }
 
     /// <summary>
@@ -70,8 +63,9 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest request)
     {
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
         var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == request.Email.ToLower().Trim());
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == normalizedEmail, HttpContext.RequestAborted);
 
         if (user == null)
         {
@@ -83,16 +77,7 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid email or password." });
         }
 
-        var token = _tokenService.GenerateToken(user);
-
-        return Ok(new AuthResponse
-        {
-            UserId = user.Id,
-            Username = user.Username,
-            Email = user.Email,
-            BaseCurrency = user.BaseCurrency,
-            Token = token
-        });
+        return Ok(BuildAuthResponse(user));
     }
 
     /// <summary>
@@ -100,19 +85,15 @@ public class AuthController : ControllerBase
     /// </summary>
     [Authorize]
     [HttpGet("me")]
-    public async Task<ActionResult<UserResponse>> GetMe()
+    public async Task<ActionResult<UserResponse>> GetMe(CancellationToken cancellationToken)
     {
-        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)
-                          ?? User.FindFirst("sub");
-
-        if (userIdClaim == null)
+        var userId = User.GetUserId();
+        if (userId == null)
         {
             return Unauthorized();
         }
 
-        var userId = int.Parse(userIdClaim.Value);
-        var user = await _context.Users.FindAsync(userId);
-
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId.Value, cancellationToken);
         if (user == null)
         {
             return NotFound();
@@ -128,5 +109,16 @@ public class AuthController : ControllerBase
             CreatedAt = user.CreatedAt
         });
     }
-}
 
+    private AuthResponse BuildAuthResponse(Models.User user)
+    {
+        return new AuthResponse
+        {
+            UserId = user.Id,
+            Username = user.Username,
+            Email = user.Email,
+            BaseCurrency = user.BaseCurrency,
+            Token = _tokenService.GenerateToken(user)
+        };
+    }
+}

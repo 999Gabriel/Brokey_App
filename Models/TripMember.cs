@@ -6,6 +6,7 @@ public class TripMember
     public int TripId { get; set; }
     public int UserId { get; set; }
     public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
+    public string Role { get; set; } = "Member";
 
     // Navigation properties
     public Trip Trip { get; set; } = null!;

@@ -388,24 +388,25 @@ namespace ORM.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AdminUserId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminUserId");
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("TripId", "Name");
 
                     b.ToTable("Groups");
                 });
@@ -421,6 +422,11 @@ namespace ORM.Migrations
 
                     b.Property<DateTime>("JoinedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -465,31 +471,23 @@ namespace ORM.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Country")
+                    b.Property<string>("BaseCurrency")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatedByUserId")
+                    b.Property<int>("CreatedById")
                         .HasColumnType("int");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -501,9 +499,7 @@ namespace ORM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("GroupId");
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Trips");
                 });
@@ -516,6 +512,11 @@ namespace ORM.Migrations
 
                     b.Property<DateTime>("JoinedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("TripId")
                         .HasColumnType("int");
@@ -621,13 +622,21 @@ namespace ORM.Migrations
 
             modelBuilder.Entity("Models.Group", b =>
                 {
-                    b.HasOne("Models.User", "Admin")
-                        .WithMany("AdminOfGroups")
-                        .HasForeignKey("AdminUserId")
+                    b.HasOne("Models.User", "CreatedBy")
+                        .WithMany("CreatedGroups")
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Admin");
+                    b.HasOne("Models.Trip", "Trip")
+                        .WithMany("Groups")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Trip");
                 });
 
             modelBuilder.Entity("Models.GroupMember", b =>
@@ -664,18 +673,11 @@ namespace ORM.Migrations
                 {
                     b.HasOne("Models.User", "CreatedBy")
                         .WithMany("CreatedTrips")
-                        .HasForeignKey("CreatedByUserId")
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Models.Group", "Group")
-                        .WithMany("Trips")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Models.TripMember", b =>
@@ -712,20 +714,20 @@ namespace ORM.Migrations
             modelBuilder.Entity("Models.Group", b =>
                 {
                     b.Navigation("Members");
-
-                    b.Navigation("Trips");
                 });
 
             modelBuilder.Entity("Models.Trip", b =>
                 {
                     b.Navigation("Expenses");
 
+                    b.Navigation("Groups");
+
                     b.Navigation("Members");
                 });
 
             modelBuilder.Entity("Models.User", b =>
                 {
-                    b.Navigation("AdminOfGroups");
+                    b.Navigation("CreatedGroups");
 
                     b.Navigation("CreatedTrips");
 

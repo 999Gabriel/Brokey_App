@@ -15,6 +15,6 @@ public class User
     public ICollection<TripMember> TripMemberships { get; set; } = new List<TripMember>();
     public ICollection<Expense> PaidExpenses { get; set; } = new List<Expense>();
     public ICollection<ExpenseSplit> ExpenseSplits { get; set; } = new List<ExpenseSplit>();
-    public ICollection<Group> AdminOfGroups { get; set; } = new List<Group>();
+    public ICollection<Group> CreatedGroups { get; set; } = new List<Group>();
     public ICollection<Trip> CreatedTrips { get; set; } = new List<Trip>();
 }

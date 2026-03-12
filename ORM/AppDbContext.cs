@@ -42,11 +42,16 @@ public class AppDbContext : DbContext
         {
             entity.HasKey(g => g.Id);
             entity.Property(g => g.Name).IsRequired().HasMaxLength(100);
-            entity.Property(g => g.Description).HasMaxLength(500);
+            entity.HasIndex(g => new { g.TripId, g.Name });
 
-            entity.HasOne(g => g.Admin)
-                .WithMany(u => u.AdminOfGroups)
-                .HasForeignKey(g => g.AdminUserId)
+            entity.HasOne(g => g.Trip)
+                .WithMany(t => t.Groups)
+                .HasForeignKey(g => g.TripId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(g => g.CreatedBy)
+                .WithMany(u => u.CreatedGroups)
+                .HasForeignKey(g => g.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
@@ -55,6 +60,7 @@ public class AppDbContext : DbContext
         {
             entity.HasKey(gm => gm.Id);
             entity.HasIndex(gm => new { gm.GroupId, gm.UserId }).IsUnique();
+            entity.Property(gm => gm.Role).IsRequired().HasMaxLength(20);
 
             entity.HasOne(gm => gm.Group)
                 .WithMany(g => g.Members)
@@ -73,17 +79,11 @@ public class AppDbContext : DbContext
             entity.HasKey(t => t.Id);
             entity.Property(t => t.Name).IsRequired().HasMaxLength(150);
             entity.Property(t => t.Description).HasMaxLength(500);
-            entity.Property(t => t.Country).IsRequired().HasMaxLength(100);
-            entity.Property(t => t.Currency).IsRequired().HasMaxLength(3);
-
-            entity.HasOne(t => t.Group)
-                .WithMany(g => g.Trips)
-                .HasForeignKey(t => t.GroupId)
-                .OnDelete(DeleteBehavior.SetNull);
+            entity.Property(t => t.BaseCurrency).IsRequired().HasMaxLength(3);
 
             entity.HasOne(t => t.CreatedBy)
                 .WithMany(u => u.CreatedTrips)
-                .HasForeignKey(t => t.CreatedByUserId)
+                .HasForeignKey(t => t.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
@@ -92,6 +92,7 @@ public class AppDbContext : DbContext
         {
             entity.HasKey(tm => tm.Id);
             entity.HasIndex(tm => new { tm.TripId, tm.UserId }).IsUnique();
+            entity.Property(tm => tm.Role).IsRequired().HasMaxLength(20);
 
             entity.HasOne(tm => tm.Trip)
                 .WithMany(t => t.Members)
@@ -229,4 +230,3 @@ public class AppDbContext : DbContext
         );
     }
 }
-
