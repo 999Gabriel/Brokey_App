@@ -1,19 +1,110 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Brokey_APP.Models"
              xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
              x:Class="Brokey_APP.Views.TripsPage"
+             x:Name="TripsPageRoot"
              x:DataType="vm:TripsViewModel"
              Title="My Trips"
              BackgroundColor="{StaticResource BrokeyBackground}">
 
-    <Grid RowDefinitions="*,Auto" Padding="25,20">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="25,20">
+        <Label Text="Your trips"
+               FontFamily="PoppinsBold"
+               FontSize="24"
+               TextColor="{StaticResource BrokeyDarkBlue}"/>
 
-        <!-- Empty State -->
-        <VerticalStackLayout Grid.Row="0"
+        <Label Grid.Row="1"
+               Text="{Binding ErrorMessage}"
+               IsVisible="{Binding HasError}"
+               TextColor="IndianRed"
+               Margin="0,10,0,0"/>
+
+        <CollectionView Grid.Row="2"
+                        Margin="0,20,0,0"
+                        ItemsSource="{Binding Trips}"
+                        IsVisible="{Binding HasTrips}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TripSummaryResponse">
+                    <Border BackgroundColor="{StaticResource White}"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 24"
+                            Padding="18"
+                            Margin="0,0,0,14">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding BindingContext.OpenTripCommand, Source={x:Reference TripsPageRoot}}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Border.Shadow>
+                            <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,3" Radius="10" Opacity="0.12"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="10">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="PoppinsSemiBold"
+                                           FontSize="18"
+                                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                    <Label Text="{Binding Description}"
+                                           FontFamily="PoppinsRegular"
+                                           FontSize="13"
+                                           TextColor="{StaticResource Gray500}"
+                                           LineBreakMode="TailTruncation"/>
+                                </VerticalStackLayout>
+                                <Border Grid.Column="1"
+                                        BackgroundColor="#EAF4FF"
+                                        Stroke="Transparent"
+                                        StrokeShape="RoundRectangle 14"
+                                        Padding="10,6">
+                                    <Label Text="{Binding BaseCurrency}"
+                                           FontFamily="PoppinsSemiBold"
+                                           FontSize="12"
+                                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                </Border>
+                            </Grid>
+
+                            <HorizontalStackLayout Spacing="16">
+                                <Label Text="{Binding StartDate, StringFormat='Start: {0:dd MMM yyyy}'}"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource Gray500}"/>
+                                <Label Text="{Binding EndDate, StringFormat='End: {0:dd MMM yyyy}'}"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource Gray500}"/>
+                            </HorizontalStackLayout>
+
+                            <Grid ColumnDefinitions="Auto,Auto,*">
+                                <Label Text="{Binding GroupCount, StringFormat='Groups: {0}'}"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource Gray500}"/>
+                                <Label Grid.Column="1"
+                                       Margin="14,0,0,0"
+                                       Text="{Binding MemberCount, StringFormat='Members: {0}'}"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource Gray500}"/>
+                                <Button Grid.Column="2"
+                                        Text="Open"
+                                        HorizontalOptions="End"
+                                        Command="{Binding BindingContext.OpenTripCommand, Source={x:Reference TripsPageRoot}}"
+                                        CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Grid.Row="2"
                              VerticalOptions="Center"
                              HorizontalOptions="Center"
-                             Spacing="15">
+                             Spacing="15"
+                             IsVisible="{Binding IsEmpty}">
             <Image Source="brokey_mascot.png"
                    HeightRequest="120"
                    Aspect="AspectFit"
@@ -27,12 +118,11 @@
                    Margin="30,0"/>
         </VerticalStackLayout>
 
-        <!-- Add Trip FAB -->
-        <Button Grid.Row="1"
-                Text="+ New Trip"
+        <Button Grid.Row="3"
+                Text="+ Create Trip"
+                Command="{Binding OpenCreateTripCommand}"
                 HorizontalOptions="Center"
-                Margin="0,0,0,10"
-                WidthRequest="180"/>
+                Margin="0,20,0,10"
+                WidthRequest="190"/>
     </Grid>
 </ContentPage>
-

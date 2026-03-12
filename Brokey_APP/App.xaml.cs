@@ -1,16 +1,20 @@
-﻿namespace Brokey_APP;
+using Brokey_APP.Services;
+
+namespace Brokey_APP;
 
 public partial class App : Application
 {
-    public App()
+    private readonly ITokenStorageService _tokenStorageService;
+
+    public App(ITokenStorageService tokenStorageService)
     {
+        _tokenStorageService = tokenStorageService;
         InitializeComponent();
     }
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        // Start with Auth flow (Login/Register)
-        // After successful login, navigate to AppShell
-        return new Window(new AuthShell());
+        var isAuthenticated = _tokenStorageService.HasStoredToken();
+        return new Window(isAuthenticated ? new AppShell() : new AuthShell());
     }
 }

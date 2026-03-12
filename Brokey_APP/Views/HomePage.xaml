@@ -63,6 +63,9 @@
                         Stroke="Transparent"
                         Padding="20"
                         HeightRequest="140">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenCreateTripCommand}"/>
+                    </Border.GestureRecognizers>
                     <Border.Shadow>
                         <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
                     </Border.Shadow>
@@ -88,17 +91,20 @@
                         Stroke="Transparent"
                         Padding="20"
                         HeightRequest="140">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenTripsCommand}"/>
+                    </Border.GestureRecognizers>
                     <Border.Shadow>
                         <Shadow Brush="{StaticResource Gray300Brush}" Offset="0,2" Radius="8" Opacity="0.12"/>
                     </Border.Shadow>
                     <VerticalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Center">
-                        <Label Text="💰" FontSize="36" HorizontalOptions="Center"/>
-                        <Label Text="Add Expense"
+                        <Label Text="🧳" FontSize="36" HorizontalOptions="Center"/>
+                        <Label Text="My Trips"
                                FontFamily="PoppinsSemiBold"
                                FontSize="15"
                                TextColor="{StaticResource BrokeyDarkBlue}"
                                HorizontalOptions="Center"/>
-                        <Label Text="Track spending"
+                        <Label Text="Open details"
                                FontFamily="PoppinsRegular"
                                FontSize="12"
                                TextColor="{StaticResource Gray400}"
@@ -138,4 +144,3 @@
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
-

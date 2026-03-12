@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Brokey_APP.Models"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.TripDetailPage"
+             x:Name="TripDetailPageRoot"
+             x:DataType="vm:TripDetailViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25,20" Spacing="18">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="{Binding Name}"
+                       FontFamily="PoppinsBold"
+                       FontSize="24"
+                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                <Label Text="{Binding Description}"
+                       FontFamily="PoppinsRegular"
+                       FontSize="14"
+                       TextColor="{StaticResource Gray500}"/>
+            </VerticalStackLayout>
+
+            <Border BackgroundColor="{StaticResource White}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="18">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding BaseCurrency, StringFormat='Base Currency: {0}'}"
+                           FontFamily="PoppinsSemiBold"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    <Label Text="{Binding StartDate, StringFormat='Start: {0:dd MMM yyyy}'}"
+                           FontFamily="PoppinsRegular"
+                           TextColor="{StaticResource Gray500}"/>
+                    <Label Text="{Binding EndDate, StringFormat='End: {0:dd MMM yyyy}'}"
+                           FontFamily="PoppinsRegular"
+                           TextColor="{StaticResource Gray500}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="IndianRed"/>
+
+            <Border BackgroundColor="{StaticResource White}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Create a new group"
+                           FontFamily="PoppinsSemiBold"
+                           FontSize="16"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    <Entry Placeholder="Group name"
+                           Text="{Binding NewGroupName}"/>
+                    <Button Text="Add Group"
+                            Command="{Binding CreateGroupCommand}"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Groups"
+                   FontFamily="PoppinsSemiBold"
+                   FontSize="16"
+                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Groups}"
+                                 Spacing="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:GroupResponse">
+                        <Border BackgroundColor="{StaticResource White}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 20"
+                                Padding="16"
+                                Margin="0,0,0,12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding BindingContext.OpenGroupCommand, Source={x:Reference TripDetailPageRoot}}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                                <Label Text="{Binding Name}"
+                                       FontFamily="PoppinsSemiBold"
+                                       FontSize="16"
+                                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                <Label Grid.Row="1"
+                                       Text="{Binding MemberCount, StringFormat='Members: {0}'}"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="12"
+                                       TextColor="{StaticResource Gray500}"/>
+                                <Button Grid.Column="1"
+                                        Grid.RowSpan="2"
+                                        VerticalOptions="Center"
+                                        Text="Open"
+                                        Command="{Binding BindingContext.OpenGroupCommand, Source={x:Reference TripDetailPageRoot}}"
+                                        CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

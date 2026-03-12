@@ -1,3 +1,4 @@
+using Brokey_APP.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -5,6 +6,8 @@ namespace Brokey_APP.ViewModels;
 
 public partial class RegisterViewModel : BaseViewModel
 {
+    private readonly IAuthService _authService;
+
     [ObservableProperty]
     private string _username = string.Empty;
 
@@ -33,8 +36,9 @@ public partial class RegisterViewModel : BaseViewModel
         "SEK", "NOK", "DKK"
     };
 
-    public RegisterViewModel()
+    public RegisterViewModel(IAuthService authService)
     {
+        _authService = authService;
         Title = "Register";
     }
 
@@ -68,15 +72,18 @@ public partial class RegisterViewModel : BaseViewModel
 
         try
         {
-            // TODO: Call API for registration
-            await Task.Delay(500); // Simulated delay
+            await _authService.RegisterAsync(
+                Username.Trim(),
+                Email.Trim(),
+                Password,
+                BaseCurrency);
 
             // Navigate to main app
             Application.Current!.Windows[0].Page = new AppShell();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            ErrorMessage = "Registration failed. Please try again.";
+            ErrorMessage = ex.Message;
             HasError = true;
         }
         finally

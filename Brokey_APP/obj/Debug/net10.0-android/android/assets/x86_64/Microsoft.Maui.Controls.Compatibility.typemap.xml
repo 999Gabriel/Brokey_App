@@ -1,4 +1,4 @@
-<api type="debug" assembly-name="Microsoft.Maui.Controls.Compatibility" mvid="71290d65f4e247b882916f7474cdbae9">
+<api type="debug" assembly-name="Microsoft.Maui.Controls.Compatibility" mvid="8701cb9f7a7446cd8400cc63291a3dd2">
   <java-to-managed>
     <entry java-name="crc6477f0d89a9cfd64b1/CheckBoxRenderer" managed-name="Microsoft.Maui.Controls.Compatibility.Platform.Android.CheckBoxRenderer, Microsoft.Maui.Controls.Compatibility" managed-type-token-id="33554466" />
     <entry java-name="crc6477f0d89a9cfd64b1/CheckBoxRendererBase" managed-name="Microsoft.Maui.Controls.Compatibility.Platform.Android.CheckBoxRendererBase, Microsoft.Maui.Controls.Compatibility" managed-type-token-id="33554467" />

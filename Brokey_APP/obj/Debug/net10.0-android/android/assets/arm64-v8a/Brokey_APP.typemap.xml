@@ -1,4 +1,4 @@
-<api type="debug" assembly-name="Brokey_APP" mvid="be481b2ba0fa4bc9b6f26d4a0cba6059">
+<api type="debug" assembly-name="Brokey_APP" mvid="149f6a2092c54b4f901f9867c967827e">
   <java-to-managed>
     <entry java-name="crc64ce6f506dc8143fdd/MainActivity" managed-name="Brokey_APP.MainActivity, Brokey_APP" managed-type-token-id="33554454" />
     <entry java-name="crc64ce6f506dc8143fdd/MainApplication" managed-name="Brokey_APP.MainApplication, Brokey_APP" managed-type-token-id="33554455" />

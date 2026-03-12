@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.CreateTripPage"
+             x:DataType="vm:CreateTripViewModel"
+             Title="Create Trip"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25,20" Spacing="16">
+            <Label Text="Plan a new trip"
+                   FontFamily="PoppinsBold"
+                   FontSize="24"
+                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="IndianRed"/>
+
+            <Entry Placeholder="Trip name"
+                   Text="{Binding Name}"/>
+
+            <Editor Placeholder="Description"
+                    Text="{Binding Description}"
+                    AutoSize="TextChanges"
+                    HeightRequest="120"/>
+
+            <Picker Title="Base currency"
+                    ItemsSource="{Binding Currencies}"
+                    SelectedItem="{Binding BaseCurrency}"/>
+
+            <DatePicker Date="{Binding StartDate}"/>
+            <DatePicker Date="{Binding EndDate}"/>
+
+            <Button Text="Create Trip"
+                    Command="{Binding SaveTripCommand}"/>
+
+            <Button Text="Cancel"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="#E8EEF5"
+                    TextColor="{StaticResource BrokeyDarkBlue}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

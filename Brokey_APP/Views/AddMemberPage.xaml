@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.AddMemberPage"
+             x:DataType="vm:AddMemberViewModel"
+             Title="Add Member"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25,20" Spacing="16">
+            <Label Text="{Binding GroupName, StringFormat='Invite to {0}'}"
+                   FontFamily="PoppinsBold"
+                   FontSize="24"
+                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="IndianRed"/>
+
+            <Entry Placeholder="Username or email"
+                   Text="{Binding UsernameOrEmail}"/>
+
+            <Picker Title="Role"
+                    ItemsSource="{Binding Roles}"
+                    SelectedItem="{Binding SelectedRole}"/>
+
+            <Button Text="Add Member"
+                    Command="{Binding AddMemberCommand}"/>
+
+            <Button Text="Cancel"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="#E8EEF5"
+                    TextColor="{StaticResource BrokeyDarkBlue}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

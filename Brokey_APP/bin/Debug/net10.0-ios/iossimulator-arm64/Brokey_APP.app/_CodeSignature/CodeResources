@@ -14,19 +14,19 @@
 		</data>
 		<key>Brokey_APP.dll</key>
 		<data>
-		UPPvzzVmlvRSlILYoqshZaYb/Ig=
+		5P/bEs/Ap7exPQ7jT1Go/uS7WwI=
 		</data>
 		<key>Brokey_APP.pdb</key>
 		<data>
-		OmiV0IHJdivWLLwZe+JuvkpFq8A=
+		NFEc+n+QzZamsRChPboTcYF3elE=
 		</data>
 		<key>CommunityToolkit.Maui.Core.dll</key>
 		<data>
-		Z1rKblAR8Qn1BfEDI7BUI0YgWAY=
+		OJQ8NV97R12ueNBh1bb/UxUaNIY=
 		</data>
 		<key>CommunityToolkit.Maui.dll</key>
 		<data>
-		D0+OMT066CVJNzcbUruKDZ2scWo=
+		ATMTVQYrKOLgEfjzUeWlQVIWKeE=
 		</data>
 		<key>CommunityToolkit.Mvvm.dll</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		hYE120Jz3cOveEBVNGmlnzUsEYU=
+		Uvopmj1tfeZcejfHcIwRgv9A598=
 		</data>
 		<key>MauiInfo.plist</key>
 		<data>
-		dDz32nip6Z+LPnrlapAoZHhK7CU=
+		Y5Ep1//K+8doTGVRUhrBLtxpP0E=
 		</data>
 		<key>MauiSplash.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -88,9 +88,13 @@
 		<data>
 		KWBFi8DrhHAmDtAheaIGhWGio9k=
 		</data>
+		<key>Microsoft.Extensions.Configuration.Binder.dll</key>
+		<data>
+		0Y2/DnuZuQ/DyrVCoTjqHonNSi0=
+		</data>
 		<key>Microsoft.Extensions.Configuration.dll</key>
 		<data>
-		sGX3TpeZinhi5dxH03o32sjO03c=
+		o5yyXdghAIN+P/IJ1mxY06rEt8I=
 		</data>
 		<key>Microsoft.Extensions.DependencyInjection.Abstractions.dll</key>
 		<data>
@@ -106,7 +110,11 @@
 		</data>
 		<key>Microsoft.Extensions.Diagnostics.Abstractions.dll</key>
 		<data>
-		eqfKbcqHtv60Q1Mqv442h+RDmWc=
+		hcgzGtnepl992UxBWt0FBylPf/g=
+		</data>
+		<key>Microsoft.Extensions.Diagnostics.dll</key>
+		<data>
+		nhkRXpUpYdeFjUp03jBArx7991g=
 		</data>
 		<key>Microsoft.Extensions.FileProviders.Abstractions.dll</key>
 		<data>
@@ -115,6 +123,10 @@
 		<key>Microsoft.Extensions.Hosting.Abstractions.dll</key>
 		<data>
 		FaOfiXmiYbUxuuZX5eBDi06tCwE=
+		</data>
+		<key>Microsoft.Extensions.Http.dll</key>
+		<data>
+		vN7cDlsLM+QPidn5DKuQn9wSVUQ=
 		</data>
 		<key>Microsoft.Extensions.Logging.Abstractions.dll</key>
 		<data>
@@ -128,6 +140,10 @@
 		<data>
 		/uW2vc/HSSmKF1TORccDvm+mOA4=
 		</data>
+		<key>Microsoft.Extensions.Options.ConfigurationExtensions.dll</key>
+		<data>
+		Yzg/WhBFsYDh2oOsslP87hkANDA=
+		</data>
 		<key>Microsoft.Extensions.Options.dll</key>
 		<data>
 		Nsf2ldmYxXUVj9yCWtk6womEDHs=
@@ -138,27 +154,35 @@
 		</data>
 		<key>Microsoft.Maui.Controls.Compatibility.dll</key>
 		<data>
-		ggUbUL36hEHiRjXrfRfiOxS6CQc=
+		ZCw6mWgFd29/yik3S/BZ6Rox5a0=
+		</data>
+		<key>Microsoft.Maui.Controls.Maps.dll</key>
+		<data>
+		bWnGWCsnVdJ3acpEDep+22qDSMk=
 		</data>
 		<key>Microsoft.Maui.Controls.Xaml.dll</key>
 		<data>
-		uVOqs+GTDSoe5jSILJSltXD19cs=
+		Okfx/VA5vnf898IcbFWSuAjMSt4=
 		</data>
 		<key>Microsoft.Maui.Controls.dll</key>
 		<data>
-		G8pA9OO4sKh98986/FBoHvjn8KY=
+		mHOAmkXcxPZJXChE1gOPYhlKgbs=
 		</data>
 		<key>Microsoft.Maui.Essentials.dll</key>
 		<data>
-		F9+A/RJLmfd5q1RpmcT8Zmj3cHI=
+		H132hjrzybL+9dcLfpd8OSpP1qc=
 		</data>
 		<key>Microsoft.Maui.Graphics.dll</key>
 		<data>
-		GsAKRv6spCKSjpGtBD3OCslMMSo=
+		f6y/dqaWuC2UpjPiWjO1TJs6+zQ=
+		</data>
+		<key>Microsoft.Maui.Maps.dll</key>
+		<data>
+		9yMGswixkAclm3ODae8/DDlMlBo=
 		</data>
 		<key>Microsoft.Maui.dll</key>
 		<data>
-		khyD7qTD7+t975HTIEhJ7TYvhkw=
+		DyxYIBw3IuyAHPvE2gmPws7WR6c=
 		</data>
 		<key>Microsoft.VisualBasic.Core.dll</key>
 		<data>
@@ -926,7 +950,7 @@
 		</data>
 		<key>ar/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		0eI1hpvMcWyVRlQ5+XqI4ilYoQM=
+		zeGMlV9/pzE4pks3fESSZWSqG3k=
 		</data>
 		<key>brokey_logo.png</key>
 		<data>
@@ -938,19 +962,19 @@
 		</data>
 		<key>ca/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		mACB8hW3etOQikmIqzU2ujZkt8U=
+		wYubJ4tczUHEXmUV2KASo0GOIhc=
 		</data>
 		<key>cs/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		zkSoBwsRMQ9m3EXCYJvxIzItQd4=
+		yLiK70PQX4t3tZQgUIsZy8NftGo=
 		</data>
 		<key>da/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		p9jDUOQth9Sn596hXaDo5ef8+vI=
+		slABqMsd3PSXB4s0FhWw2LvdtT8=
 		</data>
 		<key>de/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		a3GCZfAXLqvO0qw7Xz5hUTStLew=
+		eV5p0x3bouvVnU9DWXw9YvZtYqY=
 		</data>
 		<key>dotnet_bot.png</key>
 		<data>
@@ -966,27 +990,27 @@
 		</data>
 		<key>el/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		4kiLKsw3YfPRpkqCa9zFX7YvUsg=
+		jIBTNipHEFaMgQ1c5Eaw5RBtmxM=
 		</data>
 		<key>es/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		KO/8LKI4mWqJmqNsh3a4pKdlznA=
+		uVcIo0P8YW/yUoimBQph4ImU5oU=
 		</data>
 		<key>fi/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		w75HXDOL876MLfUZt9WieS+JJ+Y=
+		3Ilab07WXtJ1Qii/49Ug+GOHBS0=
 		</data>
 		<key>fr/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		6RZE69xt62gPZ0iasR5eIpUSaCM=
+		Uepby1eknmgMB1KAoVgZrygh3rw=
 		</data>
 		<key>he/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		4XCU+VIptiFT8G16imoB2BphY00=
+		da1ofPSq6T6ulCwvwXampBcKaXk=
 		</data>
 		<key>hi/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		vQeOaJGAUkPUldfrAEcXl7MwMJk=
+		gFTCpKOpI4LkUjvhYnHJ/DIFIlg=
 		</data>
 		<key>home_icon.png</key>
 		<data>
@@ -1002,27 +1026,27 @@
 		</data>
 		<key>hr/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		QidvMdnVW325O38nvU71wHr0XVY=
+		MqvKBDeuFSdgxzeg4nRVGqgE7QM=
 		</data>
 		<key>hu/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		b9lhYB2VDyt0Lj/VtH5qTf6Rbk0=
+		fQVJBedk3OSUxzM5SP//tCbD0Ig=
 		</data>
 		<key>id/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		55HMOSki62+Wj2Oe5IYY2W2CLWU=
+		fuOwXElTIZeW7NmQBzSNtVfG1Dw=
 		</data>
 		<key>it/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		j1RkA5BvDEojx2aNNtlPgsEDKNc=
+		0xMWIFVLZfDsc410Md91dgcKR84=
 		</data>
 		<key>ja/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		j4m7De2KGAJmjFqZHj29Jg641t4=
+		OPPwx1pgvu/EF7/HumFf7npIpY8=
 		</data>
 		<key>ko/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		SFXa50/Y2j4ZgLxUbdbuhT9veqg=
+		1Nf58BvKy+TVOGDmoanhcv3hYyc=
 		</data>
 		<key>libSystem.Globalization.Native.dylib</key>
 		<data>
@@ -1070,7 +1094,7 @@
 		</data>
 		<key>ms/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		2bHvT6TzWWFetq7Ds1ZPpeRnhCE=
+		2ArPFYLGUmP+0OKFYb+72KkEbSY=
 		</data>
 		<key>mscorlib.dll</key>
 		<data>
@@ -1078,7 +1102,7 @@
 		</data>
 		<key>nb/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		0g+PnynekCT2pz+lMM5YWJ2QE4E=
+		SmhK9oRIa/kXhrx9yZoXgwSiXyk=
 		</data>
 		<key>netstandard.dll</key>
 		<data>
@@ -1086,11 +1110,11 @@
 		</data>
 		<key>nl/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		Z9J1UzEXj9U7b+0JlS9ju7QJjmw=
+		Irx/WHQl2l3d4chi7lS7Yp1nRyQ=
 		</data>
 		<key>pl/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		aDNfSm0zHL1zynGRe3/kyjbI8HE=
+		icPn//PDGlPX1uZzxz8FJOZWk4E=
 		</data>
 		<key>profile_icon.png</key>
 		<data>
@@ -1106,19 +1130,19 @@
 		</data>
 		<key>pt-BR/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		f5FmlOuCsXEW9TfnZHQiZ2Dke+0=
+		YHbZEcON3ZyUylSXu7jtyzYO+w8=
 		</data>
 		<key>pt/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		c1hiaCswvglBSq6kw8glEQQ09+8=
+		eGb3uS8RSB+/Eo1Xcm/TtWjbJsw=
 		</data>
 		<key>ro/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		FozV3RvY6QYvQKY4bBzA8i73T6A=
+		Uh8SOu5d8fJHwzihf5VzdMm4x1g=
 		</data>
 		<key>ru/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		b3PHYXj8x5/ieJBxQKEWMgYRcqo=
+		c57BtcUMK0qzZFkz08sr5RrpHN8=
 		</data>
 		<key>runtimeconfig.bin</key>
 		<data>
@@ -1126,7 +1150,7 @@
 		</data>
 		<key>sk/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		Qbr/sQqvmrfRPSfGgPHRZc9eOng=
+		2fWVubiaG81rO+4kJQAbOFcR/Zg=
 		</data>
 		<key>splash_61635F94ABD2A93CED6F5EB7B2159B14425C9BA9C0145073F87E3E623AC94453.png</key>
 		<data>
@@ -1142,15 +1166,15 @@
 		</data>
 		<key>sv/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		+4Rrr6Z8amQRdi9/I3oKtYjs05w=
+		sBKvnk7eElDfoxRVJxey1HPd9jI=
 		</data>
 		<key>th/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		uk75ybRxHtfCMDo0ihjiYZjFBos=
+		7ihEz0eqiLgUnhN3xRxM2v4yPIk=
 		</data>
 		<key>tr/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		PgSFsAMGxfU5mMlmPvMpIVFnyVY=
+		Q+5fPaP1TwrJZ931YGGof7y0kOQ=
 		</data>
 		<key>trips_icon.png</key>
 		<data>
@@ -1166,11 +1190,11 @@
 		</data>
 		<key>uk/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		/nTdgv4KAQBZO0+48rFNEZsWekI=
+		Jo8HAEsgrxi8udEsFOHIqY7bu/g=
 		</data>
 		<key>vi/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		aZipTer4spe0G2g7VUW/lJ3THIE=
+		q0Q0GZp7YrERJ+3t3OVCHrHw/wA=
 		</data>
 		<key>xml/microsoft_maui_essentials_fileprovider_file_paths.xml</key>
 		<data>
@@ -1178,15 +1202,15 @@
 		</data>
 		<key>zh-HK/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		/V0MmK81qPJBpUXcvQt+trL/tVk=
+		qsZfzW8pToX67hByEHgyP5qY03s=
 		</data>
 		<key>zh-Hans/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		h7QVCJx0MdpOgGhrurifj/7f2jU=
+		ZunlFyDpItOVy+tx9XYxedebs1c=
 		</data>
 		<key>zh-Hant/Microsoft.Maui.Controls.resources.dll</key>
 		<data>
-		L6A2T7B1EBQQAyYN+Cdt3MNEEjM=
+		U8/zeq9D90BS2J0ezdEldyJq4+k=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -1209,28 +1233,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lGf+u4Fm8PAM2SXJvrhJJ96+Rz4lz0EUSkH54GXriOI=
+			JY2W6g5iFomFHI0/tCiPnE/lmFhk0IKwYrp88lO0YgU=
 			</data>
 		</dict>
 		<key>Brokey_APP.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/UUuxkwdALeYu8JUGNC6TIOoP7/lkD/0020W8ZPKIEU=
+			q2i65p/+6/fzFdGJTtwZqcxLGX5xuok1WQfbODtPyew=
 			</data>
 		</dict>
 		<key>CommunityToolkit.Maui.Core.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			3B9n6/INwFunCztvUcr8OPAbr036y513OUwwLwa9aqI=
+			Ey1Vgp4FzmfHDvc0ud7zyX6BY71i/yhl2a/3EXc4ziY=
 			</data>
 		</dict>
 		<key>CommunityToolkit.Maui.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mPwjkkskjAfCIvWegmDDXkmMAPrR+DQo+z2j4WvDUM4=
+			IhNuFK5FSJMgyPc07jUnIRwnHPYmIDnNCg69+OhvX4U=
 			</data>
 		</dict>
 		<key>CommunityToolkit.Mvvm.dll</key>
@@ -1244,7 +1268,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xzhUJ9JsgP70HdH+znIZL35UhMTbB9YW76xEOkG4HDE=
+			IJpd/P5uef/uP8Hy5tnX1awmim7rfkFyORDsn2VFeGE=
 			</data>
 		</dict>
 		<key>MauiSplash.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -1331,11 +1355,18 @@
 			2iIDzYXnAVmCEJmeZxTkzIPSC4M7SvqSPjuEGW1vcqo=
 			</data>
 		</dict>
+		<key>Microsoft.Extensions.Configuration.Binder.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8D7Y1OeJtGj4RksGmDqb69FWeV6wOio8TR48adv4QHo=
+			</data>
+		</dict>
 		<key>Microsoft.Extensions.Configuration.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lMOYEIT3E6Ua09JmFFFU0kaPWcTNPivegpQb+E6X+1U=
+			3041TEvL01qo7ajLDpw7qawXWen1bsUO7Q1mGIAwXkk=
 			</data>
 		</dict>
 		<key>Microsoft.Extensions.DependencyInjection.Abstractions.dll</key>
@@ -1363,7 +1394,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lwK4c3AJu19slDz3o7pcCZHH5OtYqelS1Ug1u1lv5WM=
+			TSDAFUBqe/GmR48bavVn2XL6K6RyfeYTT/LGQfkKs2w=
+			</data>
+		</dict>
+		<key>Microsoft.Extensions.Diagnostics.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			A9Khk0b9LS4kEFSADtOO2HLLcJ0OhYChbxm7Z/37oUA=
 			</data>
 		</dict>
 		<key>Microsoft.Extensions.FileProviders.Abstractions.dll</key>
@@ -1378,6 +1416,13 @@
 			<key>hash2</key>
 			<data>
 			iaRCil0P7t3lqgVlUJufTGGJ79yviIzRwsP5eeMszXw=
+			</data>
+		</dict>
+		<key>Microsoft.Extensions.Http.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Rob65iJehWpCAYXHzJotHAyFdhH0yvfUF5avpuoY+c8=
 			</data>
 		</dict>
 		<key>Microsoft.Extensions.Logging.Abstractions.dll</key>
@@ -1401,6 +1446,13 @@
 			FbjvnL0JEy4b9k0uVCSwyfnLzbW8nb6lb8YHEkNBwyg=
 			</data>
 		</dict>
+		<key>Microsoft.Extensions.Options.ConfigurationExtensions.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dALn12HtX6SJzvxpO6iWalz8Pq7zKEZYtpE8jmWAC64=
+			</data>
+		</dict>
 		<key>Microsoft.Extensions.Options.dll</key>
 		<dict>
 			<key>hash2</key>
@@ -1419,42 +1471,56 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			74+J4RUodsM9XCNCtxAluSZAnY/v70FrppOvoAO7Dgg=
+			ApJ5ErbZeSFLb2xycygnJnEOv8ekSAIGnqUCmxryNtQ=
+			</data>
+		</dict>
+		<key>Microsoft.Maui.Controls.Maps.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			g4YIWmQq9eAevL9KliFnsbMu26fODDLIrKOfxy1nSBw=
 			</data>
 		</dict>
 		<key>Microsoft.Maui.Controls.Xaml.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vRGXUtCxhk13UliedroUVx9lGyBeYMUMJWvUtWJJj+M=
+			1dHyupTdmipzlFQR8vk45TAgGAhub+/YUkyk16yZyRI=
 			</data>
 		</dict>
 		<key>Microsoft.Maui.Controls.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cIu9s3QYgbHZq5WodYs978REVvG+tyKOS2yGAjyikFo=
+			sIdLF8WAp2RiwR9Nui21S3OvgtVy5spLHkztmbKac9E=
 			</data>
 		</dict>
 		<key>Microsoft.Maui.Essentials.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2oXoBevNPTBBjsXH9hYKGddxiHC79c4fx9IKTjflrbM=
+			radckxJpU4ZXe+t0aQp7jqGekd7to+L5lEBdn9uq2mA=
 			</data>
 		</dict>
 		<key>Microsoft.Maui.Graphics.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZDwXBu4ODdp/D1dq1zLrwms63UoyTBi+ykWyinba9so=
+			J1gtsYgmndy7EwhtgvdG7ti+2+Me80K01r9VdAMXhMM=
+			</data>
+		</dict>
+		<key>Microsoft.Maui.Maps.dll</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8pZIZvSmRlej4CNpcK9ppj1kJxtm2nr5+T/pIERAD9Q=
 			</data>
 		</dict>
 		<key>Microsoft.Maui.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			87jucpwIlhqoC+lhcE7FjwxrTOW+9Um6mLVrLQGHBTs=
+			BHO2a+SS9pTBt/4259wSvQjKVhdijfZk79+bjJyFIpw=
 			</data>
 		</dict>
 		<key>Microsoft.VisualBasic.Core.dll</key>
@@ -2791,7 +2857,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7c7noi1oMwNoPXo18KDVHFA7TS3uuWv4FKbRqnbIQI8=
+			fIeMO7vX+9y+AM3K2rPIPk2rUo+2PTjOQ5JSAx0nBtY=
 			</data>
 		</dict>
 		<key>brokey_logo.png</key>
@@ -2812,28 +2878,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IpRk8V6KeHzO5RuKWVuDOhaimwqArGqimvQKATsuBL0=
+			eg18TNBHVInjJ0Q8SVHv1j/YtNG8796weQZxgDkoqNs=
 			</data>
 		</dict>
 		<key>cs/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2W9oDXZejNDuYB+HwFfl0/yaVc0vnGszWuKZwsITK+U=
+			VesuP0/cm00IVIa/wd1i2eYxdO0qc3trR3PlLr2oCs0=
 			</data>
 		</dict>
 		<key>da/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vPmjFIKyzsOOKB4v/1HKTkZunR4wFu8340RGM7iRmb4=
+			3YWnA85bWjBBOBFluoyczNzjtBmlmw4H7v31SX0Dh/4=
 			</data>
 		</dict>
 		<key>de/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			uKiSe0yowWmYfeYOxrGNINviJ71ohinHbm3tfK2/Gjg=
+			uoPh2EBWP1szpQKhBMDFz+PE3/BDlOQZY8xqctvEy4g=
 			</data>
 		</dict>
 		<key>dotnet_bot.png</key>
@@ -2861,42 +2927,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xrFlnKVuaukZ/yLmAr+1p+8tpmf7fnhx3iMv418jL6M=
+			eWpbGzu4lBG7qlc/1gqptcxxrrB55l9U9+kYfzW60XM=
 			</data>
 		</dict>
 		<key>es/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LnlPL3q0bn5IYEyoR6lHa7DKuEj2wGIgBTPJttzDViU=
+			/T5XJpLqIF77jOtCd12e0KxgAm1te2v049I6gsQoghM=
 			</data>
 		</dict>
 		<key>fi/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			z1eUVYOJeC4qrVx5z0QVhOamY4YbIFyh88roptrzbLg=
+			/CraLWU8eoaCZWvUKbdj74F91MRn8jWxt5SYGQ0Tq18=
 			</data>
 		</dict>
 		<key>fr/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/uI+5J4oGs1fnojGzT801VYeX9OsiEJTuW9W8H8JFis=
+			keF/sClXpa9BvrzTd1fZfZxXbDk0wFAlRBBCJzXg9co=
 			</data>
 		</dict>
 		<key>he/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			K13X8BnOi2qwgdx4DrAAwYtDyrcZI9YcEMlohKMLLgY=
+			Y/wRAE0mWtk8v7B2F5g8LCJpJjo7VH2J30uxJCAbaxM=
 			</data>
 		</dict>
 		<key>hi/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			v19mms5xTtOrvsyYAsoEBfJesQw8xowmGf6Hmo/AWHc=
+			VGw8C4nKp6M20hmROTEtISDrBFfZQEFcHN2Dret+HNc=
 			</data>
 		</dict>
 		<key>home_icon.png</key>
@@ -2924,42 +2990,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FqvB32ce94ctu7dGcIy5R5NdqbtzLV1l2Ig3JbR2JW8=
+			AwXPOjXt62rpsWVUI3LRqWewGvhV+4hd2EGd/+wRYXM=
 			</data>
 		</dict>
 		<key>hu/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			tH0rYB5sf4eor6CHCVsFTh80tyPXLa3Knw0ER+AUWKw=
+			dKX+j6/1WRHOLdJmQKT3hU3IfD+oDnlp0S6d7M7hYn4=
 			</data>
 		</dict>
 		<key>id/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IJjk2Bja+MA7wSZrOXyvTUjwR4lF4vTbrGRVLvBL5nE=
+			D4Sd+C/7oFqW9C1ULc6yqp7EQDg3bGCJGts9zpU97tI=
 			</data>
 		</dict>
 		<key>it/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eNbxzE5vtKdpmPpv0E1dNhdgx9de2ACD87L+Klep8qI=
+			MQHpCBosLkzUcPs0+ilw4zHogLXEOLPscS8rJ7+oP4I=
 			</data>
 		</dict>
 		<key>ja/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			firlHW+8/orrLQZKPpH3oLDdrSV2uc1PGzMEFPEcVws=
+			nbjiUzkb8EuDEfnvokSlc0v2EZ73oWH7eQLyzo3My6E=
 			</data>
 		</dict>
 		<key>ko/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZR574wJhVPBCacN80MI0HPWkT9o6iOAvafgKMQdfZ7o=
+			jElyLyp89nyML3JCQgNU8SgVscVGohBgdOCt047SkZo=
 			</data>
 		</dict>
 		<key>libSystem.Globalization.Native.dylib</key>
@@ -3043,7 +3109,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gnQpKk1I1ptBJ3ZtrF51gFsOsAIbhMprqFtZ9fNDyRE=
+			gvYacVndCnTKjCx3SisBl90lq2owaxEN6QH5dL+4TGU=
 			</data>
 		</dict>
 		<key>mscorlib.dll</key>
@@ -3057,7 +3123,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UTUP+WTghrccAtaI8as0H0wJCM8q9MiDxAv4lcPUinY=
+			qaG3Qm1zVm7/VsbIWaHY8MlerxVT0FoXBxhQX3xq9IE=
 			</data>
 		</dict>
 		<key>netstandard.dll</key>
@@ -3071,14 +3137,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			r+Z5YVHFMiptOJ7c+tD31/SgsH3x3eC9KdnB6x1yyWg=
+			Otd4UVUdMgAmHykHQ/jWiO965EpbKk0uZCtBWhZWEdo=
 			</data>
 		</dict>
 		<key>pl/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			X2ieXSlgIcYa/yOY818D29CYxvrzC3pdQfEx8MZEnPo=
+			ypdGIHCZJZ94t3XUrlQ2aEljlDz9SSnCh91QJDmCXWc=
 			</data>
 		</dict>
 		<key>profile_icon.png</key>
@@ -3106,28 +3172,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5NybjVKGOOJsvnOWH/+5CVmF1WRESyBLOnhNqs7N3Lc=
+			MmW2s6svSu7QrwD1EAZiMpB5X95gYeG6oxz3Q6VkKko=
 			</data>
 		</dict>
 		<key>pt/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o64f/mWuIE71Q8h5EQJlTKX6ZGuM22CWdrCIQptNH0Y=
+			r/aQJCfGN6qaq9RueqgjIC1FBE+eSVnPhZL9jyxS770=
 			</data>
 		</dict>
 		<key>ro/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zIszMzcIrM16DDKXsahxkcXeGQq6D9wp5h0fHVtLugQ=
+			Zm5aLPixJ4H2NDJ6s+DIGJ/qGJS5u5ZDd94psU6osKI=
 			</data>
 		</dict>
 		<key>ru/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5gNtvZ1Cg67bo/EOtyjK9FI4LdHLJDaMxoXQwkyHOvk=
+			iHWhjuGkPY8ChULah+dRAFuBtQRbFngrwol9N9G/Fvc=
 			</data>
 		</dict>
 		<key>runtimeconfig.bin</key>
@@ -3141,7 +3207,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			genAQUl/wzj0gsfaACuqCADlnK0chk5iah7+gHLucsU=
+			6D/KVv1aG96e/QdSUUOC/pOee/79rm/uTJUJ7IIneNU=
 			</data>
 		</dict>
 		<key>splash_61635F94ABD2A93CED6F5EB7B2159B14425C9BA9C0145073F87E3E623AC94453.png</key>
@@ -3169,21 +3235,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			u93X3ZRcImYi+0wSKDnNHRcFUIxbDi+QSwOs8L1bcoY=
+			eA8HYwF5S0K33wsyTWydihg83aFCgEdFSQG7e6rR2Q0=
 			</data>
 		</dict>
 		<key>th/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zaJnNOGn3N+ulYoTCo6bouGexDCp4oWnt353Fj0f6Wo=
+			wehjKUX1TcqAtrdLv86rJepGo8/Z2t6u3uO/2ulb1v0=
 			</data>
 		</dict>
 		<key>tr/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			iR1LxYAMKiFmiBhJuYvov5sIbIGTsScFaKLEMppg7QE=
+			ZdRGriF4/Cm2PY+MLIPCLxRWC9TJr9BMMtIchQePYsg=
 			</data>
 		</dict>
 		<key>trips_icon.png</key>
@@ -3211,14 +3277,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1X49xAwpSBAl2qHQi/gQ6/Or8AfqmnD+m3glOH/88ZA=
+			2asGzAjxh9nq+TKief7DIJ9IwGrLWFY1CGg06nPNS94=
 			</data>
 		</dict>
 		<key>vi/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5T/wHBCJYMF2Ce/LhU9Q/UFs3Sr4ImuMY9Ltxi6rrVo=
+			Wf9q44Kvhilmt2Ye+a3VrOjp5IjJBJpLZzzwW2ZDyPw=
 			</data>
 		</dict>
 		<key>xml/microsoft_maui_essentials_fileprovider_file_paths.xml</key>
@@ -3232,21 +3298,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/1d4MdgHp2x7DNj2Qh7X3BguS+wetG8WI2m+ITDdxA4=
+			oFFwIDWFPqdJdk2bMEIGvJSHcIQ0cwLG9Uja1Ke014g=
 			</data>
 		</dict>
 		<key>zh-Hans/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eVrjuxDvkkukOho8gMGNMrl27oR1y1QnMSbMbx41GTE=
+			NxweDir5esFF5251YLLst9zLVTSuNdWf+2mVBKw9Adw=
 			</data>
 		</dict>
 		<key>zh-Hant/Microsoft.Maui.Controls.resources.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xKv/7DOP5RP6LkwKA+6XqFEbeP+AAHi4TNRGNLYGs6w=
+			GtEfghO99WkOnuIsedZrNz9EPE5wC2vgxK+66suEfYI=
 			</data>
 		</dict>
 	</dict>

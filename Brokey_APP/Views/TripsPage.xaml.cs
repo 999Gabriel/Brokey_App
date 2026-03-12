@@ -9,5 +9,14 @@ public partial class TripsPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
     }
-}
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is TripsViewModel viewModel)
+        {
+            viewModel.LoadTripsCommand.Execute(null);
+        }
+    }
+}

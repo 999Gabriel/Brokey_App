@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:Brokey_APP.Models"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.GroupDetailPage"
+             x:Name="GroupDetailPageRoot"
+             x:DataType="vm:GroupDetailViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="25,20">
+        <Label Text="{Binding GroupName}"
+               FontFamily="PoppinsBold"
+               FontSize="24"
+               TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+        <Label Grid.Row="1"
+               Margin="0,10,0,0"
+               Text="{Binding ErrorMessage}"
+               IsVisible="{Binding HasError}"
+               TextColor="IndianRed"/>
+
+        <CollectionView Grid.Row="2"
+                        Margin="0,20,0,0"
+                        ItemsSource="{Binding Members}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:GroupMemberResponse">
+                    <Border BackgroundColor="{StaticResource White}"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 20"
+                            Padding="16"
+                            Margin="0,0,0,12">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                            <Label Text="{Binding Username}"
+                                   FontFamily="PoppinsSemiBold"
+                                   FontSize="16"
+                                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+                            <Label Grid.Row="1"
+                                   Text="{Binding Email}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Gray500}"/>
+                            <Label Grid.Row="2"
+                                   Text="{Binding Role, StringFormat='Role: {0}'}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Gray500}"/>
+                            <Button Grid.Column="1"
+                                    Grid.RowSpan="3"
+                                    VerticalOptions="Center"
+                                    Text="Remove"
+                                    BackgroundColor="#FDECEC"
+                                    TextColor="#A62828"
+                                    Command="{Binding BindingContext.RemoveMemberCommand, Source={x:Reference GroupDetailPageRoot}}"
+                                    CommandParameter="{Binding .}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="3"
+                Text="+ Add Member"
+                Command="{Binding OpenAddMemberCommand}"
+                HorizontalOptions="Center"
+                Margin="0,18,0,10"
+                WidthRequest="190"/>
+    </Grid>
+</ContentPage>

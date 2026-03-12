@@ -1,3 +1,4 @@
+using Brokey_APP.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -5,6 +6,8 @@ namespace Brokey_APP.ViewModels;
 
 public partial class LoginViewModel : BaseViewModel
 {
+    private readonly IAuthService _authService;
+
     [ObservableProperty]
     private string _email = string.Empty;
 
@@ -17,8 +20,9 @@ public partial class LoginViewModel : BaseViewModel
     [ObservableProperty]
     private bool _hasError;
 
-    public LoginViewModel()
+    public LoginViewModel(IAuthService authService)
     {
+        _authService = authService;
         Title = "Login";
     }
 
@@ -37,15 +41,14 @@ public partial class LoginViewModel : BaseViewModel
 
         try
         {
-            // TODO: Call API for login
-            await Task.Delay(500); // Simulated delay
+            await _authService.LoginAsync(Email.Trim(), Password);
 
             // Navigate to main app shell
             Application.Current!.Windows[0].Page = new AppShell();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            ErrorMessage = "Login failed. Please try again.";
+            ErrorMessage = ex.Message;
             HasError = true;
         }
         finally

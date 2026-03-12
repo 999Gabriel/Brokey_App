@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ReferenceNativeSymbol Include="_OBJC_CLASS_$_MauiCALayerAutosizeToSuperLayerBehavior">
-      <SymbolType>ObjectiveCClass</SymbolType>
-    </ReferenceNativeSymbol>
     <ReferenceNativeSymbol Include="_sqlite3_close">
       <SymbolType>Function</SymbolType>
     </ReferenceNativeSymbol>

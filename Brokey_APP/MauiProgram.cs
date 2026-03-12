@@ -1,4 +1,5 @@
-﻿using Brokey_APP.ViewModels;
+﻿﻿using Brokey_APP.Services;
+using Brokey_APP.ViewModels;
 using Brokey_APP.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -23,11 +24,52 @@ public static class MauiProgram
                 fonts.AddFont("Pacifico-Regular.ttf", "Pacifico");
             });
 
+        // ── Services ──
+        builder.Services.AddSingleton<ITokenStorageService, TokenStorageService>();
+        builder.Services.AddTransient<AuthHttpMessageHandler>();
+
+        builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
+        {
+            client.BaseAddress = ApiConfig.BaseUri;
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        })
+        .ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            var handler = new HttpClientHandler();
+#if DEBUG
+            // Allow self-signed certs in dev
+            handler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
+#endif
+            return handler;
+        })
+        .AddHttpMessageHandler<AuthHttpMessageHandler>();
+
+        builder.Services.AddHttpClient<ITripService, TripService>(client =>
+        {
+            client.BaseAddress = ApiConfig.BaseUri;
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        })
+        .ConfigurePrimaryHttpMessageHandler(() =>
+        {
+            var handler = new HttpClientHandler();
+#if DEBUG
+            handler.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
+#endif
+            return handler;
+        })
+        .AddHttpMessageHandler<AuthHttpMessageHandler>();
+
         // ── ViewModels ──
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<RegisterViewModel>();
         builder.Services.AddTransient<HomeViewModel>();
         builder.Services.AddTransient<TripsViewModel>();
+        builder.Services.AddTransient<CreateTripViewModel>();
+        builder.Services.AddTransient<TripDetailViewModel>();
+        builder.Services.AddTransient<GroupDetailViewModel>();
+        builder.Services.AddTransient<AddMemberViewModel>();
         builder.Services.AddTransient<ProfileViewModel>();
         builder.Services.AddTransient<AboutViewModel>();
 
@@ -36,6 +78,10 @@ public static class MauiProgram
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddTransient<HomePage>();
         builder.Services.AddTransient<TripsPage>();
+        builder.Services.AddTransient<CreateTripPage>();
+        builder.Services.AddTransient<TripDetailPage>();
+        builder.Services.AddTransient<GroupDetailPage>();
+        builder.Services.AddTransient<AddMemberPage>();
         builder.Services.AddTransient<ProfilePage>();
         builder.Services.AddTransient<AboutPage>();
         builder.Services.AddTransient<ImpressumPage>();
