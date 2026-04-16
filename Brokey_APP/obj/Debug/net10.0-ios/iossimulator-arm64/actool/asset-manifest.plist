@@ -7,8 +7,8 @@
 		<key>output-files</key>
 		<array>
 			<string>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-ios/iossimulator-arm64/actool/bundle/Assets.car</string>
-			<string>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-ios/iossimulator-arm64/actool/bundle/appicon60x60@2x.png</string>
-			<string>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-ios/iossimulator-arm64/actool/bundle/appicon76x76@2x~ipad.png</string>
+			<string>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-ios/iossimulator-arm64/actool/bundle/brokey_travel_icon60x60@2x.png</string>
+			<string>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-ios/iossimulator-arm64/actool/bundle/brokey_travel_icon76x76@2x~ipad.png</string>
 			<string>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-ios/iossimulator-arm64/actool/partial-info.plist</string>
 		</array>
 	</dict>

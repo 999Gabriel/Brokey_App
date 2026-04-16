@@ -7,15 +7,17 @@ namespace Brokey_APP.Services;
 public class TripService : ITripService
 {
     private readonly HttpClient _httpClient;
+    private readonly ITokenStorageService _tokenStorageService;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
 
-    public TripService(HttpClient httpClient)
+    public TripService(HttpClient httpClient, ITokenStorageService tokenStorageService)
     {
         _httpClient = httpClient;
+        _tokenStorageService = tokenStorageService;
     }
 
     public async Task<IReadOnlyList<TripSummaryResponse>> GetTripsAsync()
@@ -76,17 +78,73 @@ public class TripService : ITripService
         await EnsureSuccessAsync(response, "Failed to remove member.");
     }
 
+    public async Task<IReadOnlyList<ExpenseCategoryResponse>> GetExpenseCategoriesAsync(int groupId)
+    {
+        var response = await _httpClient.GetAsync($"api/groups/{groupId}/expense-categories");
+        await EnsureSuccessAsync(response, "Failed to load expense categories.");
+
+        return await response.Content.ReadFromJsonAsync<List<ExpenseCategoryResponse>>(JsonOptions) ?? [];
+    }
+
+    public async Task<IReadOnlyList<ExpenseResponse>> GetGroupExpensesAsync(int groupId)
+    {
+        var response = await _httpClient.GetAsync($"api/groups/{groupId}/expenses");
+        await EnsureSuccessAsync(response, "Failed to load expenses.");
+
+        return await response.Content.ReadFromJsonAsync<List<ExpenseResponse>>(JsonOptions) ?? [];
+    }
+
+    public async Task<ExpenseResponse> GetGroupExpenseByIdAsync(int groupId, int expenseId)
+    {
+        var response = await _httpClient.GetAsync($"api/groups/{groupId}/expenses/{expenseId}");
+        await EnsureSuccessAsync(response, "Failed to load expense details.");
+        return await ReadRequiredAsync<ExpenseResponse>(response);
+    }
+
+    public async Task<ExpenseResponse> CreateExpenseAsync(int groupId, CreateExpenseRequest request)
+    {
+        var response = await _httpClient.PostAsJsonAsync($"api/groups/{groupId}/expenses", request);
+        await EnsureSuccessAsync(response, "Failed to create expense.");
+        return await ReadRequiredAsync<ExpenseResponse>(response);
+    }
+
+    public async Task<ExpenseResponse> UpdateExpenseAsync(int groupId, int expenseId, CreateExpenseRequest request)
+    {
+        var response = await _httpClient.PutAsJsonAsync($"api/groups/{groupId}/expenses/{expenseId}", request);
+        await EnsureSuccessAsync(response, "Failed to update expense.");
+        return await ReadRequiredAsync<ExpenseResponse>(response);
+    }
+
+    public async Task DeleteExpenseAsync(int groupId, int expenseId)
+    {
+        var response = await _httpClient.DeleteAsync($"api/groups/{groupId}/expenses/{expenseId}");
+        await EnsureSuccessAsync(response, "Failed to delete expense.");
+    }
+
+    public async Task<GroupSettlementResponse> GetGroupSettlementAsync(int groupId)
+    {
+        var response = await _httpClient.GetAsync($"api/groups/{groupId}/settlement");
+        await EnsureSuccessAsync(response, "Failed to load settlement.");
+        return await ReadRequiredAsync<GroupSettlementResponse>(response);
+    }
+
     private static async Task<T> ReadRequiredAsync<T>(HttpResponseMessage response)
     {
         return await response.Content.ReadFromJsonAsync<T>(JsonOptions)
                ?? throw new Exception("Invalid server response.");
     }
 
-    private static async Task EnsureSuccessAsync(HttpResponseMessage response, string fallbackMessage)
+    private async Task EnsureSuccessAsync(HttpResponseMessage response, string fallbackMessage)
     {
         if (response.IsSuccessStatusCode)
         {
             return;
+        }
+
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        {
+            await _tokenStorageService.ClearTokenAsync();
+            throw new Exception("Your session is no longer valid. Please log in again.");
         }
 
         var errorContent = await response.Content.ReadAsStringAsync();

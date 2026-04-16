@@ -77,22 +77,22 @@
                                        TextColor="{StaticResource Gray500}"/>
                             </HorizontalStackLayout>
 
-                            <Grid ColumnDefinitions="Auto,Auto,*">
-                                <Label Text="{Binding GroupCount, StringFormat='Groups: {0}'}"
-                                       FontFamily="PoppinsRegular"
-                                       FontSize="12"
-                                       TextColor="{StaticResource Gray500}"/>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <HorizontalStackLayout Spacing="14">
+                                    <Label Text="{Binding GroupCount, StringFormat='{0} groups'}"
+                                           FontFamily="PoppinsRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource Gray500}"/>
+                                    <Label Text="{Binding MemberCount, StringFormat='{0} members'}"
+                                           FontFamily="PoppinsRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource Gray500}"/>
+                                </HorizontalStackLayout>
                                 <Label Grid.Column="1"
-                                       Margin="14,0,0,0"
-                                       Text="{Binding MemberCount, StringFormat='Members: {0}'}"
-                                       FontFamily="PoppinsRegular"
-                                       FontSize="12"
-                                       TextColor="{StaticResource Gray500}"/>
-                                <Button Grid.Column="2"
-                                        Text="Open"
-                                        HorizontalOptions="End"
-                                        Command="{Binding BindingContext.OpenTripCommand, Source={x:Reference TripsPageRoot}}"
-                                        CommandParameter="{Binding .}"/>
+                                       Text="›"
+                                       FontSize="22"
+                                       TextColor="{StaticResource Gray400}"
+                                       VerticalOptions="Center"/>
                             </Grid>
                         </VerticalStackLayout>
                     </Border>

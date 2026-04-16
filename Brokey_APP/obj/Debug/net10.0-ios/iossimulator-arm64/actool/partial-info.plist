@@ -8,10 +8,10 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>appicon60x60</string>
+				<string>brokey_travel_icon60x60</string>
 			</array>
 			<key>CFBundleIconName</key>
-			<string>appicon</string>
+			<string>brokey_travel_icon</string>
 		</dict>
 	</dict>
 	<key>CFBundleIcons~ipad</key>
@@ -20,11 +20,11 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>appicon60x60</string>
-				<string>appicon76x76</string>
+				<string>brokey_travel_icon60x60</string>
+				<string>brokey_travel_icon76x76</string>
 			</array>
 			<key>CFBundleIconName</key>
-			<string>appicon</string>
+			<string>brokey_travel_icon</string>
 		</dict>
 	</dict>
 </dict>

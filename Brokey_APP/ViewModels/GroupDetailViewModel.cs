@@ -11,6 +11,9 @@ public partial class GroupDetailViewModel : BaseViewModel, IQueryAttributable
     private readonly ITripService _tripService;
 
     public ObservableCollection<GroupMemberResponse> Members { get; } = [];
+    public ObservableCollection<ExpenseResponse> Expenses { get; } = [];
+    public ObservableCollection<SettlementTransferResponse> SettlementTransfers { get; } = [];
+    public ObservableCollection<SettlementBalanceResponse> SettlementBalances { get; } = [];
 
     [ObservableProperty]
     private int _groupId;
@@ -23,6 +26,12 @@ public partial class GroupDetailViewModel : BaseViewModel, IQueryAttributable
 
     [ObservableProperty]
     private bool _hasError;
+
+    public bool HasExpenses => Expenses.Count > 0;
+    public bool HasSettlementTransfers => SettlementTransfers.Count > 0;
+    public bool IsExpensesEmpty => Expenses.Count == 0;
+    public bool IsSettlementEmpty => SettlementTransfers.Count == 0;
+    public int ExpensesCount => Expenses.Count;
 
     public GroupDetailViewModel(ITripService tripService)
     {
@@ -61,12 +70,39 @@ public partial class GroupDetailViewModel : BaseViewModel, IQueryAttributable
         try
         {
             var members = await _tripService.GetGroupMembersAsync(GroupId);
+            var expenses = await _tripService.GetGroupExpensesAsync(GroupId);
+            var settlement = await _tripService.GetGroupSettlementAsync(GroupId);
+
             Members.Clear();
+            Expenses.Clear();
+            SettlementTransfers.Clear();
+            SettlementBalances.Clear();
 
             foreach (var member in members)
             {
                 Members.Add(member);
             }
+
+            foreach (var expense in expenses)
+            {
+                Expenses.Add(expense);
+            }
+
+            foreach (var transfer in settlement.Transfers)
+            {
+                SettlementTransfers.Add(transfer);
+            }
+
+            foreach (var balance in settlement.Balances)
+            {
+                SettlementBalances.Add(balance);
+            }
+
+            OnPropertyChanged(nameof(HasExpenses));
+            OnPropertyChanged(nameof(HasSettlementTransfers));
+            OnPropertyChanged(nameof(IsExpensesEmpty));
+            OnPropertyChanged(nameof(IsSettlementEmpty));
+            OnPropertyChanged(nameof(ExpensesCount));
         }
         catch (Exception ex)
         {
@@ -84,6 +120,20 @@ public partial class GroupDetailViewModel : BaseViewModel, IQueryAttributable
     {
         await Shell.Current.GoToAsync(
             $"add-member?groupId={GroupId}&groupName={Uri.EscapeDataString(GroupName)}");
+    }
+
+    [RelayCommand]
+    private async Task OpenAddExpenseAsync()
+    {
+        await Shell.Current.GoToAsync(
+            $"add-expense?groupId={GroupId}&groupName={Uri.EscapeDataString(GroupName)}");
+    }
+
+    [RelayCommand]
+    private async Task OpenExpenseDetailAsync(ExpenseResponse? expense)
+    {
+        if (expense == null) return;
+        await Shell.Current.GoToAsync($"expense-detail?groupId={GroupId}&expenseId={expense.Id}");
     }
 
     [RelayCommand]
@@ -108,7 +158,7 @@ public partial class GroupDetailViewModel : BaseViewModel, IQueryAttributable
         try
         {
             await _tripService.RemoveGroupMemberAsync(GroupId, member.UserId);
-            Members.Remove(member);
+            await LoadMembersAsync();
         }
         catch (Exception ex)
         {

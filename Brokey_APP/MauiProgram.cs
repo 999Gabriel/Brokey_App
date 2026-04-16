@@ -14,6 +14,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseMauiMaps()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -70,6 +71,8 @@ public static class MauiProgram
         builder.Services.AddTransient<TripDetailViewModel>();
         builder.Services.AddTransient<GroupDetailViewModel>();
         builder.Services.AddTransient<AddMemberViewModel>();
+        builder.Services.AddTransient<AddExpenseViewModel>();
+        builder.Services.AddTransient<ExpenseDetailViewModel>();
         builder.Services.AddTransient<ProfileViewModel>();
         builder.Services.AddTransient<AboutViewModel>();
 
@@ -82,6 +85,8 @@ public static class MauiProgram
         builder.Services.AddTransient<TripDetailPage>();
         builder.Services.AddTransient<GroupDetailPage>();
         builder.Services.AddTransient<AddMemberPage>();
+        builder.Services.AddTransient<AddExpensePage>();
+        builder.Services.AddTransient<ExpenseDetailPage>();
         builder.Services.AddTransient<ProfilePage>();
         builder.Services.AddTransient<AboutPage>();
         builder.Services.AddTransient<ImpressumPage>();

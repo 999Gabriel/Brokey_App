@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:models="clr-namespace:Brokey_APP.Models"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.ExpenseDetailPage"
+             x:Name="ExpenseDetailPageRoot"
+             x:DataType="vm:ExpenseDetailViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,20" Spacing="16">
+
+            <!-- Error banner -->
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="IndianRed"
+                   FontFamily="PoppinsRegular"
+                   FontSize="13"/>
+
+            <!-- Loading indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource BrokeyOrange}"
+                               HorizontalOptions="Center"
+                               Margin="0,20"/>
+
+            <!-- Main card (visible once loaded) -->
+            <VerticalStackLayout Spacing="16"
+                                 IsVisible="{Binding IsNotBusy}">
+
+                <!-- Title + Amount header -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="20,18">
+                    <VerticalStackLayout Spacing="10">
+
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                            <Label Text="{Binding Expense.Title}"
+                                   FontFamily="PoppinsBold"
+                                   FontSize="22"
+                                   TextColor="{StaticResource BrokeyDarkBlue}"
+                                   LineBreakMode="WordWrap"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Expense.Amount, StringFormat='{0:F2}'}"
+                                   FontFamily="PoppinsBold"
+                                   FontSize="24"
+                                   TextColor="{StaticResource BrokeyOrange}"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Category + paid by -->
+                        <HorizontalStackLayout Spacing="8">
+                            <Border BackgroundColor="{StaticResource Secondary}"
+                                    Stroke="Transparent"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="10,4">
+                                <Label Text="{Binding Expense.CategoryName}"
+                                       FontFamily="PoppinsSemiBold"
+                                       FontSize="12"
+                                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                            </Border>
+                            <Label Text="·"
+                                   TextColor="{StaticResource Gray400}"
+                                   FontSize="13"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Expense.PaidByUsername, StringFormat='paid by {0}'}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="13"
+                                   TextColor="{StaticResource Gray500}"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Date -->
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="📅"
+                                   FontSize="13"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Expense.ExpenseDate, StringFormat='{0:dd MMM yyyy}'}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="13"
+                                   TextColor="{StaticResource Gray500}"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Description -->
+                        <Border BackgroundColor="{StaticResource BrokeyBackground}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="14,10"
+                                IsVisible="{Binding HasDescription}">
+                            <Label Text="{Binding Expense.Description}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="13"
+                                   TextColor="{StaticResource Gray500}"
+                                   LineBreakMode="WordWrap"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Splits -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18,16"
+                        IsVisible="{Binding HasSplits}">
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label Text="Split breakdown"
+                               FontFamily="PoppinsBold"
+                               FontSize="15"
+                               TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+                        <CollectionView ItemsSource="{Binding Expense.Splits}"
+                                        SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:ExpenseSplitResponse">
+                                    <Border BackgroundColor="{StaticResource BrokeyBackground}"
+                                            Stroke="Transparent"
+                                            StrokeShape="RoundRectangle 12"
+                                            Padding="14,11"
+                                            Margin="0,0,0,8">
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                            <!-- Avatar -->
+                                            <Border BackgroundColor="{StaticResource Secondary}"
+                                                    Stroke="Transparent"
+                                                    StrokeShape="RoundRectangle 18"
+                                                    WidthRequest="36"
+                                                    HeightRequest="36">
+                                                <Label Text="{Binding Username}"
+                                                       FontFamily="PoppinsBold"
+                                                       FontSize="13"
+                                                       TextColor="{StaticResource BrokeyDarkBlue}"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"
+                                                       MaxLines="1"
+                                                       LineBreakMode="TailTruncation"/>
+                                            </Border>
+
+                                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                                <Label Text="{Binding Username}"
+                                                       FontFamily="PoppinsSemiBold"
+                                                       FontSize="13"
+                                                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                                <Border BackgroundColor="#E8F5E9"
+                                                        Stroke="Transparent"
+                                                        StrokeShape="RoundRectangle 6"
+                                                        Padding="6,2"
+                                                        HorizontalOptions="Start"
+                                                        IsVisible="{Binding IsSettled}">
+                                                    <Label Text="Settled"
+                                                           FontFamily="PoppinsSemiBold"
+                                                           FontSize="10"
+                                                           TextColor="#2E7D32"/>
+                                                </Border>
+                                            </VerticalStackLayout>
+
+                                            <Label Grid.Column="2"
+                                                   Text="{Binding Amount, StringFormat='{0:F2}'}"
+                                                   FontFamily="PoppinsBold"
+                                                   FontSize="15"
+                                                   TextColor="{StaticResource BrokeyDarkBlue}"
+                                                   VerticalOptions="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Location map -->
+                <Border BackgroundColor="{StaticResource White}"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="18,16"
+                        IsVisible="{Binding HasLocation}">
+                    <VerticalStackLayout Spacing="12">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="📍"
+                                   FontSize="16"
+                                   VerticalOptions="Center"/>
+                            <Label Text="Location"
+                                   FontFamily="PoppinsBold"
+                                   FontSize="15"
+                                   TextColor="{StaticResource BrokeyDarkBlue}"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <maps:Map x:Name="DetailMap"
+                                  HeightRequest="200"
+                                  IsScrollEnabled="False"
+                                  IsZoomEnabled="True"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Delete button -->
+                <Button Text="Delete Expense"
+                        Command="{Binding DeleteCommand}"
+                        BackgroundColor="#FDECEC"
+                        TextColor="#A62828"
+                        FontFamily="PoppinsSemiBold"
+                        FontSize="14"
+                        CornerRadius="14"
+                        Margin="0,4,0,0"/>
+
+                <BoxView HeightRequest="20" Color="Transparent"/>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

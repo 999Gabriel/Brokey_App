@@ -31,9 +31,6 @@ public partial class TripDetailViewModel : BaseViewModel, IQueryAttributable
     private DateTime _endDate = DateTime.Today;
 
     [ObservableProperty]
-    private string _newGroupName = string.Empty;
-
-    [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
@@ -84,10 +81,20 @@ public partial class TripDetailViewModel : BaseViewModel, IQueryAttributable
     [RelayCommand]
     private async Task CreateGroupAsync()
     {
-        if (TripId <= 0 || string.IsNullOrWhiteSpace(NewGroupName))
+        if (TripId <= 0)
         {
-            ErrorMessage = "Please enter a group name.";
-            HasError = true;
+            return;
+        }
+
+        var name = await Application.Current!.Windows[0].Page!.DisplayPromptAsync(
+            "New Group",
+            "What would you like to name this group?",
+            accept: "Create",
+            placeholder: "e.g. Restaurants, Hotels…",
+            maxLength: 50);
+
+        if (string.IsNullOrWhiteSpace(name))
+        {
             return;
         }
 
@@ -98,10 +105,9 @@ public partial class TripDetailViewModel : BaseViewModel, IQueryAttributable
         {
             await _tripService.CreateGroupAsync(TripId, new CreateGroupRequest
             {
-                Name = NewGroupName.Trim()
+                Name = name.Trim()
             });
 
-            NewGroupName = string.Empty;
             await PopulateTripAsync();
         }
         catch (Exception ex)

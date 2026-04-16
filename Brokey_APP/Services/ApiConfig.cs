@@ -5,14 +5,13 @@ namespace Brokey_APP.Services;
 /// </summary>
 public static class ApiConfig
 {
-    // ── Development URLs ──
-    // Use localhost for Mac/Windows desktop, 10.0.2.2 for Android emulator
+    // Use HTTPS directly so the client never loses auth headers on HTTP->HTTPS redirects.
+    // Android emulator needs 10.0.2.2 to reach the host machine.
 #if ANDROID
-    public const string BaseUrl = "http://10.0.2.2:5224";
+    public const string BaseUrl = "https://10.0.2.2:7221";
 #else
-    public const string BaseUrl = "http://localhost:5224";
+    public const string BaseUrl = "https://localhost:7221";
 #endif
 
     public static Uri BaseUri => new(BaseUrl);
 }
-

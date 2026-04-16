@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.AddExpensePage"
+             x:Name="AddExpensePageRoot"
+             x:DataType="vm:AddExpenseViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,20" Spacing="16">
+
+            <Label Text="{Binding GroupName, StringFormat='Add expense in {0}'}"
+                   FontFamily="PoppinsBold"
+                   FontSize="24"
+                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="IndianRed"
+                   FontFamily="PoppinsRegular"
+                   FontSize="13"/>
+
+            <!-- Title -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Title" FontFamily="PoppinsSemiBold" FontSize="13"
+                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                <Border BackgroundColor="{StaticResource White}" Stroke="Transparent"
+                        StrokeShape="RoundRectangle 14" Padding="14,10">
+                    <Entry Placeholder="e.g. Dinner at trattoria" Text="{Binding TitleText}"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Description -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Description (optional)" FontFamily="PoppinsSemiBold" FontSize="13"
+                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                <Border BackgroundColor="{StaticResource White}" Stroke="Transparent"
+                        StrokeShape="RoundRectangle 14" Padding="14,10">
+                    <Entry Placeholder="Any extra notes" Text="{Binding Description}"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Amount & Category -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Amount" FontFamily="PoppinsSemiBold" FontSize="13"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    <Border BackgroundColor="{StaticResource White}" Stroke="Transparent"
+                            StrokeShape="RoundRectangle 14" Padding="14,10">
+                        <Entry Placeholder="0.00" Keyboard="Numeric" Text="{Binding AmountText}"/>
+                    </Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="6">
+                    <Label Text="Category" FontFamily="PoppinsSemiBold" FontSize="13"
+                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    <Border BackgroundColor="{StaticResource White}" Stroke="Transparent"
+                            StrokeShape="RoundRectangle 14" Padding="14,4">
+                        <Picker Title="Pick category"
+                                ItemsSource="{Binding Categories}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SelectedCategory}"
+                                TextColor="{StaticResource BrokeyDarkBlue}"
+                                TitleColor="{StaticResource Gray400}"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Date" FontFamily="PoppinsSemiBold" FontSize="13"
+                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                <Border BackgroundColor="{StaticResource White}" Stroke="Transparent"
+                        StrokeShape="RoundRectangle 14" Padding="14,10">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Border Grid.Column="0"
+                                BackgroundColor="{StaticResource Secondary}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="8,5"
+                                VerticalOptions="Center">
+                            <Label Text="📅" FontSize="15" VerticalOptions="Center"/>
+                        </Border>
+                        <DatePicker Grid.Column="1"
+                                    Date="{Binding ExpenseDate}"
+                                    Format="dd MMM yyyy"
+                                    TextColor="{StaticResource BrokeyDarkBlue}"
+                                    BackgroundColor="Transparent"
+                                    FontFamily="PoppinsRegular"
+                                    FontSize="14"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Split configuration -->
+            <Border BackgroundColor="{StaticResource White}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16,14">
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="2">
+                        <Label Text="Split settings"
+                               FontFamily="PoppinsSemiBold"
+                               FontSize="14"
+                               TextColor="{StaticResource BrokeyDarkBlue}"/>
+                        <Label Text="Choose who shares this expense and how their share is calculated."
+                               FontFamily="PoppinsRegular"
+                               FontSize="11"
+                               TextColor="{StaticResource Gray500}"/>
+                    </VerticalStackLayout>
+
+                    <Label Text="Only group admins can use percentage or amount split modes."
+                           IsVisible="{Binding IsNotCurrentUserAdmin}"
+                           FontFamily="PoppinsRegular"
+                           FontSize="11"
+                           TextColor="{StaticResource Gray500}"/>
+
+                    <VerticalStackLayout Spacing="6"
+                                         IsVisible="{Binding CanConfigureCustomSplit}">
+                        <Label Text="Split mode"
+                               FontFamily="PoppinsSemiBold"
+                               FontSize="12"
+                               TextColor="{StaticResource Gray500}"/>
+                        <Border BackgroundColor="{StaticResource BrokeyBackground}"
+                                Stroke="{StaticResource Gray100}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="14,4">
+                            <Picker ItemsSource="{Binding SplitModes}"
+                                    SelectedItem="{Binding SelectedSplitMode}"
+                                    Title="Select split mode"
+                                    TextColor="{StaticResource BrokeyDarkBlue}"
+                                    TitleColor="{StaticResource Gray400}"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Label Text="Select members"
+                           FontFamily="PoppinsSemiBold"
+                           FontSize="12"
+                           TextColor="{StaticResource Gray500}"/>
+
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding SplitMembers}"
+                                         Spacing="8">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ExpenseSplitMemberInput">
+                                <Border BackgroundColor="{StaticResource BrokeyBackground}"
+                                        Stroke="{StaticResource Gray100}"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="12,9">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                        <CheckBox Grid.Column="0"
+                                                  IsChecked="{Binding IsSelected}"
+                                                  VerticalOptions="Center"/>
+
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Spacing="1"
+                                                             VerticalOptions="Center">
+                                            <Label Text="{Binding Username}"
+                                                   FontFamily="PoppinsSemiBold"
+                                                   FontSize="13"
+                                                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                            <Label Text="{Binding Role}"
+                                                   FontFamily="PoppinsRegular"
+                                                   FontSize="10"
+                                                   TextColor="{StaticResource Gray500}"/>
+                                        </VerticalStackLayout>
+
+                                        <Border Grid.Column="2"
+                                                BackgroundColor="{StaticResource White}"
+                                                Stroke="{StaticResource Gray200}"
+                                                StrokeThickness="1"
+                                                StrokeShape="RoundRectangle 10"
+                                                Padding="10,5"
+                                                WidthRequest="126"
+                                                IsVisible="{Binding BindingContext.ShowSplitValueInputs, Source={x:Reference AddExpensePageRoot}}">
+                                            <Entry Text="{Binding ValueText}"
+                                                   IsEnabled="{Binding IsSelected}"
+                                                   Placeholder="{Binding BindingContext.SplitValueHint, Source={x:Reference AddExpensePageRoot}}"
+                                                   Keyboard="Numeric"
+                                                   FontFamily="PoppinsRegular"
+                                                   FontSize="12"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+
+                    <Border BackgroundColor="{StaticResource BrokeyBackground}"
+                            Stroke="{Binding SplitPreviewColor}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="10,8"
+                            IsVisible="{Binding ShowSplitPreview}">
+                        <Label Text="{Binding SplitPreviewMessage}"
+                               TextColor="{Binding SplitPreviewColor}"
+                               FontFamily="PoppinsSemiBold"
+                               FontSize="11"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Location -->
+            <Border BackgroundColor="{StaticResource White}"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 16"
+                    Padding="16,14">
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- Toggle header -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Add location"
+                                   FontFamily="PoppinsSemiBold" FontSize="14"
+                                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+                            <Label Text="Tag where this expense happened"
+                                   FontFamily="PoppinsRegular" FontSize="11"
+                                   TextColor="{StaticResource Gray500}"/>
+                        </VerticalStackLayout>
+                        <Switch Grid.Column="1" IsToggled="{Binding AddLocation}"
+                                VerticalOptions="Center"/>
+                    </Grid>
+
+                    <!-- Location body -->
+                    <VerticalStackLayout Spacing="12" IsVisible="{Binding AddLocation}">
+
+                        <!-- Inline error -->
+                        <Label Text="{Binding LocationError}"
+                               IsVisible="{Binding HasLocationError}"
+                               TextColor="IndianRed"
+                               FontFamily="PoppinsRegular"
+                               FontSize="12"/>
+
+                        <!-- Map (tap to pin location) -->
+                        <maps:Map x:Name="ExpenseMap"
+                                  HeightRequest="220"
+                                  IsShowingUser="True"
+                                  MapClicked="OnMapClicked"/>
+
+                        <Label Text="Tap the map to pin the expense location"
+                               FontFamily="PoppinsRegular"
+                               FontSize="11"
+                               TextColor="{StaticResource Gray400}"
+                               HorizontalOptions="Center"/>
+
+                        <!-- GPS button -->
+                        <Button Text="📍  Use my current location"
+                                Command="{Binding UseCurrentLocationCommand}"
+                                IsVisible="{Binding IsNotLoadingLocation}"
+                                BackgroundColor="{StaticResource Secondary}"
+                                TextColor="{StaticResource BrokeyDarkBlue}"
+                                FontFamily="PoppinsSemiBold"
+                                FontSize="13"
+                                CornerRadius="12"
+                                Padding="14,11"/>
+
+                        <!-- Loading -->
+                        <HorizontalStackLayout Spacing="10"
+                                               IsVisible="{Binding IsLoadingLocation}"
+                                               HorizontalOptions="Center">
+                            <ActivityIndicator IsRunning="{Binding IsLoadingLocation}"
+                                               Color="{StaticResource BrokeyOrange}"
+                                               WidthRequest="20" HeightRequest="20"/>
+                            <Label Text="Detecting location…"
+                                   FontFamily="PoppinsRegular" FontSize="13"
+                                   TextColor="{StaticResource Gray500}"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Divider -->
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray100}" Margin="0,4"/>
+
+                        <!-- Manual address input -->
+                        <Label Text="Or enter address manually"
+                               FontFamily="PoppinsSemiBold" FontSize="12"
+                               TextColor="{StaticResource Gray500}"/>
+
+                        <Border BackgroundColor="{StaticResource BrokeyBackground}"
+                                Stroke="{StaticResource Gray100}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="14,10">
+                            <Entry Placeholder="e.g. Via Roma 1, Rome, Italy"
+                                   Text="{Binding LocationAddress}"
+                                   FontFamily="PoppinsRegular"
+                                   FontSize="14"
+                                   ReturnType="Search"
+                                   ReturnCommand="{Binding GeocodeAddressCommand}"/>
+                        </Border>
+
+                        <Button Text="Search Address"
+                                Command="{Binding GeocodeAddressCommand}"
+                                IsVisible="{Binding IsNotLoadingLocation}"
+                                BackgroundColor="{StaticResource BrokeyDarkBlue}"
+                                TextColor="White"
+                                FontFamily="PoppinsSemiBold"
+                                FontSize="13"
+                                CornerRadius="12"
+                                Padding="14,11"/>
+
+                        <!-- Location result card -->
+                        <Border BackgroundColor="#F0FFF4"
+                                Stroke="#C8E6C9"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="14,12"
+                                IsVisible="{Binding HasLocation}">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                <Label Grid.Column="0"
+                                       Text="✓"
+                                       FontSize="16"
+                                       TextColor="#2E7D32"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"/>
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding LocationName}"
+                                           FontFamily="PoppinsSemiBold"
+                                           FontSize="13"
+                                           TextColor="{StaticResource BrokeyDarkBlue}"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Label Text="Location pinned"
+                                           FontFamily="PoppinsRegular"
+                                           FontSize="11"
+                                           TextColor="{StaticResource Gray500}"/>
+                                </VerticalStackLayout>
+                                <Button Grid.Column="2"
+                                        Text="✕"
+                                        Command="{Binding ClearLocationCommand}"
+                                        BackgroundColor="{StaticResource Gray100}"
+                                        TextColor="{StaticResource Gray500}"
+                                        FontSize="12"
+                                        CornerRadius="8"
+                                        Padding="8,4"
+                                        WidthRequest="34"
+                                        HeightRequest="34"/>
+                            </Grid>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Save Expense"
+                    Command="{Binding SaveExpenseCommand}"
+                    Margin="0,4,0,0"
+                    FontFamily="PoppinsSemiBold"/>
+
+            <Button Text="Cancel"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="#E8EEF5"
+                    TextColor="{StaticResource BrokeyDarkBlue}"
+                    FontFamily="PoppinsSemiBold"/>
+
+            <BoxView HeightRequest="20" Color="Transparent"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

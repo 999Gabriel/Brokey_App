@@ -22,7 +22,7 @@ Ldebug_info_begin:
 	.short 2
 	.long 0
 	.byte 8,1
-	.asciz "Mono AOT Compiler 10.0.3.0 (10.0.326.7603 @Commit: c2435c3e0f46de784341ac3ed62863ce77e117b4)"
+	.asciz "Mono AOT Compiler 10.0.6.0 (10.0.626.17701 @Commit: 47fb725acf5d7094af51aebbb5b7e5c44a3b2a77)"
 	.asciz "System.Private.CoreLib.dll"
 	.asciz ""
 
@@ -51880,7 +51880,7 @@ runtime_version:
 .section __TEXT, __const
 	.align 2
 assembly_guid:
-	.asciz "17017887-698D-4F56-91F1-5FE3D765DDE7"
+	.asciz "A1C89A7A-0469-4268-8874-26A004EB701D"
 .section __TEXT, __const
 	.align 2
 assembly_name:
@@ -51970,14 +51970,14 @@ _mono_aot_file_info:
 	.quad unbox_trampoline_addresses
 
 	.long 297,297,3952,200,197,211,210,352
-	.long 374417919,0,91833,128,8,8,7,9
-	.long 8388607,16384,4,25,121792,0,0,0
+	.long 374417919,0,91849,128,8,8,7,9
+	.long 8388607,16384,4,25,121808,0,0,0
 	.long 0,29952,5536,25872,0,25352,3848,512
 	.long 24944,0,29832,29944,296,0,0,0
 	.long 0,0,0,297,297,297,297,297
 	.long 297,0,0,0,0,0,0,24
 	.long 24,60,24,0,24
-	.byte 128,158,89,122,154,142,179,212,253,20,145,48,233,172,138,227
+	.byte 3,161,198,72,126,99,14,30,26,211,230,136,191,223,189,139
 	.globl _mono_aot_module_System_Private_CoreLib_info
 	.align 3
 _mono_aot_module_System_Private_CoreLib_info:

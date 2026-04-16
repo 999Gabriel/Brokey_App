@@ -8,6 +8,7 @@ namespace Brokey_APP.ViewModels;
 
 public partial class TripsViewModel : BaseViewModel
 {
+    private readonly ITokenStorageService _tokenStorageService;
     private readonly ITripService _tripService;
 
     public ObservableCollection<TripSummaryResponse> Trips { get; } = [];
@@ -24,9 +25,10 @@ public partial class TripsViewModel : BaseViewModel
     public bool HasTrips => Trips.Count > 0;
     public bool IsEmpty => Trips.Count == 0;
 
-    public TripsViewModel(ITripService tripService)
+    public TripsViewModel(ITripService tripService, ITokenStorageService tokenStorageService)
     {
         _tripService = tripService;
+        _tokenStorageService = tokenStorageService;
         Title = "My Trips";
     }
 
@@ -58,6 +60,12 @@ public partial class TripsViewModel : BaseViewModel
         {
             ErrorMessage = ex.Message;
             HasError = true;
+
+            if (string.Equals(ex.Message, "Your session is no longer valid. Please log in again.", StringComparison.Ordinal))
+            {
+                await _tokenStorageService.ClearTokenAsync();
+                Application.Current!.Windows[0].Page = new AuthShell();
+            }
         }
         finally
         {

@@ -28,6 +28,7 @@ public class AuthService : IAuthService
             Password = password
         };
 
+        await _tokenStorageService.ClearTokenAsync();
         var response = await _httpClient.PostAsJsonAsync("api/auth/login", request);
 
         if (!response.IsSuccessStatusCode)
@@ -47,6 +48,11 @@ public class AuthService : IAuthService
         var authResponse = await response.Content.ReadFromJsonAsync<AuthResponse>(JsonOptions)
                            ?? throw new Exception("Invalid server response.");
 
+        if (string.IsNullOrWhiteSpace(authResponse.Token))
+        {
+            throw new Exception("Login succeeded, but the server did not return a valid token.");
+        }
+
         await _tokenStorageService.SaveTokenAsync(authResponse.Token);
         return authResponse;
     }
@@ -61,6 +67,7 @@ public class AuthService : IAuthService
             BaseCurrency = baseCurrency
         };
 
+        await _tokenStorageService.ClearTokenAsync();
         var response = await _httpClient.PostAsJsonAsync("api/auth/register", request);
 
         if (!response.IsSuccessStatusCode)
@@ -79,6 +86,11 @@ public class AuthService : IAuthService
 
         var authResponse = await response.Content.ReadFromJsonAsync<AuthResponse>(JsonOptions)
                            ?? throw new Exception("Invalid server response.");
+
+        if (string.IsNullOrWhiteSpace(authResponse.Token))
+        {
+            throw new Exception("Registration succeeded, but the server did not return a valid token.");
+        }
 
         await _tokenStorageService.SaveTokenAsync(authResponse.Token);
         return authResponse;

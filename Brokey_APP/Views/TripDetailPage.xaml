@@ -43,26 +43,19 @@
                    IsVisible="{Binding HasError}"
                    TextColor="IndianRed"/>
 
-            <Border BackgroundColor="{StaticResource White}"
-                    Stroke="Transparent"
-                    StrokeShape="RoundRectangle 20"
-                    Padding="18">
-                <VerticalStackLayout Spacing="12">
-                    <Label Text="Create a new group"
-                           FontFamily="PoppinsSemiBold"
-                           FontSize="16"
-                           TextColor="{StaticResource BrokeyDarkBlue}"/>
-                    <Entry Placeholder="Group name"
-                           Text="{Binding NewGroupName}"/>
-                    <Button Text="Add Group"
-                            Command="{Binding CreateGroupCommand}"/>
-                </VerticalStackLayout>
-            </Border>
-
-            <Label Text="Groups"
-                   FontFamily="PoppinsSemiBold"
-                   FontSize="16"
-                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <Label Text="Groups"
+                       FontFamily="PoppinsSemiBold"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                <Button Grid.Column="1"
+                        Text="+ Add Group"
+                        Command="{Binding CreateGroupCommand}"
+                        FontSize="12"
+                        HeightRequest="36"
+                        Padding="12,0"/>
+            </Grid>
 
             <VerticalStackLayout BindableLayout.ItemsSource="{Binding Groups}"
                                  Spacing="0">
@@ -78,22 +71,22 @@
                                     Command="{Binding BindingContext.OpenGroupCommand, Source={x:Reference TripDetailPageRoot}}"
                                     CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
-                                <Label Text="{Binding Name}"
-                                       FontFamily="PoppinsSemiBold"
-                                       FontSize="16"
-                                       TextColor="{StaticResource BrokeyDarkBlue}"/>
-                                <Label Grid.Row="1"
-                                       Text="{Binding MemberCount, StringFormat='Members: {0}'}"
-                                       FontFamily="PoppinsRegular"
-                                       FontSize="12"
-                                       TextColor="{StaticResource Gray500}"/>
-                                <Button Grid.Column="1"
-                                        Grid.RowSpan="2"
-                                        VerticalOptions="Center"
-                                        Text="Open"
-                                        Command="{Binding BindingContext.OpenGroupCommand, Source={x:Reference TripDetailPageRoot}}"
-                                        CommandParameter="{Binding .}"/>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="PoppinsSemiBold"
+                                           FontSize="16"
+                                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                    <Label Text="{Binding MemberCount, StringFormat='{0} members'}"
+                                           FontFamily="PoppinsRegular"
+                                           FontSize="12"
+                                           TextColor="{StaticResource Gray500}"/>
+                                </VerticalStackLayout>
+                                <Label Grid.Column="1"
+                                       Text="›"
+                                       FontSize="22"
+                                       TextColor="{StaticResource Gray400}"
+                                       VerticalOptions="Center"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
