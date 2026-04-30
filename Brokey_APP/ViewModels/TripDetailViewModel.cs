@@ -31,6 +31,18 @@ public partial class TripDetailViewModel : BaseViewModel, IQueryAttributable
     private DateTime _endDate = DateTime.Today;
 
     [ObservableProperty]
+    private decimal _totalExpenseAmount;
+
+    [ObservableProperty]
+    private int _memberCount;
+
+    [ObservableProperty]
+    private int _expenseCount;
+
+    [ObservableProperty]
+    private ObservableCollection<TripMemberResponse> _members = [];
+
+    [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
@@ -76,6 +88,13 @@ public partial class TripDetailViewModel : BaseViewModel, IQueryAttributable
         {
             IsBusy = false;
         }
+    }
+
+    [RelayCommand]
+    private async Task OpenSummaryAsync()
+    {
+        if (TripId <= 0) return;
+        await Shell.Current.GoToAsync($"trip-summary?tripId={TripId}");
     }
 
     [RelayCommand]
@@ -141,6 +160,15 @@ public partial class TripDetailViewModel : BaseViewModel, IQueryAttributable
         BaseCurrency = trip.BaseCurrency;
         StartDate = trip.StartDate;
         EndDate = trip.EndDate;
+        TotalExpenseAmount = trip.TotalExpenseAmount;
+        MemberCount = trip.MemberCount;
+        ExpenseCount = trip.ExpenseCount;
+
+        Members.Clear();
+        foreach (var member in trip.Members)
+        {
+            Members.Add(member);
+        }
 
         Groups.Clear();
         foreach (var group in trip.Groups)

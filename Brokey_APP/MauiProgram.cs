@@ -1,4 +1,4 @@
-﻿﻿using Brokey_APP.Services;
+﻿using Brokey_APP.Services;
 using Brokey_APP.ViewModels;
 using Brokey_APP.Views;
 using CommunityToolkit.Maui;
@@ -19,8 +19,21 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
-                fonts.AddFont("Poppins-SemiBold.ttf", "PoppinsSemiBold");
+                fonts.AddFont("Charter Regular.ttf", "Charter");
+                fonts.AddFont("Charter Bold.ttf", "CharterBold");
+                fonts.AddFont("Charter Italic.ttf", "CharterItalic");
+                fonts.AddFont("Charter Bold Italic.ttf", "CharterBoldItalic");
+                fonts.AddFont("Inter-Regular.ttf", "Inter");
+                fonts.AddFont("Inter-Medium.ttf", "InterMedium");
+                fonts.AddFont("Inter-SemiBold.ttf", "InterSemiBold");
+                fonts.AddFont("Inter-Italic.ttf", "InterItalic");
+                fonts.AddFont("Inter-Bold.ttf", "InterBold");
+                fonts.AddFont("jetbrains-mono.regular.ttf", "JetBrainsMono");
+                fonts.AddFont("jetbrains-mono.bold.ttf", "JetBrainsMonoBold");
+                fonts.AddFont("jetbrains-mono.italic.ttf", "JetBrainsMonoItalic");
+                // Keep legacy aliases alive so any remaining hard-coded references still resolve.
+                fonts.AddFont("Inter-Regular.ttf", "PoppinsRegular");
+                fonts.AddFont("Inter-SemiBold.ttf", "PoppinsSemiBold");
                 fonts.AddFont("Poppins-Bold.ttf", "PoppinsBold");
                 fonts.AddFont("Pacifico-Regular.ttf", "Pacifico");
             });
@@ -73,6 +86,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AddMemberViewModel>();
         builder.Services.AddTransient<AddExpenseViewModel>();
         builder.Services.AddTransient<ExpenseDetailViewModel>();
+        builder.Services.AddTransient<TripSummaryViewModel>();
         builder.Services.AddTransient<ProfileViewModel>();
         builder.Services.AddTransient<AboutViewModel>();
 
@@ -87,6 +101,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AddMemberPage>();
         builder.Services.AddTransient<AddExpensePage>();
         builder.Services.AddTransient<ExpenseDetailPage>();
+        builder.Services.AddTransient<TripSummaryPage>();
         builder.Services.AddTransient<ProfilePage>();
         builder.Services.AddTransient<AboutPage>();
         builder.Services.AddTransient<ImpressumPage>();

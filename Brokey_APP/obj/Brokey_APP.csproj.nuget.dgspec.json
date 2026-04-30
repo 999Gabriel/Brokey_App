@@ -109,7 +109,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[10.0.6, 10.0.6]"
+              "version": "[10.0.7, 10.0.7]"
             }
           ],
           "frameworkReferences": {
@@ -455,7 +455,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[10.0.6, 10.0.6]"
+              "version": "[10.0.7, 10.0.7]"
             }
           ],
           "frameworkReferences": {
@@ -802,7 +802,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Ref",
-              "version": "[10.0.6, 10.0.6]"
+              "version": "[10.0.7, 10.0.7]"
             }
           ],
           "frameworkReferences": {
@@ -1101,9 +1101,6 @@
           "#import": []
         },
         "ios-arm64": {
-          "#import": []
-        },
-        "iossimulator-arm64": {
           "#import": []
         },
         "maccatalyst-arm64": {

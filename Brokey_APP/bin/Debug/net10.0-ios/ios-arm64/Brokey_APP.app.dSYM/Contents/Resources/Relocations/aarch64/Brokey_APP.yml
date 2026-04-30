@@ -14393,8 +14393,8 @@ relocations:
   - { offset: 0x560A5C, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x164, symBinAddr: 0x100397AAC, symSize: 0x60 }
   - { offset: 0x560AAF, size: 0x8, addend: 0x0, symName: __Z28xamarin_initialize_callbacksv, symObjAddr: 0x1C4, symBinAddr: 0x100397B0C, symSize: 0x40 }
   - { offset: 0x560AC9, size: 0x8, addend: 0x0, symName: __ZL25xamarin_initialize_dotnetv, symObjAddr: 0x204, symBinAddr: 0x100397B4C, symSize: 0x28 }
-  - { offset: 0x560E8B, size: 0x8, addend: 0x0, symName: '-[Microsoft_Maui_MauiUIApplicationDelegate window]', symObjAddr: 0x220, symBinAddr: 0x100397D94, symSize: 0x80 }
-  - { offset: 0x560EB4, size: 0x8, addend: 0x0, symName: '__ZZ50-[Microsoft_Maui_MauiUIApplicationDelegate window]E64callback_798_Microsoft_Maui_MauiUIApplicationDelegate_get_Window', symObjAddr: 0x6D1E48, symBinAddr: 0x10079F170, symSize: 0x0 }
+  - { offset: 0x560E96, size: 0x8, addend: 0x0, symName: '-[Microsoft_Maui_MauiUIApplicationDelegate window]', symObjAddr: 0x220, symBinAddr: 0x100397D94, symSize: 0x80 }
+  - { offset: 0x560EBF, size: 0x8, addend: 0x0, symName: '__ZZ50-[Microsoft_Maui_MauiUIApplicationDelegate window]E64callback_798_Microsoft_Maui_MauiUIApplicationDelegate_get_Window', symObjAddr: 0x6D1E48, symBinAddr: 0x10079F170, symSize: 0x0 }
   - { offset: 0x562D38, size: 0x8, addend: 0x0, symName: '-[Microsoft_Maui_MauiUIApplicationDelegate setWindow:]', symObjAddr: 0x2A0, symBinAddr: 0x100397E14, symSize: 0x7C }
   - { offset: 0x562D5D, size: 0x8, addend: 0x0, symName: '__ZZ54-[Microsoft_Maui_MauiUIApplicationDelegate setWindow:]E64callback_799_Microsoft_Maui_MauiUIApplicationDelegate_set_Window', symObjAddr: 0x6D1E50, symBinAddr: 0x10079F178, symSize: 0x0 }
   - { offset: 0x562DC1, size: 0x8, addend: 0x0, symName: '-[Microsoft_Maui_MauiUIApplicationDelegate application:willFinishLaunchingWithOptions:]', symObjAddr: 0x31C, symBinAddr: 0x100397E90, symSize: 0x94 }

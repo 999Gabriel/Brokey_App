@@ -4,7 +4,7 @@ using Microsoft.Maui.Maps;
 
 namespace Brokey_APP.Views;
 
-public partial class AddExpensePage : ContentPage, IQueryAttributable
+public partial class AddExpensePage : AnimatedContentPage, IQueryAttributable
 {
     public AddExpensePage(AddExpenseViewModel viewModel)
     {

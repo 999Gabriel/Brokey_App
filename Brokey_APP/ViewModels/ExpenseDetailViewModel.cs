@@ -73,6 +73,13 @@ public partial class ExpenseDetailViewModel : BaseViewModel, IQueryAttributable
     }
 
     [RelayCommand]
+    private async Task EditAsync()
+    {
+        if (Expense == null) return;
+        await Shell.Current.GoToAsync($"add-expense?groupId={GroupId}&expenseId={ExpenseId}&groupName={Uri.EscapeDataString(Expense.GroupName)}");
+    }
+
+    [RelayCommand]
     private async Task DeleteAsync()
     {
         if (Expense == null) return;

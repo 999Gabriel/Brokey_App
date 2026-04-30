@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:AnimatedContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Brokey_APP.Views"
+             xmlns:models="clr-namespace:Brokey_APP.Models"
+             xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
+             x:Class="Brokey_APP.Views.TripSummaryPage"
+             x:Name="TripSummaryPageRoot"
+             x:DataType="vm:TripSummaryViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource BrokeyBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="22,18,22,32" Spacing="0">
+
+            <!-- Page title -->
+            <Label Text="Trip Summary"
+                   Style="{StaticResource PageTitle}"
+                   Margin="0,0,0,2" />
+            <Label Text="{Binding Name}"
+                   Style="{StaticResource PageSubtitle}"
+                   Margin="0,0,0,18" />
+
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   Style="{StaticResource InlineErrorText}"
+                   Margin="0,0,0,12" />
+
+            <!-- ── Overview card ── -->
+            <Border StyleClass="SurfaceCard">
+                <VerticalStackLayout Spacing="16">
+
+                    <Label Text="Overview" Style="{StaticResource SectionTitle}" />
+
+                    <!-- Total amount (hero) -->
+                    <Border BackgroundColor="{StaticResource Secondary}"
+                            Stroke="{StaticResource BorderSubtle}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="18,14">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="Total spent"
+                                       FontFamily="Inter"
+                                       FontSize="12"
+                                       TextColor="{StaticResource Gray500}" />
+                                <Label Text="{Binding TotalExpenseAmount, StringFormat='{0:F2}'}"
+                                       FontFamily="CharterBold"
+                                       FontSize="34"
+                                       TextColor="{StaticResource BrokeyDarkBlue}" />
+                            </VerticalStackLayout>
+                            <Border Grid.Column="1"
+                                    StyleClass="TagPill"
+                                    VerticalOptions="Start">
+                                <Label Text="{Binding BaseCurrency}" Style="{StaticResource MonoTag}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Stats row -->
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                        <Border BackgroundColor="{StaticResource SurfaceSubtle}"
+                                Stroke="{StaticResource BorderSubtle}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="12,10">
+                            <VerticalStackLayout Spacing="3" HorizontalOptions="Center">
+                                <Label Text="{Binding DurationDays}"
+                                       FontFamily="CharterBold"
+                                       FontSize="22"
+                                       TextColor="{StaticResource BrokeyDarkBlue}"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="days"
+                                       Style="{StaticResource MutedText}"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Column="1"
+                                BackgroundColor="{StaticResource SurfaceSubtle}"
+                                Stroke="{StaticResource BorderSubtle}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="12,10">
+                            <VerticalStackLayout Spacing="3" HorizontalOptions="Center">
+                                <Label Text="{Binding ExpenseCount}"
+                                       FontFamily="CharterBold"
+                                       FontSize="22"
+                                       TextColor="{StaticResource BrokeyDarkBlue}"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="expenses"
+                                       Style="{StaticResource MutedText}"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Column="2"
+                                BackgroundColor="{StaticResource SurfaceSubtle}"
+                                Stroke="{StaticResource BorderSubtle}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="12,10">
+                            <VerticalStackLayout Spacing="3" HorizontalOptions="Center">
+                                <Label Text="{Binding MemberCount}"
+                                       FontFamily="CharterBold"
+                                       FontSize="22"
+                                       TextColor="{StaticResource BrokeyDarkBlue}"
+                                       HorizontalTextAlignment="Center" />
+                                <Label Text="members"
+                                       Style="{StaticResource MutedText}"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <!-- Date range -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Start"
+                                   FontFamily="Inter"
+                                   FontSize="11"
+                                   TextColor="{StaticResource Gray400}"
+                                   CharacterSpacing="0.8" />
+                            <Label Text="{Binding StartDate, StringFormat='{0:dd MMMM yyyy}'}"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="14"
+                                   TextColor="{StaticResource BrokeyDarkBlue}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="End"
+                                   FontFamily="Inter"
+                                   FontSize="11"
+                                   TextColor="{StaticResource Gray400}"
+                                   CharacterSpacing="0.8" />
+                            <Label Text="{Binding EndDate, StringFormat='{0:dd MMMM yyyy}'}"
+                                   FontFamily="InterSemiBold"
+                                   FontSize="14"
+                                   TextColor="{StaticResource BrokeyDarkBlue}" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ── Per-group breakdown ── -->
+            <Label Text="By group"
+                   Style="{StaticResource SectionTitle}"
+                   Margin="0,4,0,10"
+                   IsVisible="{Binding HasGroups}" />
+
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Groups}"
+                                 IsVisible="{Binding HasGroups}"
+                                 Spacing="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:GroupResponse">
+                        <Border StyleClass="SurfaceCard">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="InterSemiBold"
+                                           FontSize="15"
+                                           TextColor="{StaticResource BrokeyDarkBlue}" />
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Label Text="{Binding ExpenseCount, StringFormat='{0} expenses'}"
+                                               Style="{StaticResource MutedText}" />
+                                        <Label Text="·"
+                                               Style="{StaticResource MutedText}" />
+                                        <Label Text="{Binding MemberCount, StringFormat='{0} members'}"
+                                               Style="{StaticResource MutedText}" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" Spacing="2">
+                                    <Label Text="{Binding TotalExpenseAmount, StringFormat='{0:F2}'}"
+                                           FontFamily="CharterBold"
+                                           FontSize="18"
+                                           TextColor="{StaticResource BrokeyDarkBlue}"
+                                           HorizontalTextAlignment="End" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <!-- ── Members ── -->
+            <Label Text="Members"
+                   Style="{StaticResource SectionTitle}"
+                   Margin="0,4,0,10" />
+
+            <Border StyleClass="SurfaceCard">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Members}" Spacing="12">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:TripMemberResponse">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <!-- Avatar -->
+                                <Border BackgroundColor="{StaticResource Secondary}"
+                                        Stroke="Transparent"
+                                        StrokeShape="RoundRectangle 20"
+                                        WidthRequest="40"
+                                        HeightRequest="40">
+                                    <Label Text="{Binding Username}"
+                                           FontFamily="Charter"
+                                           FontSize="14"
+                                           TextColor="{StaticResource BrokeyDarkBlue}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           MaxLines="1"
+                                           LineBreakMode="TailTruncation" />
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                    <Label Text="{Binding Username}"
+                                           FontFamily="InterSemiBold"
+                                           FontSize="14"
+                                           TextColor="{StaticResource BrokeyDarkBlue}" />
+                                    <Label Text="{Binding Email}"
+                                           FontFamily="Inter"
+                                           FontSize="12"
+                                           TextColor="{StaticResource Gray500}"
+                                           LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+
+                                <Border Grid.Column="2"
+                                        StyleClass="TagPill"
+                                        IsVisible="{Binding Role, Converter={StaticResource StringEqualsConverter}, ConverterParameter='Owner'}"
+                                        VerticalOptions="Center">
+                                    <Label Text="OWNER" Style="{StaticResource MonoTag}" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
+
+            <BoxView HeightRequest="20" Color="Transparent" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</views:AnimatedContentPage>

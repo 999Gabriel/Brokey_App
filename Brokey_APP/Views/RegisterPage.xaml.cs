@@ -2,7 +2,7 @@ using Brokey_APP.ViewModels;
 
 namespace Brokey_APP.Views;
 
-public partial class RegisterPage : ContentPage
+public partial class RegisterPage : AnimatedContentPage
 {
     public RegisterPage(RegisterViewModel viewModel)
     {
@@ -10,4 +10,3 @@ public partial class RegisterPage : ContentPage
         BindingContext = viewModel;
     }
 }
-

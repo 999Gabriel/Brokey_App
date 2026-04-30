@@ -123,11 +123,17 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Amount).HasPrecision(18, 2);
             entity.Property(e => e.Latitude).HasPrecision(10, 7);
             entity.Property(e => e.Longitude).HasPrecision(10, 7);
+            entity.HasIndex(e => new { e.GroupId, e.ExpenseDate });
 
             entity.HasOne(e => e.Trip)
                 .WithMany(t => t.Expenses)
                 .HasForeignKey(e => e.TripId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.Group)
+                .WithMany(g => g.Expenses)
+                .HasForeignKey(e => e.GroupId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             entity.HasOne(e => e.PaidBy)
                 .WithMany(u => u.PaidExpenses)

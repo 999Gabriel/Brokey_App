@@ -1,10 +1,9 @@
 namespace Brokey_APP.Views;
 
-public partial class ImpressumPage : ContentPage
+public partial class ImpressumPage : AnimatedContentPage
 {
     public ImpressumPage()
     {
         InitializeComponent();
     }
 }
-

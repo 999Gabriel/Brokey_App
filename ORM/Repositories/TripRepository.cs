@@ -24,7 +24,10 @@ public class TripRepository
         return await _context.Trips
             .AsNoTracking()
             .Include(t => t.Groups)
+                .ThenInclude(g => g.Expenses)
             .Include(t => t.Members)
+                .ThenInclude(m => m.User)
+            .Include(t => t.Expenses)
             .Where(t => t.CreatedById == userId || t.Members.Any(m => m.UserId == userId))
             .OrderByDescending(t => t.CreatedAt)
             .ToListAsync(cancellationToken);
@@ -33,10 +36,15 @@ public class TripRepository
     public async Task<Trip?> GetByIdForUserAsync(int tripId, int userId, CancellationToken cancellationToken = default)
     {
         return await _context.Trips
+            .Include(t => t.CreatedBy)
             .Include(t => t.Groups)
                 .ThenInclude(g => g.Members)
                     .ThenInclude(gm => gm.User)
+            .Include(t => t.Groups)
+                .ThenInclude(g => g.Expenses)
             .Include(t => t.Members)
+                .ThenInclude(m => m.User)
+            .Include(t => t.Expenses)
             .FirstOrDefaultAsync(
                 t => t.Id == tripId && (t.CreatedById == userId || t.Members.Any(m => m.UserId == userId)),
                 cancellationToken);
@@ -45,8 +53,12 @@ public class TripRepository
     public async Task<Trip?> GetByIdAsync(int tripId, CancellationToken cancellationToken = default)
     {
         return await _context.Trips
+            .Include(t => t.CreatedBy)
             .Include(t => t.Groups)
+                .ThenInclude(g => g.Expenses)
             .Include(t => t.Members)
+                .ThenInclude(m => m.User)
+            .Include(t => t.Expenses)
             .FirstOrDefaultAsync(t => t.Id == tripId, cancellationToken);
     }
 

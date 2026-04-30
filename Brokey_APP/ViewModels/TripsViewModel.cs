@@ -14,7 +14,7 @@ public partial class TripsViewModel : BaseViewModel
     public ObservableCollection<TripSummaryResponse> Trips { get; } = [];
 
     [ObservableProperty]
-    private string _emptyMessage = "No trips yet! Tap + to plan your first adventure.";
+    private string _emptyMessage = "No trips yet. Create your first one to get started.";
 
     [ObservableProperty]
     private string _errorMessage = string.Empty;

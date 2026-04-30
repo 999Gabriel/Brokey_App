@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:AnimatedContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Brokey_APP.Views"
              xmlns:models="clr-namespace:Brokey_APP.Models"
              xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
              x:Class="Brokey_APP.Views.TripDetailPage"
@@ -10,62 +11,100 @@
              BackgroundColor="{StaticResource BrokeyBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="25,20" Spacing="18">
-            <VerticalStackLayout Spacing="5">
-                <Label Text="{Binding Name}"
-                       FontFamily="PoppinsBold"
-                       FontSize="24"
-                       TextColor="{StaticResource BrokeyDarkBlue}"/>
-                <Label Text="{Binding Description}"
-                       FontFamily="PoppinsRegular"
-                       FontSize="14"
-                       TextColor="{StaticResource Gray500}"/>
-            </VerticalStackLayout>
+        <VerticalStackLayout Padding="22,18,22,20" Spacing="12">
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="{Binding Name}" Style="{StaticResource PageTitle}" />
+                    <Label Text="{Binding Description}" Style="{StaticResource PageSubtitle}" />
+                </VerticalStackLayout>
+                <Button Grid.Column="1"
+                        Text="Summary"
+                        Command="{Binding OpenSummaryCommand}"
+                        Style="{StaticResource SecondaryButton}"
+                        FontSize="12"
+                        HeightRequest="36"
+                        Padding="12,0"
+                        VerticalOptions="Start" />
+            </Grid>
 
-            <Border BackgroundColor="{StaticResource White}"
-                    Stroke="Transparent"
-                    StrokeShape="RoundRectangle 20"
-                    Padding="18">
+            <Border StyleClass="SurfaceCard">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="{Binding BaseCurrency, StringFormat='Base Currency: {0}'}"
-                           FontFamily="PoppinsSemiBold"
-                           TextColor="{StaticResource BrokeyDarkBlue}"/>
-                    <Label Text="{Binding StartDate, StringFormat='Start: {0:dd MMM yyyy}'}"
-                           FontFamily="PoppinsRegular"
-                           TextColor="{StaticResource Gray500}"/>
-                    <Label Text="{Binding EndDate, StringFormat='End: {0:dd MMM yyyy}'}"
-                           FontFamily="PoppinsRegular"
-                           TextColor="{StaticResource Gray500}"/>
+                    <Label Text="Trip summary" Style="{StaticResource SectionTitle}" FontSize="16" />
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Total expenses" Style="{StaticResource MutedText}" />
+                            <Label Text="{Binding TotalExpenseAmount, StringFormat='{0:F2}'}" Style="{StaticResource CardTitle}" TextColor="{StaticResource BrokeyOrange}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Base currency" Style="{StaticResource MutedText}" />
+                            <Label Text="{Binding BaseCurrency}" Style="{StaticResource CardTitle}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="2">
+                            <Label Text="Members" Style="{StaticResource MutedText}" />
+                            <Label Text="{Binding MemberCount}" Style="{StaticResource CardTitle}" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="2">
+                            <Label Text="Range" Style="{StaticResource MutedText}" />
+                            <Label Text="{Binding StartDate, StringFormat='{0:dd MMM}'}"
+                                   Style="{StaticResource CardTitle}" />
+                        </VerticalStackLayout>
+                    </Grid>
                 </VerticalStackLayout>
             </Border>
 
             <Label Text="{Binding ErrorMessage}"
                    IsVisible="{Binding HasError}"
-                   TextColor="IndianRed"/>
+                   Style="{StaticResource InlineErrorText}" />
+
+            <Label Text="Trip members"
+                   Style="{StaticResource SectionTitle}"
+                   FontSize="18" />
+
+            <Border StyleClass="SurfaceCard">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Members}" Spacing="8">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:TripMemberResponse">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                <Border BackgroundColor="{StaticResource Secondary}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 15"
+                                        WidthRequest="30"
+                                        HeightRequest="30">
+                                    <Label Text="{Binding Username}"
+                                           FontSize="10"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           TextColor="{StaticResource BrokeyDarkBlue}" />
+                                </Border>
+                                <Label Grid.Column="1" Text="{Binding Username}" VerticalOptions="Center" />
+                                <Border Grid.Column="2" StyleClass="TagPill" IsVisible="{Binding Role, Converter={StaticResource StringEqualsConverter}, ConverterParameter='Owner'}">
+                                    <Label Text="OWNER" Style="{StaticResource MonoTag}" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
 
             <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
                 <Label Text="Groups"
-                       FontFamily="PoppinsSemiBold"
-                       FontSize="16"
-                       VerticalOptions="Center"
-                       TextColor="{StaticResource BrokeyDarkBlue}"/>
+                       Style="{StaticResource SectionTitle}"
+                       FontSize="18"
+                       VerticalOptions="Center" />
                 <Button Grid.Column="1"
-                        Text="+ Add Group"
+                        Text="Add group"
                         Command="{Binding CreateGroupCommand}"
+                        Style="{StaticResource SecondaryButton}"
                         FontSize="12"
                         HeightRequest="36"
-                        Padding="12,0"/>
+                        Padding="12,0" />
             </Grid>
 
             <VerticalStackLayout BindableLayout.ItemsSource="{Binding Groups}"
                                  Spacing="0">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:GroupResponse">
-                        <Border BackgroundColor="{StaticResource White}"
-                                Stroke="Transparent"
-                                StrokeShape="RoundRectangle 20"
-                                Padding="16"
-                                Margin="0,0,0,12">
+                        <Border StyleClass="SurfaceCard">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding BindingContext.OpenGroupCommand, Source={x:Reference TripDetailPageRoot}}"
@@ -73,20 +112,15 @@
                             </Border.GestureRecognizers>
                             <Grid ColumnDefinitions="*,Auto">
                                 <VerticalStackLayout Spacing="4">
-                                    <Label Text="{Binding Name}"
-                                           FontFamily="PoppinsSemiBold"
-                                           FontSize="16"
-                                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                                    <Label Text="{Binding Name}" Style="{StaticResource CardTitle}" />
                                     <Label Text="{Binding MemberCount, StringFormat='{0} members'}"
-                                           FontFamily="PoppinsRegular"
-                                           FontSize="12"
-                                           TextColor="{StaticResource Gray500}"/>
+                                           Style="{StaticResource MutedText}" />
                                 </VerticalStackLayout>
                                 <Label Grid.Column="1"
                                        Text="›"
                                        FontSize="22"
                                        TextColor="{StaticResource Gray400}"
-                                       VerticalOptions="Center"/>
+                                       VerticalOptions="Center" />
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -94,4 +128,4 @@
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
+</views:AnimatedContentPage>

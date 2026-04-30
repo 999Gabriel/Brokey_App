@@ -29,7 +29,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/brokey_travel_icon.appiconset</string>
+	<string>Assets.xcassets/brokey_appicon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Brokey uses your location to tag where an expense happened.</string>
 	<key>NSAppTransportSecurity</key>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:AnimatedContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Brokey_APP.Views"
              xmlns:models="clr-namespace:Brokey_APP.Models"
              xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
              x:Class="Brokey_APP.Views.GroupDetailPage"
@@ -10,31 +11,26 @@
              BackgroundColor="{StaticResource BrokeyBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20,20" Spacing="16">
+        <VerticalStackLayout Padding="22,18,22,20" Spacing="12">
 
             <!-- Header -->
-            <Label Text="{Binding GroupName}"
-                   FontFamily="PoppinsBold"
-                   FontSize="26"
-                   TextColor="{StaticResource BrokeyDarkBlue}" />
+            <Label Text="{Binding GroupName}" Style="{StaticResource PageTitle}" />
 
             <Label Text="{Binding ErrorMessage}"
                    IsVisible="{Binding HasError}"
-                   TextColor="IndianRed"
-                   FontFamily="PoppinsRegular"
-                   FontSize="13"/>
+                   Style="{StaticResource InlineErrorText}" />
 
             <!-- Action buttons -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                 <Button Grid.Column="0"
-                        Text="+ Add Member"
+                        Text="Add member"
                         Command="{Binding OpenAddMemberCommand}"
-                        FontFamily="PoppinsSemiBold"
+                        FontFamily="InterSemiBold"
                         FontSize="14"/>
                 <Button Grid.Column="1"
-                        Text="+ Add Expense"
+                        Text="Add expense"
                         Command="{Binding OpenAddExpenseCommand}"
-                        FontFamily="PoppinsSemiBold"
+                        FontFamily="InterSemiBold"
                         FontSize="14"/>
             </Grid>
 
@@ -45,20 +41,19 @@
                     Padding="18,16">
                 <VerticalStackLayout Spacing="14">
 
-                    <Label Text="Settlement"
-                           FontFamily="PoppinsBold"
-                           FontSize="17"
-                           TextColor="{StaticResource BrokeyDarkBlue}"/>
+                        <Label Text="Settlement"
+                               Style="{StaticResource SectionTitle}"
+                               FontSize="17" />
 
                     <!-- Settled up -->
                     <HorizontalStackLayout Spacing="8"
                                            IsVisible="{Binding IsSettlementEmpty}">
-                        <Label Text="✓"
+                        <Label Text="OK"
                                FontSize="16"
-                               TextColor="#4CAF50"
+                               TextColor="{StaticResource Success}"
                                VerticalOptions="Center"/>
                         <Label Text="Everyone is settled up!"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="14"
                                TextColor="{StaticResource Gray500}"
                                VerticalOptions="Center"/>
@@ -68,7 +63,7 @@
                     <VerticalStackLayout Spacing="0"
                                          IsVisible="{Binding HasSettlementTransfers}">
                         <Label Text="Payments needed"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="12"
                                TextColor="{StaticResource Gray400}"
                                Margin="0,0,0,8"
@@ -78,8 +73,8 @@
                                         SelectionMode="None">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:SettlementTransferResponse">
-                                    <Border BackgroundColor="#FFF8F4"
-                                            Stroke="#FFE0CC"
+                                    <Border BackgroundColor="{StaticResource SurfaceSubtle}"
+                                            Stroke="{StaticResource BorderSubtle}"
                                             StrokeThickness="1"
                                             StrokeShape="RoundRectangle 12"
                                             Padding="14,11"
@@ -87,7 +82,7 @@
                                         <Grid ColumnDefinitions="*,Auto,*,Auto" ColumnSpacing="6">
                                             <Label Grid.Column="0"
                                                    Text="{Binding FromUsername}"
-                                                   FontFamily="PoppinsSemiBold"
+                                                   FontFamily="InterSemiBold"
                                                    FontSize="13"
                                                    TextColor="{StaticResource BrokeyDarkBlue}"
                                                    VerticalOptions="Center"
@@ -95,19 +90,19 @@
                                             <Label Grid.Column="1"
                                                    Text="→"
                                                    FontSize="14"
-                                                   TextColor="{StaticResource BrokeyOrange}"
+                                                   TextColor="{StaticResource Primary}"
                                                    FontAttributes="Bold"
                                                    VerticalOptions="Center"/>
                                             <Label Grid.Column="2"
                                                    Text="{Binding ToUsername}"
-                                                   FontFamily="PoppinsSemiBold"
+                                                   FontFamily="InterSemiBold"
                                                    FontSize="13"
                                                    TextColor="{StaticResource BrokeyDarkBlue}"
                                                    VerticalOptions="Center"
                                                    LineBreakMode="TailTruncation"/>
                                             <Label Grid.Column="3"
                                                    Text="{Binding Amount, StringFormat='{0:F2}'}"
-                                                   FontFamily="PoppinsBold"
+                                                   FontFamily="Charter"
                                                    FontSize="14"
                                                    TextColor="{StaticResource BrokeyOrange}"
                                                    VerticalOptions="Center"/>
@@ -121,7 +116,7 @@
                     <!-- Balances -->
                     <VerticalStackLayout Spacing="0">
                         <Label Text="Balances"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="12"
                                TextColor="{StaticResource Gray400}"
                                Margin="0,0,0,8"
@@ -144,7 +139,7 @@
                                                     WidthRequest="38"
                                                     HeightRequest="38">
                                                 <Label Text="{Binding Username}"
-                                                       FontFamily="PoppinsBold"
+                                                       FontFamily="Charter"
                                                        FontSize="14"
                                                        TextColor="{StaticResource BrokeyDarkBlue}"
                                                        HorizontalOptions="Center"
@@ -155,21 +150,21 @@
 
                                             <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                                 <Label Text="{Binding Username}"
-                                                       FontFamily="PoppinsSemiBold"
+                                                       FontFamily="InterSemiBold"
                                                        FontSize="14"
                                                        TextColor="{StaticResource BrokeyDarkBlue}"
                                                        LineBreakMode="TailTruncation"/>
                                                 <HorizontalStackLayout Spacing="8">
                                                     <Label Text="{Binding TotalPaid, StringFormat='paid {0:F2}'}"
-                                                           FontFamily="PoppinsRegular"
+                                                           FontFamily="Inter"
                                                            FontSize="11"
                                                            TextColor="{StaticResource Gray500}"/>
                                                     <Label Text="·"
-                                                           FontFamily="PoppinsRegular"
+                                                           FontFamily="Inter"
                                                            FontSize="11"
                                                            TextColor="{StaticResource Gray400}"/>
                                                     <Label Text="{Binding TotalShare, StringFormat='share {0:F2}'}"
-                                                           FontFamily="PoppinsRegular"
+                                                           FontFamily="Inter"
                                                            FontSize="11"
                                                            TextColor="{StaticResource Gray500}"/>
                                                 </HorizontalStackLayout>
@@ -177,7 +172,7 @@
 
                                             <Label Grid.Column="2"
                                                    Text="{Binding NetBalance, StringFormat='{0:+0.00;-0.00;0.00}'}"
-                                                   FontFamily="PoppinsBold"
+                                                   FontFamily="Charter"
                                                    FontSize="16"
                                                    TextColor="{StaticResource BrokeyDarkBlue}"
                                                    VerticalOptions="Center"/>
@@ -194,9 +189,8 @@
             <!-- ── Expenses ── -->
             <HorizontalStackLayout Spacing="8">
                 <Label Text="Expenses"
-                       FontFamily="PoppinsBold"
+                       Style="{StaticResource SectionTitle}"
                        FontSize="17"
-                       TextColor="{StaticResource BrokeyDarkBlue}"
                        VerticalOptions="Center"/>
                 <Border BackgroundColor="{StaticResource BrokeyOrange}"
                         Stroke="Transparent"
@@ -205,7 +199,7 @@
                         IsVisible="{Binding HasExpenses}"
                         VerticalOptions="Center">
                     <Label Text="{Binding ExpensesCount}"
-                           FontFamily="PoppinsSemiBold"
+                           FontFamily="InterSemiBold"
                            FontSize="11"
                            TextColor="White"/>
                 </Border>
@@ -213,7 +207,7 @@
 
             <Label Text="No expenses yet. Add one above!"
                    IsVisible="{Binding IsExpensesEmpty}"
-                   FontFamily="PoppinsRegular"
+                   FontFamily="Inter"
                    FontSize="14"
                    TextColor="{StaticResource Gray400}"
                    HorizontalOptions="Center"
@@ -238,14 +232,14 @@
                                 <!-- Title + Amount -->
                                 <Grid ColumnDefinitions="*,Auto">
                                     <Label Text="{Binding Title}"
-                                           FontFamily="PoppinsSemiBold"
+                                           FontFamily="InterSemiBold"
                                            FontSize="15"
                                            TextColor="{StaticResource BrokeyDarkBlue}"
                                            VerticalOptions="Center"
                                            LineBreakMode="TailTruncation"/>
                                     <Label Grid.Column="1"
                                            Text="{Binding Amount, StringFormat='{0:F2}'}"
-                                           FontFamily="PoppinsBold"
+                                           FontFamily="Charter"
                                            FontSize="17"
                                            TextColor="{StaticResource BrokeyDarkBlue}"
                                            VerticalOptions="Center"/>
@@ -258,7 +252,7 @@
                                             StrokeShape="RoundRectangle 8"
                                             Padding="8,3">
                                         <Label Text="{Binding CategoryName}"
-                                               FontFamily="PoppinsSemiBold"
+                                               FontFamily="InterSemiBold"
                                                FontSize="11"
                                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                                     </Border>
@@ -267,7 +261,7 @@
                                            FontSize="13"
                                            VerticalOptions="Center"/>
                                     <Label Text="{Binding PaidByUsername, StringFormat='paid by {0}'}"
-                                           FontFamily="PoppinsRegular"
+                                           FontFamily="Inter"
                                            FontSize="12"
                                            TextColor="{StaticResource Gray500}"
                                            VerticalOptions="Center"/>
@@ -276,18 +270,18 @@
                                 <!-- Date + location indicator -->
                                 <HorizontalStackLayout Spacing="10">
                                     <Label Text="{Binding ExpenseDate, StringFormat='{0:dd MMM yyyy}'}"
-                                           FontFamily="PoppinsRegular"
+                                           FontFamily="Inter"
                                            FontSize="12"
                                            TextColor="{StaticResource Gray400}"/>
-                                    <Border BackgroundColor="#F0FFF4"
+                                    <Border BackgroundColor="#EAF7EE"
                                             Stroke="Transparent"
                                             StrokeShape="RoundRectangle 6"
                                             Padding="6,2"
                                             IsVisible="{Binding HasLocation}">
-                                        <Label Text="📍 Location"
-                                               FontFamily="PoppinsRegular"
+                                        <Label Text="Location tagged"
+                                               FontFamily="Inter"
                                                FontSize="10"
-                                               TextColor="#2E7D32"/>
+                                               TextColor="{StaticResource Success}"/>
                                     </Border>
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>
@@ -298,9 +292,8 @@
 
             <!-- ── Members ── -->
             <Label Text="Members"
-                   FontFamily="PoppinsBold"
+                   Style="{StaticResource SectionTitle}"
                    FontSize="17"
-                   TextColor="{StaticResource BrokeyDarkBlue}"
                    Margin="0,4,0,0"/>
 
             <CollectionView ItemsSource="{Binding Members}"
@@ -321,7 +314,7 @@
                                         HeightRequest="44"
                                         VerticalOptions="Center">
                                     <Label Text="{Binding Username}"
-                                           FontFamily="PoppinsBold"
+                                           FontFamily="Charter"
                                            FontSize="16"
                                            TextColor="{StaticResource BrokeyDarkBlue}"
                                            HorizontalOptions="Center"
@@ -332,11 +325,11 @@
 
                                 <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                     <Label Text="{Binding Username}"
-                                           FontFamily="PoppinsSemiBold"
+                                           FontFamily="InterSemiBold"
                                            FontSize="14"
                                            TextColor="{StaticResource BrokeyDarkBlue}"/>
                                     <Label Text="{Binding Email}"
-                                           FontFamily="PoppinsRegular"
+                                           FontFamily="Inter"
                                            FontSize="12"
                                            TextColor="{StaticResource Gray500}"
                                            LineBreakMode="TailTruncation"/>
@@ -346,7 +339,7 @@
                                             Padding="6,2"
                                             HorizontalOptions="Start">
                                         <Label Text="{Binding Role}"
-                                               FontFamily="PoppinsSemiBold"
+                                               FontFamily="InterSemiBold"
                                                FontSize="10"
                                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                                     </Border>
@@ -356,8 +349,8 @@
                                         Text="Remove"
                                         VerticalOptions="Center"
                                         BackgroundColor="#FDECEC"
-                                        TextColor="#A62828"
-                                        FontFamily="PoppinsSemiBold"
+                                        TextColor="{StaticResource Danger}"
+                                        FontFamily="InterSemiBold"
                                         FontSize="13"
                                         CornerRadius="10"
                                         Padding="12,8"
@@ -373,4 +366,4 @@
 
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
+</views:AnimatedContentPage>

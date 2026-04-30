@@ -2,7 +2,7 @@ using Brokey_APP.ViewModels;
 
 namespace Brokey_APP.Views;
 
-public partial class HomePage : ContentPage
+public partial class HomePage : AnimatedContentPage
 {
     public HomePage(HomeViewModel viewModel)
     {
@@ -10,4 +10,3 @@ public partial class HomePage : ContentPage
         BindingContext = viewModel;
     }
 }
-

@@ -16,17 +16,33 @@ public class TripsController : ControllerBase
     private readonly GroupRepository _groupRepository;
     private readonly GroupMemberRepository _groupMemberRepository;
     private readonly TripMemberRepository _tripMemberRepository;
+    private readonly ExpenseRepository _expenseRepository;
 
     public TripsController(
         TripRepository tripRepository,
         GroupRepository groupRepository,
         GroupMemberRepository groupMemberRepository,
-        TripMemberRepository tripMemberRepository)
+        TripMemberRepository tripMemberRepository,
+        ExpenseRepository expenseRepository)
     {
         _tripRepository = tripRepository;
         _groupRepository = groupRepository;
         _groupMemberRepository = groupMemberRepository;
         _tripMemberRepository = tripMemberRepository;
+        _expenseRepository = expenseRepository;
+    }
+
+    [HttpGet("recent-activities")]
+    public async Task<ActionResult<List<ExpenseResponse>>> GetRecentActivities(CancellationToken cancellationToken)
+    {
+        var userId = User.GetUserId();
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+
+        var expenses = await _expenseRepository.GetRecentExpensesForUserAsync(userId.Value, 10, cancellationToken);
+        return Ok(expenses.Select(MapExpense).ToList());
     }
 
     [HttpPost]
@@ -149,6 +165,44 @@ public class TripsController : ControllerBase
         return Ok(groups.Select(MapGroup).ToList());
     }
 
+    private static ExpenseResponse MapExpense(Expense expense)
+    {
+        return new ExpenseResponse
+        {
+            Id = expense.Id,
+            TripId = expense.TripId,
+            GroupId = expense.GroupId ?? 0,
+            GroupName = expense.Group?.Name ?? string.Empty,
+            Currency = expense.Group?.Trip.BaseCurrency ?? expense.Trip.BaseCurrency,
+            CategoryId = expense.CategoryId,
+            CategoryName = expense.Category.Name,
+            PaidByUserId = expense.PaidByUserId,
+            PaidByUsername = expense.PaidBy.Username,
+            Title = expense.Title,
+            Description = expense.Description,
+            Amount = expense.Amount,
+            Latitude = expense.Latitude,
+            Longitude = expense.Longitude,
+            ExpenseDate = expense.ExpenseDate,
+            CreatedAt = expense.CreatedAt,
+            Splits = expense.Splits
+                .OrderBy(s => s.User.Username)
+                .Select(s => new ExpenseSplitResponse
+                {
+                    UserId = s.UserId,
+                    Username = s.User.Username,
+                    Amount = s.Amount,
+                    PaidToUserId = expense.PaidByUserId,
+                    PaidToUsername = expense.PaidBy.Username,
+                    OwesAmount = s.UserId == expense.PaidByUserId ? 0 : s.Amount,
+                    IsPaidByUser = s.UserId == expense.PaidByUserId,
+                    IsSettled = s.IsSettled,
+                    SettledAt = s.SettledAt
+                })
+                .ToList()
+        };
+    }
+
     private static TripSummaryResponse MapTripSummary(Trip trip)
     {
         return new TripSummaryResponse
@@ -168,6 +222,15 @@ public class TripsController : ControllerBase
 
     private static TripDetailResponse MapTripDetail(Trip trip)
     {
+        var orderedGroups = trip.Groups
+            .OrderBy(g => g.Name)
+            .ToList();
+
+        var orderedMembers = trip.Members
+            .OrderByDescending(member => string.Equals(member.Role, "Owner", StringComparison.OrdinalIgnoreCase))
+            .ThenBy(member => member.User.Username)
+            .ToList();
+
         return new TripDetailResponse
         {
             Id = trip.Id,
@@ -175,11 +238,26 @@ public class TripsController : ControllerBase
             Description = trip.Description,
             BaseCurrency = trip.BaseCurrency,
             CreatedById = trip.CreatedById,
+            CreatedByUsername = trip.CreatedBy.Username,
             StartDate = trip.StartDate,
             EndDate = trip.EndDate,
             CreatedAt = trip.CreatedAt,
-            Groups = trip.Groups
-                .OrderBy(g => g.Name)
+            DurationDays = Math.Max(1, (trip.EndDate.Date - trip.StartDate.Date).Days + 1),
+            GroupCount = orderedGroups.Count,
+            MemberCount = orderedMembers.Count,
+            ExpenseCount = trip.Expenses.Count,
+            TotalExpenseAmount = decimal.Round(trip.Expenses.Sum(expense => expense.Amount), 2),
+            Members = orderedMembers
+                .Select(member => new TripMemberResponse
+                {
+                    UserId = member.UserId,
+                    Username = member.User.Username,
+                    Email = member.User.Email,
+                    Role = member.Role,
+                    JoinedAt = member.JoinedAt
+                })
+                .ToList(),
+            Groups = orderedGroups
                 .Select(MapGroup)
                 .ToList()
         };
@@ -194,7 +272,9 @@ public class TripsController : ControllerBase
             Name = group.Name,
             CreatedById = group.CreatedById,
             CreatedAt = group.CreatedAt,
-            MemberCount = group.Members.Count
+            MemberCount = group.Members.Count,
+            ExpenseCount = group.Expenses.Count,
+            TotalExpenseAmount = decimal.Round(group.Expenses.Sum(expense => expense.Amount), 2)
         };
     }
 }

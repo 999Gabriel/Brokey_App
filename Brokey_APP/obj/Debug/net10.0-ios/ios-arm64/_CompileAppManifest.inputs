@@ -1,6 +1,6 @@
 AppBundleName=Brokey_APP
 ApplicationDisplayVersion=1.0
-ApplicationId=-99gabriel.brokey
+ApplicationId=com.999gabriel.Brokey
 ApplicationTitle=Brokey Travel
 ApplicationVersion=1
 AppManifest=Platforms/iOS/Info.plist

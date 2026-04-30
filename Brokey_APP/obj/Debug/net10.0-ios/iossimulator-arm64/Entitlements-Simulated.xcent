@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>application-identifier</key>
-	<string>-99gabriel.brokey</string>
+	<string>com.999gabriel.Brokey</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>-99gabriel.brokey</string>
+		<string>com.999gabriel.Brokey</string>
 	</array>
 </dict>
 </plist>

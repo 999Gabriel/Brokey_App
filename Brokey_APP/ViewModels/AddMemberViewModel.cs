@@ -19,15 +19,10 @@ public partial class AddMemberViewModel : BaseViewModel, IQueryAttributable
     private string _usernameOrEmail = string.Empty;
 
     [ObservableProperty]
-    private string _selectedRole = "Member";
-
-    [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
     private bool _hasError;
-
-    public List<string> Roles { get; } = ["Member", "Admin"];
 
     public AddMemberViewModel(ITripService tripService)
     {
@@ -54,7 +49,7 @@ public partial class AddMemberViewModel : BaseViewModel, IQueryAttributable
     {
         if (GroupId <= 0 || string.IsNullOrWhiteSpace(UsernameOrEmail))
         {
-            ErrorMessage = "Enter a username or email.";
+            ErrorMessage = "Please enter a username or email.";
             HasError = true;
             return;
         }
@@ -67,7 +62,7 @@ public partial class AddMemberViewModel : BaseViewModel, IQueryAttributable
             await _tripService.AddGroupMemberAsync(GroupId, new AddGroupMemberRequest
             {
                 UsernameOrEmail = UsernameOrEmail.Trim(),
-                Role = SelectedRole
+                Role = "Member"
             });
 
             await Shell.Current.GoToAsync("..");

@@ -24,6 +24,7 @@ public class GroupRepository
         return await _context.Groups
             .AsNoTracking()
             .Include(g => g.Members)
+            .Include(g => g.Expenses)
             .Where(g => g.TripId == tripId)
             .OrderBy(g => g.Name)
             .ToListAsync(cancellationToken);

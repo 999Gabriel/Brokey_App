@@ -14,6 +14,7 @@ public partial class AddExpenseViewModel : BaseViewModel, IQueryAttributable
 
     // ── Query params ──
     [ObservableProperty] private int _groupId;
+    [ObservableProperty] private int _expenseId;
     [ObservableProperty] private string _groupName = string.Empty;
 
     // ── Form fields ──
@@ -73,6 +74,13 @@ public partial class AddExpenseViewModel : BaseViewModel, IQueryAttributable
             GroupId = groupId;
         }
 
+        if (query.TryGetValue("expenseId", out var rawExpenseId) &&
+            int.TryParse(rawExpenseId?.ToString(), out var expenseId))
+        {
+            ExpenseId = expenseId;
+            Title = "Edit Expense";
+        }
+
         if (query.TryGetValue("groupName", out var rawGroupName))
         {
             GroupName = Uri.UnescapeDataString(rawGroupName?.ToString() ?? string.Empty);
@@ -97,15 +105,47 @@ public partial class AddExpenseViewModel : BaseViewModel, IQueryAttributable
             await Task.WhenAll(categoriesTask, membersTask);
 
             Categories.Clear();
-            foreach (var cat in await categoriesTask)
+            var categories = await categoriesTask;
+            foreach (var cat in categories)
                 Categories.Add(cat);
 
+            var members = await membersTask;
             SplitMembers.Clear();
-            foreach (var member in await membersTask)
+            foreach (var member in members)
             {
                 SplitMembers.Add(new ExpenseSplitMemberInput(member.UserId, member.Username, member.Role, true));
                 if (member.UserId == _currentUserId)
                     IsCurrentUserAdmin = string.Equals(member.Role, "Admin", StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (ExpenseId > 0)
+            {
+                var expense = await _tripService.GetGroupExpenseByIdAsync(GroupId, ExpenseId);
+                TitleText = expense.Title;
+                Description = expense.Description ?? string.Empty;
+                AmountText = expense.Amount.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                ExpenseDate = expense.ExpenseDate;
+                SelectedCategory = Categories.FirstOrDefault(c => c.Id == expense.CategoryId);
+
+                if (expense.HasLocation)
+                {
+                    SelectedLatitude = (double?)expense.Latitude;
+                    SelectedLongitude = (double?)expense.Longitude;
+                    LocationName = $"{expense.Latitude:F4}, {expense.Longitude:F4}";
+                    HasLocation = true;
+                }
+
+                // Split logic
+                foreach (var m in SplitMembers) m.IsSelected = false;
+                foreach (var split in expense.Splits)
+                {
+                    var m = SplitMembers.FirstOrDefault(member => member.UserId == split.UserId);
+                    if (m != null)
+                    {
+                        m.IsSelected = true;
+                        m.ValueText = split.Amount.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                }
             }
 
             OnPropertyChanged(nameof(IsNotCurrentUserAdmin));
@@ -375,7 +415,15 @@ public partial class AddExpenseViewModel : BaseViewModel, IQueryAttributable
                     : null
             };
 
-            await _tripService.CreateExpenseAsync(GroupId, request);
+            if (ExpenseId > 0)
+            {
+                await _tripService.UpdateExpenseAsync(GroupId, ExpenseId, request);
+            }
+            else
+            {
+                await _tripService.CreateExpenseAsync(GroupId, request);
+            }
+
             await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex)

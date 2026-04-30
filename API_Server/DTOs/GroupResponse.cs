@@ -8,4 +8,6 @@ public class GroupResponse
     public int CreatedById { get; set; }
     public DateTime CreatedAt { get; set; }
     public int MemberCount { get; set; }
+    public int ExpenseCount { get; set; }
+    public decimal TotalExpenseAmount { get; set; }
 }

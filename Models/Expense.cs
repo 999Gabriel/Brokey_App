@@ -4,6 +4,7 @@ public class Expense
 {
     public int Id { get; set; }
     public int TripId { get; set; }
+    public int? GroupId { get; set; }
     public int PaidByUserId { get; set; }
     public int CategoryId { get; set; }
     public string Title { get; set; } = string.Empty;
@@ -16,6 +17,7 @@ public class Expense
 
     // Navigation properties
     public Trip Trip { get; set; } = null!;
+    public Group? Group { get; set; }
     public User PaidBy { get; set; } = null!;
     public ExpenseCategory Category { get; set; } = null!;
     public ICollection<ExpenseSplit> Splits { get; set; } = new List<ExpenseSplit>();

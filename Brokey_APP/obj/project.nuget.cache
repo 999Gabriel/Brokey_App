@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ge2icw82d1c=",
+  "dgSpecHash": "OcH/x4kZ1t4=",
   "success": true,
   "projectFilePath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
   "expectedPackageFiles": [
@@ -151,9 +151,9 @@
     "/Users/gabriel/.nuget/packages/xamarin.kotlinx.coroutines.core.jvm/1.10.2.1/xamarin.kotlinx.coroutines.core.jvm.1.10.2.1.nupkg.sha512",
     "/Users/gabriel/.nuget/packages/xamarin.kotlinx.serialization.core/1.9.0.1/xamarin.kotlinx.serialization.core.1.9.0.1.nupkg.sha512",
     "/Users/gabriel/.nuget/packages/xamarin.kotlinx.serialization.core.jvm/1.9.0.1/xamarin.kotlinx.serialization.core.jvm.1.9.0.1.nupkg.sha512",
-    "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.6/microsoft.netcore.app.ref.10.0.6.nupkg.sha512",
-    "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.6/microsoft.netcore.app.ref.10.0.6.nupkg.sha512",
-    "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.6/microsoft.netcore.app.ref.10.0.6.nupkg.sha512"
+    "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.7/microsoft.netcore.app.ref.10.0.7.nupkg.sha512",
+    "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.7/microsoft.netcore.app.ref.10.0.7.nupkg.sha512",
+    "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.7/microsoft.netcore.app.ref.10.0.7.nupkg.sha512"
   ],
   "logs": []
 }

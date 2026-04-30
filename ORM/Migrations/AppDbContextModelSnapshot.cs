@@ -248,6 +248,9 @@ namespace ORM.Migrations
                     b.Property<DateTime>("ExpenseDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("Latitude")
                         .HasPrecision(10, 7)
                         .HasColumnType("decimal(10,7)");
@@ -274,6 +277,8 @@ namespace ORM.Migrations
                     b.HasIndex("PaidByUserId");
 
                     b.HasIndex("TripId");
+
+                    b.HasIndex("GroupId", "ExpenseDate");
 
                     b.ToTable("Expenses");
                 });
@@ -582,6 +587,11 @@ namespace ORM.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Models.Group", "Group")
+                        .WithMany("Expenses")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Models.User", "PaidBy")
                         .WithMany("PaidExpenses")
                         .HasForeignKey("PaidByUserId")
@@ -595,6 +605,8 @@ namespace ORM.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Group");
 
                     b.Navigation("PaidBy");
 
@@ -713,6 +725,8 @@ namespace ORM.Migrations
 
             modelBuilder.Entity("Models.Group", b =>
                 {
+                    b.Navigation("Expenses");
+
                     b.Navigation("Members");
                 });
 

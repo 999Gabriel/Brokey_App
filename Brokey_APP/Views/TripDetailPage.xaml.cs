@@ -2,7 +2,7 @@ using Brokey_APP.ViewModels;
 
 namespace Brokey_APP.Views;
 
-public partial class TripDetailPage : ContentPage, IQueryAttributable
+public partial class TripDetailPage : AnimatedContentPage, IQueryAttributable
 {
     public TripDetailPage(TripDetailViewModel viewModel)
     {

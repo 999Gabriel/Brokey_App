@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:AnimatedContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Brokey_APP.Views"
              xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
              x:Class="Brokey_APP.Views.AddMemberPage"
              x:DataType="vm:AddMemberViewModel"
@@ -8,30 +9,51 @@
              BackgroundColor="{StaticResource BrokeyBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="25,20" Spacing="16">
-            <Label Text="{Binding GroupName, StringFormat='Invite to {0}'}"
-                   FontFamily="PoppinsBold"
-                   FontSize="24"
-                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+        <VerticalStackLayout Padding="22,18,22,20" Spacing="20">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{Binding GroupName, StringFormat='Invite to {0}'}"
+                       Style="{StaticResource PageTitle}" />
+                <Label Text="Enter the username or email of the person you want to add."
+                       Style="{StaticResource PageSubtitle}" />
+            </VerticalStackLayout>
 
             <Label Text="{Binding ErrorMessage}"
                    IsVisible="{Binding HasError}"
-                   TextColor="IndianRed"/>
+                   Style="{StaticResource InlineErrorText}" />
 
-            <Entry Placeholder="Username or email"
-                   Text="{Binding UsernameOrEmail}"/>
+            <!-- Input card -->
+            <Border StyleClass="SurfaceCard">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Username or email"
+                           FontFamily="InterSemiBold"
+                           FontSize="13"
+                           TextColor="{StaticResource Gray600}" />
+                    <Border StyleClass="SurfaceCardMuted">
+                        <Entry Placeholder="e.g. john or john@email.com"
+                               Text="{Binding UsernameOrEmail}"
+                               Keyboard="Email"
+                               ReturnType="Done"
+                               ReturnCommand="{Binding AddMemberCommand}" />
+                    </Border>
+                    <Label Text="They'll be added as a member and can view and add expenses."
+                           FontFamily="Inter"
+                           FontSize="12"
+                           TextColor="{StaticResource Gray400}" />
+                </VerticalStackLayout>
+            </Border>
 
-            <Picker Title="Role"
-                    ItemsSource="{Binding Roles}"
-                    SelectedItem="{Binding SelectedRole}"/>
+            <!-- Actions -->
+            <VerticalStackLayout Spacing="10">
+                <Button Text="Add member"
+                        Command="{Binding AddMemberCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}" />
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource SecondaryButton}" />
+            </VerticalStackLayout>
 
-            <Button Text="Add Member"
-                    Command="{Binding AddMemberCommand}"/>
-
-            <Button Text="Cancel"
-                    Command="{Binding CancelCommand}"
-                    BackgroundColor="#E8EEF5"
-                    TextColor="{StaticResource BrokeyDarkBlue}"/>
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
+</views:AnimatedContentPage>

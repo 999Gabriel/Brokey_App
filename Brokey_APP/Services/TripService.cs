@@ -28,6 +28,14 @@ public class TripService : ITripService
         return await response.Content.ReadFromJsonAsync<List<TripSummaryResponse>>(JsonOptions) ?? [];
     }
 
+    public async Task<IReadOnlyList<ExpenseResponse>> GetRecentActivitiesAsync()
+    {
+        var response = await _httpClient.GetAsync("api/trips/recent-activities");
+        await EnsureSuccessAsync(response, "Failed to load recent activities.");
+
+        return await response.Content.ReadFromJsonAsync<List<ExpenseResponse>>(JsonOptions) ?? [];
+    }
+
     public async Task<TripDetailResponse> CreateTripAsync(CreateTripRequest request)
     {
         var response = await _httpClient.PostAsJsonAsync("api/trips", request);

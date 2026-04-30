@@ -2,7 +2,7 @@ using Brokey_APP.ViewModels;
 
 namespace Brokey_APP.Views;
 
-public partial class TripsPage : ContentPage
+public partial class TripsPage : AnimatedContentPage
 {
     public TripsPage(TripsViewModel viewModel)
     {

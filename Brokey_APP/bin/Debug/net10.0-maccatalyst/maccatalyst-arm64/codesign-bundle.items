@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <_CodesignBundle Include="Brokey Travel.app">
+    <_CodesignBundle Include="Brokey_APP.app">
       <EnableCodeSigning>true</EnableCodeSigning>
-      <CodesignSigningKey>-</CodesignSigningKey>
+      <CodesignSigningKey>1EB6E25D96E097E2D87A797FE0D163724E3F9AF1</CodesignSigningKey>
       <CodesignEntitlements>/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/obj/Debug/net10.0-maccatalyst/maccatalyst-arm64/Entitlements.xcent</CodesignEntitlements>
       <CodesignUseSecureTimestamp></CodesignUseSecureTimestamp>
       <CodesignAllocate>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate</CodesignAllocate>

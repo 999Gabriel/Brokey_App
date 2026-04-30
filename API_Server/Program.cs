@@ -45,6 +45,7 @@ builder.Services.AddScoped<TripRepository>();
 builder.Services.AddScoped<GroupRepository>();
 builder.Services.AddScoped<GroupMemberRepository>();
 builder.Services.AddScoped<TripMemberRepository>();
+builder.Services.AddScoped<ExpenseRepository>();
 
 // ── Controllers + Swagger ──
 builder.Services.AddControllers();

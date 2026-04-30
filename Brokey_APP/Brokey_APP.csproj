@@ -2,17 +2,9 @@
 
     <PropertyGroup>
         <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
-        <!-- Xcode version check disabled: installed workloads (26.2) were built for Xcode 26.2 but Xcode 26.4 is installed.
-             Microsoft hasn't released 26.4-compatible workloads yet. Remove this once they do. -->
+
         <ValidateXcodeVersion>false</ValidateXcodeVersion>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
-
-        <!-- Note for MacCatalyst:
-        The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
-        When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
-        The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
-        either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
-        <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
         <OutputType>Exe</OutputType>
         <RootNamespace>Brokey_APP</RootNamespace>
@@ -21,47 +13,43 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
-        <!-- Display name -->
         <ApplicationTitle>Brokey Travel</ApplicationTitle>
 
-        <!-- App Identifier -->
-        <ApplicationId>-99gabriel.brokey</ApplicationId>
+        <ApplicationId>com.999gabriel.Brokey</ApplicationId>
 
-        <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
-        <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
         <WindowsPackageType>None</WindowsPackageType>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
-        <CodesignKey Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">Apple Development</CodesignKey>
-        <CodesignProvision Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">iOS Team Provisioning Profile: -99gabriel.brokey</CodesignProvision>
         <IPhoneSdkVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">iphoneos</IPhoneSdkVersion>
         <RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">ios-arm64</RuntimeIdentifier>
+
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    </PropertyGroup>
 
+    <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+        <_AppBundleName>Brokey_APP</_AppBundleName>
+    </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <CodesignKey>Apple Development: 999gabriel.winkler@gmail.com (H7RFVK8SWW)</CodesignKey>
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\brokey_travel_icon.png" />
+        <MauiIcon Include="Resources\AppIcon\brokey_appicon.png"/>
 
-        <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
-        <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
-        <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
 
-        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 

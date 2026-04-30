@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:AnimatedContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Brokey_APP.Views"
              x:Class="Brokey_APP.Views.ImpressumPage"
              Title="Impressum"
              BackgroundColor="{StaticResource BrokeyBackground}">
@@ -15,7 +16,7 @@
                        Aspect="AspectFit"
                        HorizontalOptions="Center"/>
                 <Label Text="Impressum"
-                       FontFamily="PoppinsBold"
+                       FontFamily="Charter"
                        FontSize="26"
                        TextColor="{StaticResource BrokeyDarkBlue}"
                        HorizontalOptions="Center"/>
@@ -34,11 +35,11 @@
                     <!-- Project Info -->
                     <VerticalStackLayout Spacing="6">
                         <Label Text="Project"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="16"
                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                         <Label Text="Brokey — Your Travel Expense Companion"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="14"
                                TextColor="{StaticResource Gray600}"/>
                     </VerticalStackLayout>
@@ -48,11 +49,11 @@
                     <!-- Developer -->
                     <VerticalStackLayout Spacing="6">
                         <Label Text="Developer"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="16"
                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                         <Label Text="Gabriel Winkler"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="14"
                                TextColor="{StaticResource Gray600}"/>
                     </VerticalStackLayout>
@@ -62,11 +63,11 @@
                     <!-- Class -->
                     <VerticalStackLayout Spacing="6">
                         <Label Text="Class"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="16"
                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                         <Label Text="4BHWII"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="14"
                                TextColor="{StaticResource Gray600}"/>
                     </VerticalStackLayout>
@@ -76,21 +77,21 @@
                     <!-- School -->
                     <VerticalStackLayout Spacing="6">
                         <Label Text="School"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="16"
                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                         <Label Text="HTL Anichstraße"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="14"
                                TextColor="{StaticResource Gray600}"/>
                         <Label Text="Anichstraße 26-28"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="13"
                                TextColor="{StaticResource Gray500}"/>
-                        <Label Text="6020 Innsbruck, Austria 🇦🇹"
-                               FontFamily="PoppinsRegular"
-                               FontSize="13"
-                               TextColor="{StaticResource Gray500}"/>
+                        <Label Text="6020 Innsbruck, Austria"
+                                FontFamily="Inter"
+                                FontSize="13"
+                                TextColor="{StaticResource Gray500}"/>
                     </VerticalStackLayout>
 
                     <BoxView HeightRequest="1" Color="{StaticResource Gray100}"/>
@@ -98,11 +99,11 @@
                     <!-- Year -->
                     <VerticalStackLayout Spacing="6">
                         <Label Text="Year"
-                               FontFamily="PoppinsSemiBold"
+                               FontFamily="InterSemiBold"
                                FontSize="16"
                                TextColor="{StaticResource BrokeyDarkBlue}"/>
                         <Label Text="2025 / 2026"
-                               FontFamily="PoppinsRegular"
+                               FontFamily="Inter"
                                FontSize="14"
                                TextColor="{StaticResource Gray600}"/>
                     </VerticalStackLayout>
@@ -111,8 +112,8 @@
             </Border>
 
             <!-- Footer -->
-            <Label Text="Made with ❤️ in Innsbruck"
-                   FontFamily="PoppinsRegular"
+            <Label Text="Made in Innsbruck"
+                   FontFamily="Inter"
                    FontSize="13"
                    TextColor="{StaticResource Gray400}"
                    HorizontalOptions="Center"
@@ -120,5 +121,4 @@
 
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
-
+</views:AnimatedContentPage>

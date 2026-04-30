@@ -2,7 +2,7 @@ using Brokey_APP.ViewModels;
 
 namespace Brokey_APP.Views;
 
-public partial class ProfilePage : ContentPage
+public partial class ProfilePage : AnimatedContentPage
 {
     public ProfilePage(ProfileViewModel viewModel)
     {
@@ -10,4 +10,3 @@ public partial class ProfilePage : ContentPage
         BindingContext = viewModel;
     }
 }
-

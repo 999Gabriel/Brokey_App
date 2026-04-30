@@ -5,6 +5,7 @@ namespace Brokey_APP.Services;
 public interface ITripService
 {
     Task<IReadOnlyList<TripSummaryResponse>> GetTripsAsync();
+    Task<IReadOnlyList<ExpenseResponse>> GetRecentActivitiesAsync();
     Task<TripDetailResponse> CreateTripAsync(CreateTripRequest request);
     Task<TripDetailResponse> GetTripAsync(int tripId);
     Task<IReadOnlyList<GroupResponse>> GetGroupsAsync(int tripId);

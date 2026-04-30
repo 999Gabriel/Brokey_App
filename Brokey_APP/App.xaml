@@ -2,6 +2,8 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Brokey_APP"
+             xmlns:converters="clr-namespace:Brokey_APP.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Brokey_APP.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +11,9 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

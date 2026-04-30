@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:AnimatedContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Brokey_APP.Views"
              xmlns:vm="clr-namespace:Brokey_APP.ViewModels"
              x:Class="Brokey_APP.Views.CreateTripPage"
              x:DataType="vm:CreateTripViewModel"
@@ -8,108 +9,75 @@
              BackgroundColor="{StaticResource BrokeyBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="25,20" Spacing="20">
-            <Label Text="Plan a new trip"
-                   FontFamily="PoppinsBold"
-                   FontSize="24"
-                   TextColor="{StaticResource BrokeyDarkBlue}"/>
+        <VerticalStackLayout Padding="22,18,22,20" Spacing="12">
+            <Label Text="Plan a new trip" Style="{StaticResource PageTitle}" />
+            <Label Text="Set the basics now and adjust details later."
+                   Style="{StaticResource PageSubtitle}" />
 
             <Label Text="{Binding ErrorMessage}"
                    IsVisible="{Binding HasError}"
-                   TextColor="IndianRed"/>
+                   Style="{StaticResource InlineErrorText}" />
 
-            <!-- Trip Name -->
-            <VerticalStackLayout Spacing="6">
-                <Label Text="Trip Name"
-                       FontFamily="PoppinsSemiBold"
-                       FontSize="13"
-                       TextColor="{StaticResource BrokeyDarkBlue}"/>
-                <Border BackgroundColor="{StaticResource White}"
-                        Stroke="Transparent"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="14,10">
-                    <Entry Placeholder="e.g. Italy Summer 2026"
-                           Text="{Binding Name}"/>
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Description -->
-            <VerticalStackLayout Spacing="6">
-                <Label Text="Description"
-                       FontFamily="PoppinsSemiBold"
-                       FontSize="13"
-                       TextColor="{StaticResource BrokeyDarkBlue}"/>
-                <Border BackgroundColor="{StaticResource White}"
-                        Stroke="Transparent"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="14,10">
-                    <Editor Placeholder="Optional notes about your trip"
-                            Text="{Binding Description}"
-                            AutoSize="TextChanges"
-                            MinimumHeightRequest="80"/>
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Base Currency -->
-            <VerticalStackLayout Spacing="6">
-                <Label Text="Base Currency"
-                       FontFamily="PoppinsSemiBold"
-                       FontSize="13"
-                       TextColor="{StaticResource BrokeyDarkBlue}"/>
-                <Border BackgroundColor="{StaticResource White}"
-                        Stroke="Transparent"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="14,4">
-                    <Picker Title="Select currency"
-                            ItemsSource="{Binding Currencies}"
-                            SelectedItem="{Binding BaseCurrency}"/>
-                </Border>
-            </VerticalStackLayout>
-
-            <!-- Dates -->
-            <VerticalStackLayout Spacing="6">
-                <Label Text="Dates"
-                       FontFamily="PoppinsSemiBold"
-                       FontSize="13"
-                       TextColor="{StaticResource BrokeyDarkBlue}"/>
-                <Border BackgroundColor="{StaticResource White}"
-                        Stroke="Transparent"
-                        StrokeShape="RoundRectangle 14"
-                        Padding="14,10">
-                    <VerticalStackLayout Spacing="10">
-                        <Grid ColumnDefinitions="60,*" ColumnSpacing="12">
-                            <Label Text="Start"
-                                   VerticalOptions="Center"
-                                   FontFamily="PoppinsRegular"
-                                   FontSize="13"
-                                   TextColor="{StaticResource Gray500}"/>
-                            <DatePicker Grid.Column="1"
-                                        Date="{Binding StartDate}"/>
-                        </Grid>
-                        <BoxView HeightRequest="1"
-                                 BackgroundColor="#EEEEEE"
-                                 Margin="0,2"/>
-                        <Grid ColumnDefinitions="60,*" ColumnSpacing="12">
-                            <Label Text="End"
-                                   VerticalOptions="Center"
-                                   FontFamily="PoppinsRegular"
-                                   FontSize="13"
-                                   TextColor="{StaticResource Gray500}"/>
-                            <DatePicker Grid.Column="1"
-                                        Date="{Binding EndDate}"/>
-                        </Grid>
+            <Border StyleClass="SurfaceCard">
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Trip name" Style="{StaticResource CardTitle}" FontSize="13" />
+                        <Border StyleClass="SurfaceCardMuted">
+                            <Entry Placeholder="e.g. Italy Summer 2026"
+                                   Text="{Binding Name}" />
+                        </Border>
                     </VerticalStackLayout>
-                </Border>
-            </VerticalStackLayout>
 
-            <Button Text="Create Trip"
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Description" Style="{StaticResource CardTitle}" FontSize="13" />
+                        <Border StyleClass="SurfaceCardMuted">
+                            <Editor Placeholder="Optional notes about your trip"
+                                    Text="{Binding Description}"
+                                    AutoSize="TextChanges"
+                                    MinimumHeightRequest="96" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Base currency" Style="{StaticResource CardTitle}" FontSize="13" />
+                        <Border StyleClass="SurfaceCardMuted">
+                            <Picker Title="Select currency"
+                                    ItemsSource="{Binding Currencies}"
+                                    SelectedItem="{Binding BaseCurrency}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Dates" Style="{StaticResource CardTitle}" FontSize="13" />
+                        <Border StyleClass="SurfaceCardMuted">
+                            <VerticalStackLayout Spacing="10">
+                                <Grid ColumnDefinitions="52,*" ColumnSpacing="10">
+                                    <Label Text="Start"
+                                           VerticalOptions="Center"
+                                           Style="{StaticResource MutedText}" />
+                                    <DatePicker Grid.Column="1"
+                                                Date="{Binding StartDate}" />
+                                </Grid>
+                                <BoxView HeightRequest="1" Color="{StaticResource BorderSubtle}" />
+                                <Grid ColumnDefinitions="52,*" ColumnSpacing="10">
+                                    <Label Text="End"
+                                           VerticalOptions="Center"
+                                           Style="{StaticResource MutedText}" />
+                                    <DatePicker Grid.Column="1"
+                                                Date="{Binding EndDate}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Create trip"
                     Command="{Binding SaveTripCommand}"
-                    Margin="0,8,0,0"/>
-
+                    Margin="0,2,0,0" />
             <Button Text="Cancel"
                     Command="{Binding CancelCommand}"
-                    BackgroundColor="#E8EEF5"
-                    TextColor="{StaticResource BrokeyDarkBlue}"/>
+                    Style="{StaticResource SecondaryButton}" />
         </VerticalStackLayout>
     </ScrollView>
-</ContentPage>
+</views:AnimatedContentPage>
