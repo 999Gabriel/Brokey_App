@@ -23,8 +23,6 @@
         <WindowsPackageType>None</WindowsPackageType>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
-        <IPhoneSdkVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">iphoneos</IPhoneSdkVersion>
-        <RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">ios-arm64</RuntimeIdentifier>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
@@ -52,6 +50,15 @@
 
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
+
+    <!-- Re-sign all dylibs after build for iossimulator — macOS 26 dyld rejects stale adhoc signatures -->
+    <Target Name="ResignSimulatorBundle"
+            AfterTargets="Codesign"
+            Condition="$(RuntimeIdentifier.StartsWith('iossimulator'))">
+        <Exec Command="find &quot;$(AppBundleDir)&quot; -name &quot;*.dylib&quot; -exec codesign --force --sign - --timestamp=none {} \;" />
+        <Exec Command="codesign --force --sign - --timestamp=none &quot;$(AppBundleDir)/$(AssemblyName)&quot;" />
+        <Exec Command="codesign --force --sign - --timestamp=none &quot;$(AppBundleDir)&quot;" />
+    </Target>
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
