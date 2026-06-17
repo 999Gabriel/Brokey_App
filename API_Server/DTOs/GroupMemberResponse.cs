@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort der Gruppen-Mitglieder-Endpoints (GET/POST /api/groups/{id}/members) – ein Gruppenmitglied (UserId, Username, Email, Rolle).
 public class GroupMemberResponse
 {
     public int UserId { get; set; }

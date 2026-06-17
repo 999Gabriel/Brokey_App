@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort von POST/GET /api/trips/{id} – vollständige Trip-Details inkl. Members, Groups, Dauer und Gesamtausgaben.
 public class TripDetailResponse
 {
     public int Id { get; set; }

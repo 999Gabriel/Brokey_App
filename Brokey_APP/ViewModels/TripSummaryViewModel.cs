@@ -6,10 +6,16 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Brokey_APP.ViewModels;
 
+// ViewModel der Trip-Zusammenfassungs-Seite. Erreichbar von der Trip-Detailseite (per tripId).
+// Zeigt einen kompakten Überblick über eine Reise: Zeitraum/Dauer, Gesamtkosten, Anzahl Mitglieder,
+// Gruppen und Ausgaben sowie die Gruppen- und Mitgliederlisten.
+// Implementiert IQueryAttributable, um die tripId aus der Navigation zu empfangen.
 public partial class TripSummaryViewModel : BaseViewModel, IQueryAttributable
 {
+    // Per DI eingespeister Trip-Service für die HTTP-Aufrufe.
     private readonly ITripService _tripService;
 
+    // Id des Trips, kommt als Query-Parameter über die Navigation rein.
     [ObservableProperty]
     private int _tripId;
 
@@ -28,6 +34,8 @@ public partial class TripSummaryViewModel : BaseViewModel, IQueryAttributable
     [ObservableProperty]
     private DateTime _endDate = DateTime.Today;
 
+    // Statistik-Werte für die Übersichts-Kacheln: Reisedauer in Tagen, Gesamtkosten, Anzahl
+    // Mitglieder, Gruppen und Ausgaben. Werden in LoadAsync aus den API-Daten befüllt.
     [ObservableProperty]
     private int _durationDays;
 
@@ -43,15 +51,19 @@ public partial class TripSummaryViewModel : BaseViewModel, IQueryAttributable
     [ObservableProperty]
     private int _expenseCount;
 
+    // Fehlertext + Sichtbarkeits-Flag für die Fehleranzeige.
     [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
     private bool _hasError;
 
+    // Gruppen- und Mitgliederlisten der Reise; an CollectionViews im XAML gebunden.
     public ObservableCollection<GroupResponse> Groups { get; } = [];
     public ObservableCollection<TripMemberResponse> Members { get; } = [];
 
+    // Berechnete Property: steuert, ob die Gruppenliste oder ein Leer-Hinweis gezeigt wird.
+    // Wird nach dem Befüllen manuell per OnPropertyChanged benachrichtigt (siehe LoadAsync).
     public bool HasGroups => Groups.Count > 0;
 
     public TripSummaryViewModel(ITripService tripService)
@@ -60,6 +72,8 @@ public partial class TripSummaryViewModel : BaseViewModel, IQueryAttributable
         Title = "Summary";
     }
 
+    // IQueryAttributable: Liest beim Navigieren die tripId aus der Route (von TripDetailViewModel
+    // .OpenSummaryAsync gesetzt) und startet bei Erfolg den Ladevorgang.
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.TryGetValue("tripId", out var rawTripId) &&
@@ -70,6 +84,9 @@ public partial class TripSummaryViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
+    // RelayCommand: Lädt den Trip über TripService.GetTripAsync (GET /api/trips/{id}) und schreibt
+    // alle Übersichts-Properties (Name, Zeitraum, Dauer, Gesamtkosten, Zähler) ins ViewModel.
+    // Danach werden die Collections Groups und Members neu befüllt und HasGroups benachrichtigt.
     [RelayCommand]
     private async Task LoadAsync()
     {

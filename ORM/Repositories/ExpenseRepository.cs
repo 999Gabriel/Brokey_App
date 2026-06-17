@@ -12,6 +12,8 @@ public class ExpenseRepository
         _context = context;
     }
 
+    // Gibt alle Expense-Kategorien alphabetisch sortiert zurück (aus vorgeseederter Tabelle).
+    // → GetExpenseCategories-Endpoint → AddExpenseViewModel.Categories.
     public async Task<List<ExpenseCategory>> GetCategoriesAsync(CancellationToken cancellationToken = default)
     {
         return await _context.ExpenseCategories
@@ -20,6 +22,8 @@ public class ExpenseRepository
             .ToListAsync(cancellationToken);
     }
 
+    // Lädt alle Ausgaben einer Gruppe mit allen Navigation-Properties (Category, PaidBy, Splits, User).
+    // Sortiert: neuestes Datum zuerst, bei Gleichstand nach Erstellungszeit.
     public async Task<List<Expense>> GetGroupExpensesAsync(int groupId, CancellationToken cancellationToken = default)
     {
         return await BuildExpenseProjectionQuery()
@@ -30,6 +34,8 @@ public class ExpenseRepository
             .ToListAsync(cancellationToken);
     }
 
+    // Lädt eine einzelne Ausgabe anhand von Group- und Expense-ID inkl. aller Navigation-Properties.
+    // → ExpenseDetailViewModel, AddExpenseViewModel (Edit-Modus).
     public async Task<Expense?> GetGroupExpenseByIdAsync(
         int groupId,
         int expenseId,
@@ -40,6 +46,9 @@ public class ExpenseRepository
             .FirstOrDefaultAsync(e => e.GroupId == groupId && e.Id == expenseId, cancellationToken);
     }
 
+    // Erstellt eine neue Ausgabe inkl. ExpenseSplit-Einträge in einer DB-Transaktion.
+    // Berechnet die Split-Beträge über BuildSplitEntities, speichert die Ausgabe und liest sie neu ein.
+    // Gibt null zurück, wenn keine Teilnehmer vorhanden sind.
     public async Task<Expense?> CreateGroupExpenseAsync(
         int tripId,
         int groupId,
@@ -83,6 +92,8 @@ public class ExpenseRepository
         return await GetGroupExpenseByIdAsync(groupId, expense.Id, cancellationToken);
     }
 
+    // Aktualisiert eine bestehende Ausgabe: löscht alle alten Splits und erstellt neue.
+    // Gibt null zurück, wenn die Ausgabe nicht gefunden wurde oder keine Teilnehmer gesetzt sind.
     public async Task<Expense?> UpdateGroupExpenseAsync(
         int groupId,
         int expenseId,
@@ -129,6 +140,7 @@ public class ExpenseRepository
         return await GetGroupExpenseByIdAsync(groupId, expense.Id, cancellationToken);
     }
 
+    // Löscht eine Ausgabe; durch Cascade in der DB werden auch alle zugehörigen Splits gelöscht.
     public async Task<bool> DeleteGroupExpenseAsync(
         int groupId,
         int expenseId,
@@ -147,6 +159,8 @@ public class ExpenseRepository
         return true;
     }
 
+    // Markiert alle offenen Splits zwischen zwei Usern (fromUser schuldet toUser) als bezahlt (IsSettled=true).
+    // Gibt die Anzahl der markierten Splits zurück; 0 wenn keine offenen Schulden gefunden wurden.
     public async Task<int> MarkSplitSettledAsync(
         int groupId,
         int fromUserId,
@@ -179,6 +193,8 @@ public class ExpenseRepository
         return unsettledSplits.Count;
     }
 
+    // Gibt die neuesten `count` Ausgaben aller Trips zurück, an denen der User beteiligt ist.
+    // → TripsController.GetRecentActivities → HomeViewModel.RecentActivities.
     public async Task<List<Expense>> GetRecentExpensesForUserAsync(int userId, int count = 10, CancellationToken cancellationToken = default)
     {
         return await BuildExpenseProjectionQuery()
@@ -189,6 +205,8 @@ public class ExpenseRepository
             .ToListAsync(cancellationToken);
     }
 
+    // Basis-Query mit allen nötigen Includes (Trip, Group, PaidBy, Category, Splits+User).
+    // Wird von GetGroupExpensesAsync, GetGroupExpenseByIdAsync und GetRecentExpensesForUserAsync wiederverwendet.
     private IQueryable<Expense> BuildExpenseProjectionQuery()
     {
         return _context.Expenses
@@ -201,6 +219,9 @@ public class ExpenseRepository
                 .ThenInclude(s => s.User);
     }
 
+    // Erstellt die ExpenseSplit-Objekte für eine Ausgabe.
+    // Ohne splitAmountsByUser: gleiche Aufteilung per CalculateSplitAmounts.
+    // Mit splitAmountsByUser: direkte Zuweisung der vorberechneten Beträge + Rundungskorrektur.
     private static List<ExpenseSplit> BuildSplitEntities(
         decimal amount,
         IReadOnlyCollection<int> splitUserIds,
@@ -255,6 +276,8 @@ public class ExpenseRepository
             .ToList();
     }
 
+    // Berechnet gleiche Anteile (totalAmount / n) und fügt eine etwaige Cent-Differenz beim ersten Teilnehmer hinzu.
+    // Beispiel: 10€ / 3 = [3.34, 3.33, 3.33].
     private static List<decimal> CalculateSplitAmounts(decimal totalAmount, int participantCount)
     {
         var safeParticipantCount = Math.Max(1, participantCount);

@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Teil von GroupSettlementResponse – ein nötiger Ausgleichstransfer "User A zahlt User B den Betrag X".
 public class SettlementTransferResponse
 {
     public int FromUserId { get; set; }

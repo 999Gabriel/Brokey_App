@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort von GET /api/trips – kompakte Trip-Übersicht für die Trips-Liste (Name, Zeitraum, Anzahlen).
 public class TripSummaryResponse
 {
     public int Id { get; set; }

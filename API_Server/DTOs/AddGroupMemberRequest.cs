@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API_Server.DTOs;
 
+// Request-Body für POST /api/groups/{id}/members – User (per Username/E-Mail) und Rolle zum Hinzufügen zur Gruppe.
 public class AddGroupMemberRequest
 {
     [Required]

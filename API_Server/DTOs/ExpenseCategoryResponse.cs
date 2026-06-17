@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort von GET /api/groups/{id}/expense-categories – eine vorgeseedete Ausgabenkategorie (Id, Name, Icon).
 public class ExpenseCategoryResponse
 {
     public int Id { get; set; }

@@ -3,13 +3,13 @@ using UIKit;
 
 namespace Brokey_APP;
 
+// Mac-Catalyst-spezifischer Start-Code (generierter Bootstrap): Programm-Einstiegstor unter macOS.
 public class Program
 {
-    // This is the main entry point of the application.
+    // Echter Programmeinstieg (main): übergibt die Kontrolle an UIKit und benennt das AppDelegate.
     static void Main(string[] args)
     {
-        // if you want to use a different Application Delegate class from "AppDelegate"
-        // you can specify it here.
+        // Standard-Delegate "AppDelegate" wird verwendet; hier könnte man ein abweichendes angeben.
         UIApplication.Main(args, null, typeof(AppDelegate));
     }
 }

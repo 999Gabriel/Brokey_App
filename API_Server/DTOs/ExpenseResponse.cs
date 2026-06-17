@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort der Expense-Endpoints (GET/POST/PUT /api/groups/{id}/expenses, recent-activities) – eine Ausgabe inkl. aller Splits.
 public class ExpenseResponse
 {
     public int Id { get; set; }

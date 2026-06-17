@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brokey – Architektur &amp; Datenfluss</title>
+<style>
+  /* ---- Brokey-Fonts (aus Resources/Fonts) ---- */
+  @font-face { font-family:'Inter'; src:url("Brokey_APP/Resources/Fonts/Inter-Regular.ttf"); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Inter'; src:url("Brokey_APP/Resources/Fonts/Inter-Medium.ttf"); font-weight:500; font-display:swap; }
+  @font-face { font-family:'Inter'; src:url("Brokey_APP/Resources/Fonts/Inter-SemiBold.ttf"); font-weight:600; font-display:swap; }
+  @font-face { font-family:'Inter'; src:url("Brokey_APP/Resources/Fonts/Inter-Bold.ttf"); font-weight:700; font-display:swap; }
+  @font-face { font-family:'Charter'; src:url("Brokey_APP/Resources/Fonts/Charter Regular.ttf"); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Charter'; src:url("Brokey_APP/Resources/Fonts/Charter Bold.ttf"); font-weight:700; font-display:swap; }
+  @font-face { font-family:'JetBrains Mono'; src:url("Brokey_APP/Resources/Fonts/jetbrains-mono.regular.ttf"); font-weight:400; font-display:swap; }
+
+  :root {
+    /* Brokey-Palette (Colors.xaml) */
+    --primary:#7C3AED; --primary-dark:#5B21B6;
+    --bg:#FCFAFF; --surface:#FFFFFF; --surface-subtle:#F7F2FF;
+    --border:#DED2F7; --border-soft:#EEEAF7;
+    --ink:#101014; --ink-soft:#1C1B22;
+    --gray400:#B8B0C9; --gray500:#766F88; --gray600:#4B4658;
+    --success:#15803D; --danger:#B42318;
+    /* Knoten-Typen */
+    --ui:#7C3AED; --vm:#5B21B6; --service:#15803D; --controller:#B45309;
+    --repo:#B42318; --context:#0E7490; --model:#4B4658; --db:#766F88; --infra:#9D94B3;
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --serif:'Charter','Georgia','Times New Roman',serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; }
+  body {
+    background:var(--bg); color:var(--ink); font-family:var(--font);
+    display:flex; flex-direction:column; overflow:hidden; -webkit-font-smoothing:antialiased;
+  }
+
+  header {
+    padding:14px 24px; border-bottom:1px solid var(--border);
+    display:flex; align-items:baseline; gap:20px; flex-wrap:wrap; background:var(--surface);
+  }
+  header h1 { font-family:var(--serif); font-size:22px; font-weight:700; letter-spacing:.3px; color:var(--ink); }
+  header h1 em { font-style:normal; color:var(--primary); }
+  .hint { color:var(--gray500); font-size:13px; }
+  .toolbar { display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-left:auto; }
+  .toolbar label { font-size:13px; color:var(--gray600); display:flex; align-items:center; gap:6px; }
+  select, input[type=text] {
+    background:var(--surface); color:var(--ink); border:1px solid var(--border);
+    border-radius:10px; padding:7px 11px; font-size:13px; font-family:var(--font); outline:none;
+  }
+  select:focus, input:focus { border-color:var(--primary); }
+  button {
+    background:var(--surface); color:var(--gray600); border:1px solid var(--border);
+    border-radius:10px; padding:7px 14px; font-size:13px; font-family:var(--font); font-weight:600;
+    cursor:pointer; transition:.15s;
+  }
+  button:hover { border-color:var(--primary); color:var(--primary); }
+  button.primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+  button.primary:hover { background:var(--primary-dark); color:#fff; }
+
+  .legend { display:flex; gap:16px; flex-wrap:wrap; padding:9px 24px; border-bottom:1px solid var(--border); background:var(--surface-subtle); }
+  .legend span { font-size:12px; color:var(--gray600); display:flex; align-items:center; gap:6px; }
+  .legend i { width:10px; height:10px; border-radius:3px; display:inline-block; }
+
+  .main { flex:1; display:flex; min-height:0; }
+  .stage { flex:1; overflow:auto; position:relative; }
+  #canvasWrap { position:relative; }
+  #edges { position:absolute; top:0; left:0; pointer-events:none; }
+
+  .colhead { position:absolute; }
+  .colhead b {
+    font-family:var(--serif); font-size:13px; font-weight:700; letter-spacing:1.2px;
+    text-transform:uppercase; color:var(--primary); display:block;
+  }
+  .colhead small { display:block; font-size:11px; color:var(--gray500); margin-top:2px; }
+
+  .node {
+    position:absolute; height:38px; border-radius:11px; padding:0 12px 0 11px;
+    display:flex; align-items:center; font-size:12.5px; font-weight:600; color:var(--ink-soft);
+    background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--c);
+    cursor:pointer; transition:opacity .2s, transform .1s, box-shadow .15s; user-select:none;
+    overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+    box-shadow:0 1px 2px rgba(16,16,20,.05);
+  }
+  .node::before { content:""; width:7px; height:7px; border-radius:50%; margin-right:9px; flex:none; background:var(--c); }
+  .node:hover { transform:translateY(-1px); box-shadow:0 6px 16px rgba(91,33,182,.14); border-color:var(--c); }
+  .node.selected { border-color:var(--primary); box-shadow:0 0 0 3px rgba(124,58,237,.16), 0 6px 16px rgba(91,33,182,.18); }
+  .node.hl { z-index:5; }
+
+  .type-ui{--c:var(--ui)} .type-vm{--c:var(--vm)} .type-service{--c:var(--service)}
+  .type-controller{--c:var(--controller)} .type-repo{--c:var(--repo)} .type-context{--c:var(--context)}
+  .type-model{--c:var(--model)} .type-db{--c:var(--db)} .type-infra{--c:var(--infra)}
+
+  #canvasWrap.focus .node:not(.hl) { opacity:.26; }
+  #canvasWrap.focus .edge-group:not(.hl) { opacity:.10; }
+
+  .edge { fill:none; stroke:var(--gray400); stroke-width:1.5; }
+  .edge.dashed { stroke-dasharray:5 4; }
+  .edge-group.hl .edge { stroke:var(--primary); stroke-width:2.5; }
+  .edge-label {
+    fill:var(--ink-soft); font-size:11px; font-family:var(--mono);
+    paint-order:stroke; stroke:var(--bg); stroke-width:4px; stroke-linejoin:round; opacity:0;
+  }
+  .edge-group.hl .edge-label { opacity:1; }
+  #canvasWrap.showlabels .edge-label { opacity:.9; }
+
+  .boundary { stroke:var(--border); stroke-width:1.4; stroke-dasharray:3 6; }
+  .boundary-label { fill:var(--gray500); font-size:11px; font-family:var(--font); font-weight:600; letter-spacing:.8px; }
+
+  .panel {
+    width:372px; flex:none; background:var(--surface); border-left:1px solid var(--border);
+    overflow-y:auto; padding:22px; display:flex; flex-direction:column; gap:15px;
+  }
+  .panel .ph { font-size:13px; color:var(--gray500); line-height:1.5; }
+  .panel .kicker { font-size:11px; text-transform:uppercase; letter-spacing:1.2px; color:var(--gray500); font-weight:600; }
+  .panel h2 { font-family:var(--serif); font-size:21px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:9px; line-height:1.15; }
+  .dot { width:11px; height:11px; border-radius:50%; flex:none; }
+  .filepath { font-family:var(--mono); font-size:11.5px; color:var(--gray500); word-break:break-all; background:var(--surface-subtle); padding:7px 9px; border-radius:8px; }
+  .desc { font-size:14px; line-height:1.6; color:var(--gray600); }
+  .section-title { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--primary); font-weight:700; margin-bottom:9px; padding-bottom:5px; border-bottom:1px solid var(--border); }
+  .conn { font-size:13px; line-height:1.5; margin-bottom:11px; padding-left:15px; position:relative; }
+  .conn::before { content:""; position:absolute; left:0; top:6px; width:7px; height:7px; border-radius:2px; background:var(--primary); }
+  .conn .who { font-weight:700; cursor:pointer; color:var(--ink); }
+  .conn .who:hover { color:var(--primary); text-decoration:underline; }
+  .conn .data { color:var(--gray500); font-family:var(--mono); font-size:11px; }
+  .steplist { counter-reset:s; }
+  .step { font-size:13px; line-height:1.55; padding:9px 0 9px 32px; position:relative; border-bottom:1px solid var(--border-soft); color:var(--gray600); }
+  .step::before {
+    counter-increment:s; content:counter(s); position:absolute; left:0; top:9px;
+    width:21px; height:21px; border-radius:50%; background:var(--primary); color:#fff;
+    font-weight:700; font-size:11px; font-family:var(--font); display:flex; align-items:center; justify-content:center;
+  }
+  .step .n { font-weight:700; color:var(--ink); cursor:pointer; }
+  .step .n:hover { color:var(--primary); }
+  .empty { color:var(--gray400); font-size:12.5px; font-style:italic; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Brokey <em>Architektur &amp; Datenfluss</em></h1>
+  <span class="hint">Auf eine Datei klicken für ihre Verbindungen, oder oben ein Szenario abspielen.</span>
+  <div class="toolbar">
+    <label>Szenario
+      <select id="scenario"><option value="">– wählen –</option></select>
+    </label>
+    <button id="playBtn" class="primary">Abspielen</button>
+    <input type="text" id="search" placeholder="Datei suchen" style="width:140px">
+    <label><input type="checkbox" id="lblToggle"> Beschriftungen</label>
+    <button id="reset">Zurücksetzen</button>
+  </div>
+</header>
+
+<div class="legend" id="legend"></div>
+
+<div class="main">
+  <div class="stage">
+    <div id="canvasWrap"><svg id="edges"></svg></div>
+  </div>
+  <aside class="panel" id="panel">
+    <div class="ph">Wähle links eine Datei oder spiele oben ein Szenario ab, um die Datenflüsse zu sehen.</div>
+  </aside>
+</div>
+
+<script>
+/* ============================================================
+   DATEN-MODELL: Knoten (Files) + Kanten (Verbindungen)
+   ============================================================ */
+const LAYERS = [
+  { x: 30,   title: "Views",        sub: "MAUI · XAML UI" },
+  { x: 250,  title: "ViewModels",   sub: "MVVM · Logik" },
+  { x: 480,  title: "Client-Services", sub: "HTTP zum Server" },
+  { x: 740,  title: "API-Controller", sub: "ASP.NET Endpunkte" },
+  { x: 1000, title: "Repositories", sub: "+ API-Services" },
+  { x: 1260, title: "AppDbContext", sub: "EF Core" },
+  { x: 1470, title: "Daten",        sub: "Models · MySQL" },
+];
+const TOP = 100, ROWH = 52, NODEH = 38, NW = 168;
+
+const TYPE_LABEL = {
+  ui:"View (XAML-Seite)", vm:"ViewModel", service:"Client-Service", controller:"API-Controller",
+  repo:"Repository", context:"DbContext", model:"Domain-Model", db:"Datenbank", infra:"Infrastruktur / Konfiguration"
+};
+
+const N = [
+  // ---- L0 Views ----
+  ["v_login","LoginPage",0,0,"ui","Brokey_APP/Views/LoginPage.xaml(.cs)","Login-Bildschirm. Bindet per BindingContext an LoginViewModel; die Eingabefelder sind an dessen Email/Password gebunden."],
+  ["v_register","RegisterPage",0,1,"ui","Brokey_APP/Views/RegisterPage.xaml(.cs)","Registrierungs-Bildschirm, gebunden an RegisterViewModel."],
+  ["v_home","HomePage",0,2,"ui","Brokey_APP/Views/HomePage.xaml(.cs)","Dashboard nach dem Login, gebunden an HomeViewModel. Löst beim Anzeigen das Laden des Users aus."],
+  ["v_trips","TripsPage",0,3,"ui","Brokey_APP/Views/TripsPage.xaml(.cs)","Liste aller Reisen. OnAppearing → LoadTripsCommand im TripsViewModel."],
+  ["v_createTrip","CreateTripPage",0,4,"ui","Brokey_APP/Views/CreateTripPage.xaml(.cs)","Formular zum Anlegen einer Reise, gebunden an CreateTripViewModel."],
+  ["v_tripDetail","TripDetailPage",0,5,"ui","Brokey_APP/Views/TripDetailPage.xaml(.cs)","Detailansicht einer Reise. Bekommt tripId per Navigation und gibt sie an TripDetailViewModel."],
+  ["v_groupDetail","GroupDetailPage",0,6,"ui","Brokey_APP/Views/GroupDetailPage.xaml(.cs)","Gruppen-Detail mit Mitgliedern, Ausgaben & Abrechnung. Bekommt groupId per Navigation."],
+  ["v_addMember","AddMemberPage",0,7,"ui","Brokey_APP/Views/AddMemberPage.xaml(.cs)","Mitglied zu einer Gruppe hinzufügen, gebunden an AddMemberViewModel."],
+  ["v_addExpense","AddExpensePage",0,8,"ui","Brokey_APP/Views/AddExpensePage.xaml(.cs)","Ausgabe erfassen (inkl. Karte/Standort & Split-Vorschau), gebunden an AddExpenseViewModel."],
+  ["v_expenseDetail","ExpenseDetailPage",0,9,"ui","Brokey_APP/Views/ExpenseDetailPage.xaml(.cs)","Einzelne Ausgabe ansehen/löschen, gebunden an ExpenseDetailViewModel."],
+  ["v_tripSummary","TripSummaryPage",0,10,"ui","Brokey_APP/Views/TripSummaryPage.xaml(.cs)","Statistik-Übersicht einer Reise, gebunden an TripSummaryViewModel."],
+  ["v_profile","ProfilePage",0,11,"ui","Brokey_APP/Views/ProfilePage.xaml(.cs)","Profil & Logout, gebunden an ProfileViewModel."],
+  ["v_about","AboutPage",0,12,"ui","Brokey_APP/Views/AboutPage.xaml(.cs)","Info-Seite (statisch), gebunden an AboutViewModel."],
+  ["app","App.xaml.cs",0,14,"infra","Brokey_APP/App.xaml.cs","App-Start: fragt TokenStorageService, ob ein JWT gespeichert ist, und zeigt AppShell (eingeloggt) oder AuthShell (Login)."],
+
+  // ---- L1 ViewModels ----
+  ["vm_login","LoginViewModel",1,0,"vm","Brokey_APP/ViewModels/LoginViewModel.cs","Validiert Email/Passwort, ruft AuthService.LoginAsync. Bei Erfolg → AppShell, bei Fehler → ErrorMessage."],
+  ["vm_register","RegisterViewModel",1,1,"vm","Brokey_APP/ViewModels/RegisterViewModel.cs","Validiert Eingaben (Pflichtfelder, Passwort-Match, Länge) und ruft AuthService.RegisterAsync."],
+  ["vm_home","HomeViewModel",1,2,"vm","Brokey_APP/ViewModels/HomeViewModel.cs","Lädt den eingeloggten User (AuthService.GetCurrentUserAsync) für das Dashboard."],
+  ["vm_trips","TripsViewModel",1,3,"vm","Brokey_APP/ViewModels/TripsViewModel.cs","Lädt alle Reisen (TripService.GetTripsAsync) in eine ObservableCollection. Bei 401 → Token löschen + AuthShell."],
+  ["vm_createTrip","CreateTripViewModel",1,4,"vm","Brokey_APP/ViewModels/CreateTripViewModel.cs","Validiert Name/Datum und legt die Reise an (TripService.CreateTripAsync)."],
+  ["vm_tripDetail","TripDetailViewModel",1,5,"vm","Brokey_APP/ViewModels/TripDetailViewModel.cs","Empfängt tripId (IQueryAttributable), lädt Trip-Detail und legt Gruppen an."],
+  ["vm_groupDetail","GroupDetailViewModel",1,6,"vm","Brokey_APP/ViewModels/GroupDetailViewModel.cs","Lädt Mitglieder, Ausgaben und die fertige Abrechnung (Settlement) einer Gruppe parallel über TripService."],
+  ["vm_addMember","AddMemberViewModel",1,7,"vm","Brokey_APP/ViewModels/AddMemberViewModel.cs","Fügt per Username/Email ein Mitglied zur Gruppe hinzu (TripService)."],
+  ["vm_addExpense","AddExpenseViewModel",1,8,"vm","Brokey_APP/ViewModels/AddExpenseViewModel.cs","Lädt Kategorien & Mitglieder, berechnet die Split-Vorschau, speichert die Ausgabe (Create/Update) über TripService."],
+  ["vm_expenseDetail","ExpenseDetailViewModel",1,9,"vm","Brokey_APP/ViewModels/ExpenseDetailViewModel.cs","Lädt eine Ausgabe und löscht sie nach Bestätigung (TripService)."],
+  ["vm_tripSummary","TripSummaryViewModel",1,10,"vm","Brokey_APP/ViewModels/TripSummaryViewModel.cs","Lädt Übersichts-Statistiken (Dauer, Summen, Zähler) über TripService."],
+  ["vm_profile","ProfileViewModel",1,11,"vm","Brokey_APP/ViewModels/ProfileViewModel.cs","Lädt Profildaten (AuthService) und führt Logout aus."],
+  ["vm_about","AboutViewModel",1,12,"vm","Brokey_APP/ViewModels/AboutViewModel.cs","Reine Anzeige-Logik, kein Server-Zugriff."],
+  ["maui","MauiProgram.cs",1,14,"infra","Brokey_APP/MauiProgram.cs","DI-Wurzel des Clients: registriert ALLE Services, ViewModels & Views und konfiguriert die HttpClients (BaseUri + AuthHttpMessageHandler)."],
+
+  // ---- L2 Client Services ----
+  ["s_auth","AuthService",2,1,"service","Brokey_APP/Services/AuthService.cs","Kapselt /api/auth (Login, Register, Me, Logout). Schickt JSON, deserialisiert AuthResponse/UserResponse, speichert den JWT via TokenStorageService."],
+  ["s_trip","TripService",2,5,"service","Brokey_APP/Services/TripService.cs","Kapselt alle Trip-/Group-/Expense-Endpunkte. Schickt/empfängt JSON-DTOs; wirft bei 401 eine Session-Fehlermeldung."],
+  ["s_handler","AuthHttpMessageHandler",2,8,"infra","Brokey_APP/Services/AuthHttpMessageHandler.cs","DelegatingHandler: hängt bei JEDEM Request (außer Login/Register) automatisch den JWT als 'Authorization: Bearer …' an."],
+  ["s_token","TokenStorageService",2,10,"infra","Brokey_APP/Services/TokenStorageService.cs","Speichert/liest den JWT in 3 Stufen: Memory-Cache → Preferences → SecureStorage."],
+  ["s_config","ApiConfig",2,12,"infra","Brokey_APP/Services/ApiConfig.cs","Zentrale Basis-URL (https://localhost:7221, Android: 10.0.2.2). HTTPS direkt, damit beim HTTP→HTTPS-Redirect der Auth-Header nicht verloren geht."],
+
+  // ---- L3 API Controllers ----
+  ["c_auth","AuthController",3,1,"controller","API_Server/Controllers/AuthController.cs","Endpunkte /api/auth: register, login (BCrypt-Prüfung), me. Erzeugt JWT über TokenService und gibt AuthResponse zurück."],
+  ["c_trips","TripsController",3,5,"controller","API_Server/Controllers/TripsController.cs","Endpunkte /api/trips: Reisen anlegen/auflisten/Detail. Liest UserId aus dem JWT, nutzt Trip-/TripMember-Repository."],
+  ["c_groups","GroupsController",3,7,"controller","API_Server/Controllers/GroupsController.cs","Endpunkte /api/groups: Gruppen, Mitglieder, Ausgaben & Abrechnung (Settlement-Mathematik in BuildBalances)."],
+  ["prog","Program.cs",3,12,"infra","API_Server/Program.cs","Server-Start: konfiguriert EF Core (MySQL), JWT-Validierung, CORS, Swagger und registriert die Repositories (DI). Definiert die Middleware-Reihenfolge."],
+
+  // ---- L4 Repositories + API services ----
+  ["t_token","TokenService",4,0,"service","API_Server/Services/TokenService.cs","Erstellt den signierten JWT: Claims (UserId/Email/Username/Jti), HMAC-Signatur mit Secret-Key, Ablaufzeit. String → AuthResponse.Token."],
+  ["ext","ClaimsPrincipalExtensions",4,2,"infra","API_Server/Extensions/ClaimsPrincipalExtensions.cs","Extension User.GetUserId(): liest die UserId aus dem JWT-Claim (sub/NameIdentifier). In jedem geschützten Controller genutzt."],
+  ["r_trip","TripRepository",4,4,"repo","ORM/Repositories/TripRepository.cs","DB-Zugriffe für Reisen (Create/Update/Delete, GetByUser, GetByIdForUser mit Sicherheits-Filter). Lädt Navigation per Include."],
+  ["r_tripMember","TripMemberRepository",4,5,"repo","ORM/Repositories/TripMemberRepository.cs","DB-Zugriffe für die Join-Tabelle TripMember (Teilnehmer einer Reise)."],
+  ["r_group","GroupRepository",4,6,"repo","ORM/Repositories/GroupRepository.cs","DB-Zugriffe für Gruppen innerhalb einer Reise."],
+  ["r_groupMember","GroupMemberRepository",4,7,"repo","ORM/Repositories/GroupMemberRepository.cs","DB-Zugriffe für die Join-Tabelle GroupMember."],
+  ["r_expense","ExpenseRepository",4,8,"repo","ORM/Repositories/ExpenseRepository.cs","DB-Zugriffe für Ausgaben & deren Splits (inkl. Laden mit Kategorie/Bezahler)."],
+
+  // ---- L5 DbContext ----
+  ["db","AppDbContext",5,5,"context","ORM/AppDbContext.cs","EF-Core-Kontext: definiert alle DbSets (Tabellen), Schlüssel/Indizes/Beziehungen, Cascade-Regeln und seedet Kategorien & Währungen."],
+
+  // ---- L6 Models + DB ----
+  ["models","Models (Entities)",6,4,"model","Models/*.cs","Gemeinsame Domain-Entitäten (User, Trip, Group, Expense, …), genutzt von API_Server UND ORM. Werden per EF auf Tabellen gemappt."],
+  ["mysql","MySQL: \"Brokey\"",6,6,"db","MySQL-Server","Die eigentliche relationale Datenbank. Hier liegen alle Tabellen & Daten dauerhaft."],
+];
+
+// Kanten: [from, to, label(=welche Daten/warum), dashed?]
+const E = [
+  ["v_login","vm_login","DataBinding: Email/Password ↔ Properties"],
+  ["v_register","vm_register","DataBinding"],
+  ["v_home","vm_home","DataBinding · OnAppearing→Load"],
+  ["v_trips","vm_trips","DataBinding · OnAppearing→LoadTrips"],
+  ["v_createTrip","vm_createTrip","DataBinding"],
+  ["v_tripDetail","vm_tripDetail","tripId (Navigation) + DataBinding"],
+  ["v_groupDetail","vm_groupDetail","groupId (Navigation) + DataBinding"],
+  ["v_addMember","vm_addMember","groupId + DataBinding"],
+  ["v_addExpense","vm_addExpense","groupId + DataBinding"],
+  ["v_expenseDetail","vm_expenseDetail","expenseId + DataBinding"],
+  ["v_tripSummary","vm_tripSummary","tripId + DataBinding"],
+  ["v_profile","vm_profile","DataBinding"],
+  ["v_about","vm_about","DataBinding"],
+
+  ["vm_login","s_auth","LoginAsync(email, pw)"],
+  ["vm_register","s_auth","RegisterAsync(user, email, pw, currency)"],
+  ["vm_home","s_auth","GetCurrentUserAsync() → UserResponse"],
+  ["vm_profile","s_auth","GetCurrentUserAsync / LogoutAsync"],
+  ["vm_trips","s_trip","GetTripsAsync() → List<TripSummaryResponse>"],
+  ["vm_trips","s_token","ClearTokenAsync() bei 401",true],
+  ["vm_createTrip","s_trip","CreateTripAsync(CreateTripRequest)"],
+  ["vm_tripDetail","s_trip","GetTripDetail / CreateGroup"],
+  ["vm_groupDetail","s_trip","Members + Expenses + Settlement laden"],
+  ["vm_addMember","s_trip","AddGroupMember(name/email)"],
+  ["vm_addExpense","s_trip","Categories + Members + Create/UpdateExpense"],
+  ["vm_expenseDetail","s_trip","GetExpense / DeleteExpense"],
+  ["vm_tripSummary","s_trip","GetTripSummary → TripSummaryResponse"],
+
+  ["s_auth","s_token","speichert/löscht JWT"],
+  ["s_handler","s_token","liest JWT → Bearer-Header"],
+  ["s_auth","s_handler","Request läuft durch Handler",true],
+  ["s_trip","s_handler","Request läuft durch Handler",true],
+  ["maui","s_auth","DI + HttpClient(BaseUri)",true],
+  ["maui","s_trip","DI + HttpClient(BaseUri)",true],
+  ["maui","s_handler","registriert Handler in Pipeline",true],
+  ["maui","s_config","liest BaseUri",true],
+  ["app","s_token","HasStoredToken() → AppShell/AuthShell"],
+
+  ["s_auth","c_auth","HTTPS /api/auth/* · JSON · AuthResponse{ token, userId }"],
+  ["s_trip","c_trips","HTTPS /api/trips · JSON + Bearer-Token"],
+  ["s_trip","c_groups","HTTPS /api/groups · JSON + Bearer-Token"],
+
+  ["c_auth","db","Users lesen/anlegen (EF Core)"],
+  ["c_auth","t_token","GenerateToken(user) → JWT-String"],
+  ["c_auth","ext","User.GetUserId() (bei /me)"],
+  ["c_trips","ext","User.GetUserId()"],
+  ["c_trips","r_trip","Create / GetByUser / GetByIdForUser"],
+  ["c_trips","r_tripMember","Ersteller als Teilnehmer eintragen"],
+  ["c_groups","ext","User.GetUserId()"],
+  ["c_groups","r_group","Gruppen anlegen/lesen"],
+  ["c_groups","r_groupMember","Mitglieder add/remove/list"],
+  ["c_groups","r_expense","Ausgaben anlegen/auflisten"],
+  ["c_groups","r_trip","Zugriffsrecht auf Reise prüfen"],
+
+  ["prog","t_token","gemeinsamer JWT-Secret-Key (signieren ↔ validieren)",true],
+  ["prog","db","DbContext-DI (MySQL-Connection)",true],
+  ["prog","r_trip","DI: Repositories registriert",true],
+
+  ["r_trip","db","EF Core LINQ (+ Include Navigation)"],
+  ["r_tripMember","db","EF Core LINQ"],
+  ["r_group","db","EF Core LINQ"],
+  ["r_groupMember","db","EF Core LINQ"],
+  ["r_expense","db","EF Core LINQ (+ Splits/Kategorie)"],
+
+  ["db","models","mappt C#-Entitäten ↔ Tabellen"],
+  ["db","mysql","SQL-Queries (MySQL 'Brokey')"],
+];
+
+// Szenarien: geordnete Schrittliste {node, text}
+const SCENARIOS = {
+  login: { name:"Login", steps:[
+    ["v_login","Du tippst Email & Passwort in die LoginPage. Die Felder sind per DataBinding mit dem ViewModel verbunden."],
+    ["vm_login","LoginViewModel validiert die Eingabe und ruft AuthService.LoginAsync(email, pw)."],
+    ["s_auth","AuthService schickt POST /api/auth/login als JSON an den Server."],
+    ["c_auth","AuthController sucht den User per Email und prüft das Passwort gegen den BCrypt-Hash."],
+    ["db","AppDbContext lädt den passenden User-Datensatz aus der DB."],
+    ["mysql","MySQL liefert die User-Zeile zurück."],
+    ["t_token","TokenService erzeugt einen signierten JWT (mit der UserId als Claim)."],
+    ["s_token","Der JWT kommt als AuthResponse zurück; TokenStorageService speichert ihn."],
+    ["app","Ab jetzt gilt man als eingeloggt → die App zeigt die AppShell."],
+  ]},
+  trips: { name:"Reisen laden", steps:[
+    ["v_trips","TripsPage wird angezeigt → OnAppearing löst LoadTripsCommand aus."],
+    ["vm_trips","TripsViewModel ruft TripService.GetTripsAsync()."],
+    ["s_trip","TripService baut GET /api/trips."],
+    ["s_handler","AuthHttpMessageHandler hängt automatisch 'Bearer <JWT>' an den Request."],
+    ["s_token","Der JWT dafür kommt aus dem TokenStorageService."],
+    ["c_trips","TripsController liest die UserId aus dem JWT…"],
+    ["ext","…über User.GetUserId()."],
+    ["r_trip","TripRepository lädt alle Reisen des Users (inkl. Gruppen/Ausgaben via Include)."],
+    ["db","AppDbContext übersetzt das in SQL."],
+    ["mysql","MySQL liefert die Datensätze; sie wandern als JSON-Liste zurück in die Trip-Liste."],
+  ]},
+  createTrip: { name:"Reise erstellen", steps:[
+    ["v_createTrip","CreateTripPage: Formular mit Name, Datum, Währung."],
+    ["vm_createTrip","CreateTripViewModel validiert und ruft TripService.CreateTripAsync(CreateTripRequest)."],
+    ["s_trip","TripService schickt POST /api/trips (JSON + Bearer-Token)."],
+    ["c_trips","TripsController liest die UserId (GetUserId) und legt die Reise an."],
+    ["r_trip","TripRepository speichert den neuen Trip."],
+    ["r_tripMember","TripMemberRepository trägt den Ersteller automatisch als Mitglied ein."],
+    ["db","AppDbContext schreibt beide Datensätze."],
+    ["mysql","MySQL persistiert Trip + TripMember."],
+  ]},
+  addExpense: { name:"Ausgabe hinzufügen", steps:[
+    ["v_addExpense","AddExpensePage: Betrag, Titel, Bezahler, Aufteilung (Split) + optional Standort."],
+    ["vm_addExpense","AddExpenseViewModel baut den CreateExpenseRequest und ruft TripService."],
+    ["s_trip","TripService schickt POST /api/groups/{id}/expenses (JSON + Bearer)."],
+    ["c_groups","GroupsController prüft die Berechtigung und legt Ausgabe + Splits an."],
+    ["ext","Die UserId kommt wie immer aus User.GetUserId()."],
+    ["r_expense","ExpenseRepository speichert Ausgabe und ExpenseSplits."],
+    ["r_groupMember","GroupMemberRepository liefert, auf wen aufgeteilt wird."],
+    ["db","AppDbContext schreibt die Datensätze."],
+    ["mysql","MySQL persistiert Expense + Splits; die Abrechnung wird daraus berechnet."],
+  ]},
+  appstart: { name:"App-Start (Auth-Check)", steps:[
+    ["app","App.xaml.cs läuft zuerst und fragt den TokenStorageService."],
+    ["s_token","TokenStorageService.HasStoredToken() prüft, ob ein JWT gespeichert ist."],
+    ["app","Token vorhanden → AppShell (Haupt-App). Kein Token → AuthShell (Login)."],
+  ]},
+  register: { name:"Registrierung", steps:[
+    ["v_register","RegisterPage: Username, Email, Passwort & Basiswährung eingeben."],
+    ["vm_register","RegisterViewModel validiert (Pflichtfelder, Passwort-Match, Mindestlänge) und ruft AuthService.RegisterAsync(...)."],
+    ["s_auth","AuthService schickt POST /api/auth/register als JSON."],
+    ["c_auth","AuthController prüft, ob Email/Username schon existieren (sonst 409 Conflict)."],
+    ["db","AppDbContext prüft die Eindeutigkeit gegen die Users-Tabelle…"],
+    ["mysql","…und legt anschließend den neuen User an. Das Passwort wird als BCrypt-Hash gespeichert (nie im Klartext)."],
+    ["t_token","TokenService erzeugt direkt einen JWT, damit man nach der Registrierung sofort eingeloggt ist."],
+    ["s_token","TokenStorageService speichert den JWT."],
+    ["app","Die App wechselt zur AppShell."],
+  ]},
+  profile: { name:"Profil laden", steps:[
+    ["v_profile","ProfilePage wird geöffnet und löst das Laden im ViewModel aus."],
+    ["vm_profile","ProfileViewModel ruft AuthService.GetCurrentUserAsync()."],
+    ["s_auth","AuthService baut GET /api/auth/me."],
+    ["s_handler","AuthHttpMessageHandler hängt den 'Bearer <JWT>' an den Request."],
+    ["s_token","Der JWT kommt aus dem TokenStorageService."],
+    ["c_auth","AuthController liest die UserId aus dem JWT…"],
+    ["ext","…über User.GetUserId()."],
+    ["db","AppDbContext lädt den passenden User."],
+    ["mysql","MySQL liefert die Daten zurück → als UserResponse ins Profil."],
+  ]},
+  logout: { name:"Logout", steps:[
+    ["v_profile","Auf der ProfilePage tippst du auf 'Logout'."],
+    ["vm_profile","ProfileViewModel ruft AuthService.LogoutAsync()."],
+    ["s_auth","AuthService leitet das an den TokenStorageService weiter (kein Server-Request nötig — der JWT ist 'stateless')."],
+    ["s_token","TokenStorageService.ClearTokenAsync() löscht den JWT aus Memory, Preferences UND SecureStorage."],
+    ["app","Ohne Token gilt man als ausgeloggt → die App zeigt wieder die AuthShell (Login)."],
+  ]},
+  createGroup: { name:"Gruppe erstellen", steps:[
+    ["v_tripDetail","In der TripDetailPage legst du innerhalb einer Reise eine neue Gruppe an."],
+    ["vm_tripDetail","TripDetailViewModel ruft TripService mit dem Gruppen-Namen + tripId."],
+    ["s_trip","TripService schickt POST /api/.../groups (JSON + Bearer-Token)."],
+    ["c_groups","GroupsController prüft die Berechtigung und legt die Gruppe an."],
+    ["ext","Die UserId kommt aus User.GetUserId()."],
+    ["r_group","GroupRepository speichert die neue Gruppe (mit Verweis auf die Reise)."],
+    ["r_groupMember","GroupMemberRepository trägt den Ersteller als erstes Mitglied ein."],
+    ["db","AppDbContext schreibt Group + GroupMember."],
+    ["mysql","MySQL persistiert beide Datensätze."],
+  ]},
+  addMember: { name:"Mitglied hinzufügen", steps:[
+    ["v_addMember","AddMemberPage: Username oder Email der Person eingeben (groupId kommt per Navigation)."],
+    ["vm_addMember","AddMemberViewModel ruft TripService.AddGroupMember(...)."],
+    ["s_trip","TripService schickt POST /api/groups/{id}/members (JSON + Bearer)."],
+    ["c_groups","GroupsController sucht den User und prüft, ob du berechtigt bist."],
+    ["ext","UserId des Aufrufers aus User.GetUserId()."],
+    ["r_groupMember","GroupMemberRepository legt die Mitgliedschaft an. Ein Unique-Constraint (GroupId,UserId) verhindert Doppel-Einträge."],
+    ["db","AppDbContext schreibt den GroupMember-Datensatz."],
+    ["mysql","MySQL persistiert die Mitgliedschaft."],
+  ]},
+  settlement: { name:"Abrechnung (wer schuldet wem)", steps:[
+    ["v_groupDetail","GroupDetailPage zeigt die Abrechnung einer Gruppe an (groupId per Navigation)."],
+    ["vm_groupDetail","GroupDetailViewModel lädt die Abrechnung (Settlement) über TripService."],
+    ["s_trip","TripService schickt GET /api/groups/{id}/settlement (+ Bearer)."],
+    ["c_groups","GroupsController liest dafür alle Ausgaben & Mitglieder…"],
+    ["ext","…UserId aus User.GetUserId() zur Zugriffsprüfung."],
+    ["r_expense","ExpenseRepository liefert die Ausgaben samt ExpenseSplits (wer wie viel schuldet)."],
+    ["r_groupMember","GroupMemberRepository liefert die Mitglieder der Gruppe."],
+    ["db","AppDbContext holt die Datensätze aus der DB."],
+    ["mysql","MySQL liefert Ausgaben + Splits + Mitglieder."],
+    ["c_groups","Die Berechnung passiert hier in BuildBalances — pro User: Summe bezahlt minus eigener Anteil = Netto-Saldo (+ = bekommt Geld, − = schuldet). Daraus werden die Transfers 'X zahlt an Y' gebildet und als GroupSettlementResponse zurückgeschickt."],
+  ]},
+  deleteExpense: { name:"Ausgabe löschen", steps:[
+    ["v_expenseDetail","ExpenseDetailPage: du tippst auf 'Löschen' und bestätigst."],
+    ["vm_expenseDetail","ExpenseDetailViewModel ruft nach Bestätigung TripService.DeleteExpense(expenseId)."],
+    ["s_trip","TripService schickt DELETE /api/.../expenses/{id} (+ Bearer)."],
+    ["c_groups","GroupsController prüft die Berechtigung."],
+    ["ext","UserId aus User.GetUserId()."],
+    ["r_expense","ExpenseRepository löscht die Ausgabe; die zugehörigen ExpenseSplits gehen per Cascade-Delete automatisch mit."],
+    ["db","AppDbContext führt das Löschen aus."],
+    ["mysql","MySQL entfernt Ausgabe + Splits dauerhaft."],
+  ]},
+  tripSummary: { name:"Reise-Übersicht", steps:[
+    ["v_tripSummary","TripSummaryPage zeigt Statistiken einer Reise (tripId per Navigation)."],
+    ["vm_tripSummary","TripSummaryViewModel ruft TripService.GetTripSummary(tripId)."],
+    ["s_trip","TripService schickt GET /api/trips/{id}/summary (+ Bearer)."],
+    ["c_trips","TripsController prüft Zugriff und aggregiert die Zahlen."],
+    ["ext","UserId aus User.GetUserId()."],
+    ["r_trip","TripRepository lädt die Reise inkl. Gruppen & Ausgaben (Include)."],
+    ["db","AppDbContext übersetzt das in SQL."],
+    ["mysql","MySQL liefert die Daten → Dauer, Gesamtkosten & Zähler werden berechnet und angezeigt."],
+  ]},
+  sessionExpired: { name:"Session abgelaufen (401)", steps:[
+    ["s_handler","Bei einem Request hängt der AuthHttpMessageHandler einen abgelaufenen/ungültigen JWT an."],
+    ["prog","Die JWT-Validierung im Server (Program.cs, ValidateLifetime) erkennt: Token abgelaufen."],
+    ["c_trips","Der geschützte Endpunkt ([Authorize]) lehnt ab und antwortet mit 401 Unauthorized."],
+    ["s_trip","TripService sieht den 401 und wirft eine 'Session ungültig'-Meldung."],
+    ["vm_trips","Das ViewModel fängt diese Meldung ab."],
+    ["s_token","TokenStorageService.ClearTokenAsync() löscht den ungültigen Token."],
+    ["app","Der User wird zurück zur AuthShell (Login) geleitet."],
+  ]},
+};
+
+/* ============================================================
+   RENDERING
+   ============================================================ */
+const wrap = document.getElementById('canvasWrap');
+const svg = document.getElementById('edges');
+const panel = document.getElementById('panel');
+const nodeById = {};
+N.forEach(n => nodeById[n[0]] = { id:n[0], label:n[1], layer:n[2], row:n[3], type:n[4], file:n[5], desc:n[6] });
+
+function box(n){
+  const x = LAYERS[n.layer].x, y = TOP + n.row*ROWH;
+  return { x, y, w:NW, h:NODEH, cx:x+NW/2, cy:y+NODEH/2, left:x, right:x+NW, top:y, bottom:y+NODEH };
+}
+
+let maxRow = 0, maxX = 0;
+N.forEach(n => { maxRow = Math.max(maxRow, n[3]); maxX = Math.max(maxX, LAYERS[n[2]].x + NW); });
+const CW = maxX + 60, CH = TOP + (maxRow+1)*ROWH + 30;
+wrap.style.width = CW + 'px';
+wrap.style.height = CH + 'px';
+svg.setAttribute('width', CW); svg.setAttribute('height', CH);
+
+LAYERS.forEach(l => {
+  const h = document.createElement('div');
+  h.className = 'colhead';
+  h.style.left = l.x + 'px'; h.style.top = '32px'; h.style.width = NW + 'px';
+  h.innerHTML = '<b>' + l.title + '</b><small>' + l.sub + '</small>';
+  wrap.appendChild(h);
+});
+
+const bx = (LAYERS[2].x + NW + LAYERS[3].x) / 2;
+const svgNS = 'http://www.w3.org/2000/svg';
+function mk(tag, attrs){ const e=document.createElementNS(svgNS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); return e; }
+const defs = mk('defs');
+defs.innerHTML =
+  '<marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">'+
+  '<path d="M0,0 L7,3 L0,6 Z" fill="#B8B0C9"/></marker>'+
+  '<marker id="arrowHl" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">'+
+  '<path d="M0,0 L7,3 L0,6 Z" fill="#7C3AED"/></marker>';
+svg.appendChild(defs);
+svg.appendChild(mk('line',{x1:bx,y1:62,x2:bx,y2:CH-20,class:'boundary'}));
+const bl = mk('text',{x:bx+8,y:78,class:'boundary-label'});
+bl.textContent = 'HTTP / HTTPS · JSON · Bearer-Token';
+svg.appendChild(bl);
+
+const edgeGroups = [];
+function endpoints(a,b){
+  if(a.layer === b.layer){
+    if(b.top >= a.bottom) return {x1:a.cx,y1:a.bottom,x2:b.cx,y2:b.top,vert:1};
+    return {x1:a.cx,y1:a.top,x2:b.cx,y2:b.bottom,vert:1};
+  }
+  if(b.cx >= a.cx) return {x1:a.right,y1:a.cy,x2:b.left,y2:b.cy,vert:0};
+  return {x1:a.left,y1:a.cy,x2:b.right,y2:b.cy,vert:0};
+}
+function pathD(p){
+  if(p.vert){
+    const dy = Math.max(26, Math.abs(p.y2-p.y1)/2) * (p.y2>=p.y1?1:-1);
+    return `M${p.x1},${p.y1} C${p.x1},${p.y1+dy} ${p.x2},${p.y2-dy} ${p.x2},${p.y2}`;
+  }
+  const dx = Math.max(40, Math.abs(p.x2-p.x1)/2) * (p.x2>=p.x1?1:-1);
+  return `M${p.x1},${p.y1} C${p.x1+dx},${p.y1} ${p.x2-dx},${p.y2} ${p.x2},${p.y2}`;
+}
+E.forEach(([from,to,label,dashed]) => {
+  const a = box(nodeById[from]), b = box(nodeById[to]);
+  const p = endpoints(a,b);
+  const g = mk('g',{class:'edge-group'});
+  const path = mk('path',{d:pathD(p),class:'edge'+(dashed?' dashed':''),'marker-end':'url(#arrow)'});
+  g.appendChild(path);
+  const t = mk('text',{x:(p.x1+p.x2)/2,y:(p.y1+p.y2)/2 - 5,class:'edge-label','text-anchor':'middle'});
+  t.textContent = label;
+  g.appendChild(t);
+  svg.appendChild(g);
+  edgeGroups.push({ el:g, path, from, to });
+});
+
+N.forEach(n => {
+  const nb = box(nodeById[n[0]]);
+  const d = document.createElement('div');
+  d.className = 'node type-' + n[4];
+  d.dataset.id = n[0];
+  d.style.left = nb.x + 'px'; d.style.top = nb.y + 'px'; d.style.width = NW + 'px';
+  d.textContent = n[1];
+  d.title = n[5];
+  d.addEventListener('click', (ev) => { ev.stopPropagation(); selectNode(n[0]); });
+  wrap.appendChild(d);
+});
+
+/* ============================================================
+   INTERAKTION
+   ============================================================ */
+function clearHl(){
+  wrap.classList.remove('focus');
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('hl','selected'));
+  edgeGroups.forEach(e => { e.el.classList.remove('hl'); e.path.setAttribute('marker-end','url(#arrow)'); });
+}
+function nodeEl(id){ return document.querySelector('.node[data-id="'+id+'"]'); }
+
+function selectNode(id){
+  clearHl();
+  wrap.classList.add('focus');
+  const sel = nodeEl(id); sel.classList.add('hl','selected');
+  const incoming = [], outgoing = [];
+  edgeGroups.forEach(e => {
+    if(e.from === id || e.to === id){
+      e.el.classList.add('hl');
+      e.path.setAttribute('marker-end','url(#arrowHl)');
+      const other = e.from === id ? e.to : e.from;
+      nodeEl(other).classList.add('hl');
+      const meta = E.find(x => x[0]===e.from && x[1]===e.to);
+      if(e.from === id) outgoing.push([e.to, meta[2]]);
+      else incoming.push([e.from, meta[2]]);
+    }
+  });
+  renderNodePanel(id, incoming, outgoing);
+}
+
+function renderNodePanel(id, incoming, outgoing){
+  const n = nodeById[id];
+  const color = getComputedStyle(document.documentElement).getPropertyValue('--'+n.type);
+  let html = '';
+  html += '<div class="kicker">'+TYPE_LABEL[n.type]+'</div>';
+  html += '<h2><span class="dot" style="background:'+color+'"></span>'+n.label+'</h2>';
+  html += '<div class="filepath">'+n.file+'</div>';
+  html += '<div class="desc">'+n.desc+'</div>';
+  html += '<div><div class="section-title">Sendet Daten an ('+outgoing.length+')</div>';
+  html += outgoing.length ? outgoing.map(o =>
+    '<div class="conn"><span class="who" data-go="'+o[0]+'">'+nodeById[o[0]].label+'</span><br><span class="data">'+o[1]+'</span></div>'
+  ).join('') : '<div class="empty">– nichts –</div>';
+  html += '</div>';
+  html += '<div><div class="section-title">Bekommt Daten von ('+incoming.length+')</div>';
+  html += incoming.length ? incoming.map(o =>
+    '<div class="conn"><span class="who" data-go="'+o[0]+'">'+nodeById[o[0]].label+'</span><br><span class="data">'+o[1]+'</span></div>'
+  ).join('') : '<div class="empty">– nichts –</div>';
+  html += '</div>';
+  panel.innerHTML = html;
+  panel.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => {
+    selectNode(el.dataset.go);
+    nodeEl(el.dataset.go).scrollIntoView({behavior:'smooth', block:'center', inline:'center'});
+  }));
+}
+
+let playTimer = null;
+function showScenario(key, animate){
+  clearTimeout(playTimer);
+  clearHl();
+  const sc = SCENARIOS[key];
+  if(!sc) return;
+  wrap.classList.add('focus');
+  const ids = sc.steps.map(s => s[0]);
+  const set = new Set(ids);
+  edgeGroups.forEach(e => {
+    if(set.has(e.from) && set.has(e.to)){
+      e.el.classList.add('hl'); e.path.setAttribute('marker-end','url(#arrowHl)');
+    }
+  });
+  let html = '<div class="kicker">Szenario · Datenfluss</div><h2>'+sc.name+'</h2><div class="steplist">';
+  sc.steps.forEach(s => {
+    html += '<div class="step"><span class="n" data-go="'+s[0]+'">'+nodeById[s[0]].label+'</span><br>'+s[1]+'</div>';
+  });
+  html += '</div>';
+  panel.innerHTML = html;
+  panel.querySelectorAll('[data-go]').forEach(el => el.addEventListener('click', () => {
+    nodeEl(el.dataset.go).scrollIntoView({behavior:'smooth', block:'center', inline:'center'});
+  }));
+
+  if(animate){
+    ids.forEach(i => nodeEl(i).classList.remove('hl'));
+    let k = 0;
+    const tick = () => {
+      if(k >= ids.length) return;
+      const el = nodeEl(ids[k]);
+      el.classList.add('hl');
+      el.scrollIntoView({behavior:'smooth', block:'center', inline:'center'});
+      k++;
+      playTimer = setTimeout(tick, 850);
+    };
+    tick();
+  } else {
+    ids.forEach(i => nodeEl(i).classList.add('hl'));
+  }
+}
+
+const scenarioSel = document.getElementById('scenario');
+Object.keys(SCENARIOS).forEach(k => {
+  const o = document.createElement('option'); o.value = k; o.textContent = SCENARIOS[k].name;
+  scenarioSel.appendChild(o);
+});
+scenarioSel.addEventListener('change', () => { if(scenarioSel.value) showScenario(scenarioSel.value, false); });
+document.getElementById('playBtn').addEventListener('click', () => {
+  if(!scenarioSel.value) scenarioSel.value = 'login';
+  showScenario(scenarioSel.value, true);
+});
+document.getElementById('reset').addEventListener('click', () => {
+  clearTimeout(playTimer); clearHl(); scenarioSel.value = '';
+  panel.innerHTML = '<div class="ph">Wähle links eine Datei oder spiele oben ein Szenario ab, um die Datenflüsse zu sehen.</div>';
+});
+document.getElementById('lblToggle').addEventListener('change', e => {
+  wrap.classList.toggle('showlabels', e.target.checked);
+});
+document.getElementById('search').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  if(!q){ document.querySelectorAll('.node').forEach(n=>n.style.outline=''); return; }
+  let first = null;
+  document.querySelectorAll('.node').forEach(n => {
+    const hit = n.textContent.toLowerCase().includes(q);
+    n.style.outline = hit ? '2px solid var(--primary)' : '';
+    if(hit && !first) first = n;
+  });
+  if(first) first.scrollIntoView({behavior:'smooth', block:'center', inline:'center'});
+});
+wrap.addEventListener('click', () => {
+  clearTimeout(playTimer); clearHl();
+  panel.innerHTML = '<div class="ph">Wähle links eine Datei oder spiele oben ein Szenario ab, um die Datenflüsse zu sehen.</div>';
+});
+
+const legend = document.getElementById('legend');
+Object.entries(TYPE_LABEL).forEach(([t,lbl]) => {
+  const s = document.createElement('span');
+  const col = getComputedStyle(document.documentElement).getPropertyValue('--'+t);
+  s.innerHTML = '<i style="background:'+col+'"></i>'+lbl;
+  legend.appendChild(s);
+});
+</script>
+</body>
+</html>

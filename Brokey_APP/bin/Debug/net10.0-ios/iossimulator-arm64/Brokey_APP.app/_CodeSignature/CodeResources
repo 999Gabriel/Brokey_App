@@ -10,15 +10,15 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		aCnpEeYh0fkKWnvX5x9r57VAJdc=
+		k3qy97xWrIb0h6f9zrR3UvbcUhk=
 		</data>
 		<key>Brokey_APP.dll</key>
 		<data>
-		2XiPDkbwBkgR9qxcfrO3XgtlUco=
+		FMlLvWX09RNnmvN91NPYTspB95A=
 		</data>
 		<key>Brokey_APP.pdb</key>
 		<data>
-		cMe6gwI3wext7rQ01jCZ/EW9qi8=
+		BOes9wg4rEM7ttY9+a/FaDoTwP8=
 		</data>
 		<key>Charter Bold Italic.ttf</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		utDP9EXMcZ9wL2wnw5g6v0CQK2g=
+		0QRwjMGahKdb1hN0jWQZeLZbdTE=
 		</data>
 		<key>Inter-Black.ttf</key>
 		<data>
@@ -1120,14 +1120,6 @@
 		<data>
 		L+8DZoUfiM6ttafHBVpMDR0ExiA=
 		</data>
-		<key>brokey_icon_102460x60@2x.png</key>
-		<data>
-		T5MpBhdanbGCAxq2U9qvQG/xnd4=
-		</data>
-		<key>brokey_icon_102476x76@2x~ipad.png</key>
-		<data>
-		Cm5EkNRL+SLLvOZlkKvbUAoShYE=
-		</data>
 		<key>brokey_logo.png</key>
 		<data>
 		sbo/pCSIx6ovbZTf9PBBPadSNfk=
@@ -1434,21 +1426,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			rfgUkPelFtWGZyckZG5Mjh6BR2ig6XHB4rbIqhelGII=
+			zOvBQon6bazlfv4V0nPVY9vmyz87SdeRGPN8SUrhK00=
 			</data>
 		</dict>
 		<key>Brokey_APP.dll</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SzVA4ocQkmrZJhbBTY/c/35FqRPeF32nkUFHgegV4o4=
+			W4BM+A6jEUQUxhQ4qwJNj4HRSo2AB8dUmqjJDLWwmTY=
 			</data>
 		</dict>
 		<key>Brokey_APP.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JitaxWKXHL05H/lUiwKusoytEZFE95VIKTnMFBW8uHo=
+			PjWupnOEUDDPVO761j+ZjQifdJrusgmBz2WMqJcZwmE=
 			</data>
 		</dict>
 		<key>Charter Bold Italic.ttf</key>
@@ -3360,20 +3352,6 @@
 			<key>hash2</key>
 			<data>
 			o7LebL7cD0wOlcKOrdcpg1Nkzm6E+PW0cOM0odq8hAM=
-			</data>
-		</dict>
-		<key>brokey_icon_102460x60@2x.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			H5J7m7PxEIbPnXpyfTrlYWQM8lHsPyZV/yuy9c3oTBk=
-			</data>
-		</dict>
-		<key>brokey_icon_102476x76@2x~ipad.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			QXeXWpV10B71VTCkGTSRk+BdU5F3tmjOu6xOytmnu1w=
 			</data>
 		</dict>
 		<key>brokey_logo.png</key>

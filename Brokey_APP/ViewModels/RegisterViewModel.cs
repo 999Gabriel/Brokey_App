@@ -4,8 +4,11 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Brokey_APP.ViewModels;
 
+// ViewModel des Registrierungs-Screens (in der AuthShell). Erreichbar vom Login-Screen aus.
+// Legt über den AuthService einen neuen Benutzer an und wechselt bei Erfolg in die Haupt-App (AppShell).
 public partial class RegisterViewModel : BaseViewModel
 {
+    // Per Dependency Injection eingespeister Service für die Auth-HTTP-Aufrufe an den API-Server.
     private readonly IAuthService _authService;
 
     [ObservableProperty]
@@ -20,15 +23,18 @@ public partial class RegisterViewModel : BaseViewModel
     [ObservableProperty]
     private string _confirmPassword = string.Empty;
 
+    // Gewählte Heimat-/Standardwährung des Users (Vorauswahl EUR), gebunden an einen Picker.
     [ObservableProperty]
     private string _baseCurrency = "EUR";
 
+    // Fehlertext + Sichtbarkeits-Flag für die rote Fehlermeldung in der UI.
     [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
     private bool _hasError;
 
+    // Auswahlliste der unterstützten Währungen; befüllt den Währungs-Picker im XAML.
     public List<string> Currencies { get; } = new()
     {
         "EUR", "USD", "GBP", "CHF", "JPY", "AUD", "CAD",
@@ -42,9 +48,17 @@ public partial class RegisterViewModel : BaseViewModel
         Title = "Register";
     }
 
+    // RelayCommand für den "Registrieren"-Button. Validierung in drei Schritten:
+    // 1) Alle Felder müssen ausgefüllt sein.
+    // 2) Passwort und Wiederholung müssen identisch sein.
+    // 3) Passwort muss mindestens 6 Zeichen lang sein.
+    // Schlägt eine Prüfung fehl: Fehlertext setzen und abbrechen (kein HTTP-Request).
+    // Sind alle Prüfungen ok: AuthService.RegisterAsync schickt einen POST an /api/auth/register,
+    // bei Erfolg wird der Token gespeichert und auf die AppShell (Haupt-App) umgeschaltet.
     [RelayCommand]
     private async Task RegisterAsync()
     {
+        // Schritt 1: Pflichtfelder prüfen.
         if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Email) ||
             string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ConfirmPassword))
         {
@@ -53,6 +67,7 @@ public partial class RegisterViewModel : BaseViewModel
             return;
         }
 
+        // Schritt 2: Beide Passwort-Eingaben müssen übereinstimmen.
         if (Password != ConfirmPassword)
         {
             ErrorMessage = "Passwords do not match.";
@@ -60,6 +75,7 @@ public partial class RegisterViewModel : BaseViewModel
             return;
         }
 
+        // Schritt 3: Mindestlänge des Passworts.
         if (Password.Length < 6)
         {
             ErrorMessage = "Password must be at least 6 characters.";
@@ -72,13 +88,14 @@ public partial class RegisterViewModel : BaseViewModel
 
         try
         {
+            // Registrierungs-Daten an den Service; Username/Email getrimmt.
             await _authService.RegisterAsync(
                 Username.Trim(),
                 Email.Trim(),
                 Password,
                 BaseCurrency);
 
-            // Navigate to main app
+            // Erfolg: Wurzelseite auf AppShell setzen -> direkt eingeloggt in der Haupt-App.
             Application.Current!.Windows[0].Page = new AppShell();
         }
         catch (Exception ex)
@@ -92,6 +109,7 @@ public partial class RegisterViewModel : BaseViewModel
         }
     }
 
+    // RelayCommand: Wechselt zurück zur Login-Seite ("//login" = absolute Route in der AuthShell).
     [RelayCommand]
     private async Task GoToLoginAsync()
     {

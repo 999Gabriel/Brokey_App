@@ -5,9 +5,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ORM.Migrations
 {
+    // GENERIERTE EF-Core-Migration (NICHT von Hand geschrieben).
+    // Migration "Week4TripsGroups": baut das Trip-/Gruppen-Modell um — eine Gruppe gehört jetzt zu einem Trip
+    // (neue Spalte TripId statt AdminUserId), Spalten werden umbenannt (Currency→BaseCurrency, CreatedByUserId→CreatedById)
+    // und TripMember/GroupMember erhalten eine Role-Spalte.
     /// <inheritdoc />
     public partial class Week4TripsGroups : Migration
     {
+        // Up(): wendet die Schema-Änderungen an — entfernt alte Fremdschlüssel/Spalten,
+        // benennt Spalten/Indizes um, fügt Role-Spalten und die neuen Beziehungen (Group→Trip) hinzu.
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -126,6 +132,7 @@ namespace ORM.Migrations
                 onDelete: ReferentialAction.Restrict);
         }
 
+        // Down(): macht alle Änderungen aus Up() exakt rückgängig (zurück zum vorherigen Schema-Stand).
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {

@@ -12,6 +12,8 @@ public class TripMemberRepository
         _context = context;
     }
 
+    // Fügt einen User als TripMember hinzu (Upsert). Owner-Rolle wird nie überschrieben.
+    // → Wird aufgerufen bei CreateTrip (Owner), CreateGroup (Member) und AddGroupMember.
     public async Task<TripMember?> AddParticipantAsync(
         int tripId,
         int userId,
@@ -50,6 +52,7 @@ public class TripMemberRepository
             .FirstAsync(tm => tm.Id == member.Id, cancellationToken);
     }
 
+    // Entfernt einen User als TripMember. Gibt false zurück, wenn er nicht gefunden wurde.
     public async Task<bool> RemoveParticipantAsync(int tripId, int userId, CancellationToken cancellationToken = default)
     {
         var member = await _context.TripMembers
@@ -67,6 +70,7 @@ public class TripMemberRepository
         return true;
     }
 
+    // Gibt alle TripMembers sortiert zurück: Owner zuerst, dann alphabetisch nach Username.
     public async Task<List<TripMember>> GetMembersByTripAsync(int tripId, CancellationToken cancellationToken = default)
     {
         return await _context.TripMembers

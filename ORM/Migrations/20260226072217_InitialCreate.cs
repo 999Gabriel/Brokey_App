@@ -8,9 +8,14 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace ORM.Migrations
 {
+    // GENERIERTE EF-Core-Migration (NICHT von Hand geschrieben).
+    // Erste Migration "InitialCreate": legt das komplette Anfangs-Schema der Brokey-Datenbank an
+    // (alle Tabellen: Users, Trips, Groups, Expenses usw.) und befüllt die Stammdaten-Tabellen.
     /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
+        // Up(): wird bei "dotnet ef database update" ausgeführt und ERSTELLT das Schema —
+        // alle Tabellen mit Spalten, Fremdschlüsseln und Indizes, dazu die Seed-Daten (Kategorien + Währungen).
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -427,6 +432,8 @@ namespace ORM.Migrations
                 unique: true);
         }
 
+        // Down(): macht Up() rückgängig (Rollback) — löscht alle erstellten Tabellen wieder.
+        // Reihenfolge beachtet die Fremdschlüssel-Abhängigkeiten (abhängige Tabellen zuerst).
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {

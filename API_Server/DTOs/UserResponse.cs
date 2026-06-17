@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort der User-/Profil-Endpoints – öffentliche Userdaten (ohne Passwort) für ProfileViewModel.
 public class UserResponse
 {
     public int Id { get; set; }

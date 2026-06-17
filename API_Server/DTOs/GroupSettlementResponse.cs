@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Antwort von GET /api/groups/{id}/settlement – Abrechnung der Gruppe mit Balances und nötigen Transfers.
 public class GroupSettlementResponse
 {
     public int GroupId { get; set; }

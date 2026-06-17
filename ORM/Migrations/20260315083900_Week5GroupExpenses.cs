@@ -4,9 +4,13 @@
 
 namespace ORM.Migrations
 {
+    // GENERIERTE EF-Core-Migration (NICHT von Hand geschrieben).
+    // Migration "Week5GroupExpenses": verknüpft Ausgaben mit Gruppen — fügt der Tabelle Expenses die
+    // optionale Spalte GroupId (Fremdschlüssel auf Groups, SetNull) samt Index hinzu.
     /// <inheritdoc />
     public partial class Week5GroupExpenses : Migration
     {
+        // Up(): fügt die GroupId-Spalte, den Index (GroupId, ExpenseDate) und den Fremdschlüssel zu Groups hinzu.
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +34,7 @@ namespace ORM.Migrations
                 onDelete: ReferentialAction.SetNull);
         }
 
+        // Down(): macht Up() rückgängig — entfernt Fremdschlüssel, Index und die GroupId-Spalte wieder.
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {

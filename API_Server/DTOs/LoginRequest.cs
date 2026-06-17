@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API_Server.DTOs;
 
+// Request-Body für POST /api/auth/login – Anmeldedaten (E-Mail und Passwort).
 public class LoginRequest
 {
     [Required]

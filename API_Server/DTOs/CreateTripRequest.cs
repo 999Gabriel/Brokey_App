@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API_Server.DTOs;
 
+// Request-Body für POST /api/trips – Eingabedaten zum Anlegen eines Trips (Name, Währung, Reisezeitraum).
 public class CreateTripRequest
 {
     [Required]

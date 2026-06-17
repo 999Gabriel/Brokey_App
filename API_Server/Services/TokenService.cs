@@ -10,11 +10,16 @@ public class TokenService
 {
     private readonly IConfiguration _configuration;
 
+    // Liest JWT-Settings (Key, Issuer, Audience, ExpireHours) aus appsettings.json.
     public TokenService(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
+    // Erstellt einen signierten JWT für den übergebenen User.
+    // Claims: Sub/NameIdentifier = UserId, Email, Username, Jti (eindeutige Token-ID).
+    // Ablaufzeit kommt aus Jwt:ExpireHours in appsettings.json.
+    // → Rückgabe-String wird in AuthResponse.Token gespeichert und vom Client im Bearer-Header mitgeschickt.
     public string GenerateToken(User user)
     {
         var jwtSettings = _configuration.GetSection("Jwt");

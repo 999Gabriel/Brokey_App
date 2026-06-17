@@ -1,5 +1,6 @@
 namespace API_Server.DTOs;
 
+// Teil von TripDetailResponse – ein Trip-Mitglied (UserId, Username, Email, Rolle wie Owner/Member).
 public class TripMemberResponse
 {
     public int UserId { get; set; }

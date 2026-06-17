@@ -9,23 +9,29 @@ using ORM.Repositories;
 
 namespace API_Server.Controllers;
 
-[ApiController]
-[Authorize]
+// Controller für Gruppen innerhalb eines Trips. Route-Präfix: api/groups (fest, NICHT [controller]).
+// Zuständig für: Gruppenmitglieder verwalten, Ausgaben (Expenses) anlegen/ändern/löschen,
+// Kategorien liefern und die Abrechnung (Settlement: Balances + Transfers) berechnen.
+// [Authorize] auf Klassenebene → JEDE Action verlangt einen gültigen JWT.
+[ApiController]      // automatische Validierung der DTO-Attribute + automatische 400-Antworten bei ungültigem Body
+[Authorize]          // gilt für alle Actions: ohne gültigen Bearer-Token → 401
 [Route("api/groups")]
 public class GroupsController : ControllerBase
 {
-    private const string SplitModeEqual = "Equal";
-    private const string SplitModePercentage = "Percentage";
-    private const string SplitModeAmount = "Amount";
-    private const decimal SplitTolerance = 0.01m;
+    // Erlaubte Aufteilungs-Modi für eine Ausgabe (als Konstanten, um Tippfehler zu vermeiden):
+    private const string SplitModeEqual = "Equal";           // gleichmäßig auf alle Teilnehmer aufteilen
+    private const string SplitModePercentage = "Percentage";  // nach Prozentsätzen (müssen 100% ergeben)
+    private const string SplitModeAmount = "Amount";          // nach festen Beträgen (Summe = Gesamtbetrag)
+    private const decimal SplitTolerance = 0.01m;             // erlaubte Rundungstoleranz (1 Cent) bei der Summenprüfung
 
-    private readonly AppDbContext _context;
-    private readonly ExpenseRepository _expenseRepository;
-    private readonly GroupRepository _groupRepository;
-    private readonly GroupMemberRepository _groupMemberRepository;
-    private readonly TripRepository _tripRepository;
-    private readonly TripMemberRepository _tripMemberRepository;
+    private readonly AppDbContext _context;                       // direkter DB-Zugang (z.B. für User-/Kategorie-Lookups)
+    private readonly ExpenseRepository _expenseRepository;        // Ausgaben + Splits laden/schreiben
+    private readonly GroupRepository _groupRepository;            // Gruppen laden/erstellen
+    private readonly GroupMemberRepository _groupMemberRepository;  // Gruppenmitglieder hinzufügen/entfernen
+    private readonly TripRepository _tripRepository;              // Trip laden + Mitgliedschaft des Users prüfen
+    private readonly TripMemberRepository _tripMemberRepository;  // User automatisch als Trip-Teilnehmer eintragen
 
+    // Alle Repositories und AppDbContext werden per DI injiziert.
     public GroupsController(
         AppDbContext context,
         ExpenseRepository expenseRepository,
@@ -42,30 +48,36 @@ public class GroupsController : ControllerBase
         _tripMemberRepository = tripMemberRepository;
     }
 
+    // POST /api/groups/{id}/members – [Authorize]. Request-DTO: AddGroupMemberRequest. Response: GroupMemberResponse.
+    // Fügt einen User (per Username oder E-Mail) zur Gruppe hinzu und automatisch als TripMember, falls noch nicht vorhanden.
+    // Statuscodes: 200 OK (hinzugefügt), 401 (kein Token), 404 (Gruppe/Trip/User nicht gefunden), 400 (ungültige Rolle).
     [HttpPost("{id:int}/members")]
     public async Task<ActionResult<GroupMemberResponse>> AddMember(
         int id,
         [FromBody] AddGroupMemberRequest request,
         CancellationToken cancellationToken)
     {
-        var currentUserId = User.GetUserId();
+        var currentUserId = User.GetUserId();  // ID des aufrufenden Users aus dem JWT
         if (currentUserId == null)
         {
             return Unauthorized();
         }
 
+        // Gruppe laden; existiert sie nicht → 404.
         var group = await _groupRepository.GetByIdAsync(id, cancellationToken);
         if (group == null)
         {
             return NotFound(new { message = "Group not found." });
         }
 
+        // Berechtigungsprüfung: GetByIdForUserAsync liefert den Trip nur, wenn der aufrufende User Trip-Mitglied ist.
         var trip = await _tripRepository.GetByIdForUserAsync(group.TripId, currentUserId.Value, cancellationToken);
         if (trip == null)
         {
             return NotFound(new { message = "Trip not found." });
         }
 
+        // Ziel-User per E-Mail ODER Username suchen (case-insensitiv).
         var normalizedIdentifier = request.UsernameOrEmail.Trim().ToLowerInvariant();
         var targetUser = await _context.Users.FirstOrDefaultAsync(
             u => u.Email.ToLower() == normalizedIdentifier || u.Username.ToLower() == normalizedIdentifier,
@@ -76,17 +88,22 @@ public class GroupsController : ControllerBase
             return NotFound(new { message = "User not found." });
         }
 
+        // Rolle auf "Admin"/"Member" normalisieren; ungültige Eingabe → 400.
         var normalizedRole = NormalizeGroupRole(request.Role);
         if (normalizedRole == null)
         {
             return BadRequest(new { message = "Role must be Admin or Member." });
         }
 
+        // Ziel-User muss Trip-Mitglied sein, bevor er Gruppenmitglied werden kann → automatisch als "Member" eintragen (idempotent).
         await _tripMemberRepository.AddParticipantAsync(group.TripId, targetUser.Id, "Member", cancellationToken);
+        // Eigentliches Hinzufügen zur Gruppe; Repository liefert das (neue oder bestehende) GroupMember-Objekt zurück.
         var member = await _groupMemberRepository.AddMemberAsync(id, targetUser.Id, normalizedRole, cancellationToken);
-        return Ok(MapMember(member!));
+        return Ok(MapMember(member!));  // 200 OK + DTO des Gruppenmitglieds
     }
 
+    // DELETE /api/groups/{id}/members/{userId} – entfernt einen User aus der Gruppe.
+    // Prüft: Gruppe+Trip existieren und aufrufender User ist Trip-Mitglied.
     [HttpDelete("{id:int}/members/{userId:int}")]
     public async Task<IActionResult> RemoveMember(int id, int userId, CancellationToken cancellationToken)
     {
@@ -117,6 +134,8 @@ public class GroupsController : ControllerBase
         return NoContent();
     }
 
+    // GET /api/groups/{id}/members – gibt alle Mitglieder einer Gruppe zurück (Admin zuerst, dann alphabetisch).
+    // → AddExpenseViewModel und GroupDetailViewModel laden diese Liste.
     [HttpGet("{id:int}/members")]
     public async Task<ActionResult<List<GroupMemberResponse>>> GetMembers(int id, CancellationToken cancellationToken)
     {
@@ -142,6 +161,9 @@ public class GroupsController : ControllerBase
         return Ok(members.Select(MapMember).ToList());
     }
 
+    // GET /api/groups/{id}/expense-categories – liefert alle verfügbaren Kategorien (z.B. Food, Transport).
+    // Kategorien sind in der DB vorgeseeded; Zugriff nur für Trip-Mitglieder.
+    // → AddExpenseViewModel füllt damit das Kategorie-Dropdown.
     [HttpGet("{id:int}/expense-categories")]
     public async Task<ActionResult<List<ExpenseCategoryResponse>>> GetExpenseCategories(
         int id,
@@ -162,6 +184,9 @@ public class GroupsController : ControllerBase
         }).ToList());
     }
 
+    // GET /api/groups/{id}/expenses – gibt alle Ausgaben der Gruppe zurück, neueste zuerst.
+    // Jede Expense enthält alle Splits mit Beträgen und Settled-Status.
+    // → GroupDetailViewModel.Expenses, TripService.GetGroupExpensesAsync.
     [HttpGet("{id:int}/expenses")]
     public async Task<ActionResult<List<ExpenseResponse>>> GetExpenses(
         int id,
@@ -177,6 +202,8 @@ public class GroupsController : ControllerBase
         return Ok(expenses.Select(MapExpense).ToList());
     }
 
+    // GET /api/groups/{id}/expenses/{expenseId} – einzelne Ausgabe mit allen Splits laden.
+    // → ExpenseDetailViewModel und AddExpenseViewModel (Edit-Modus).
     [HttpGet("{id:int}/expenses/{expenseId:int}")]
     public async Task<ActionResult<ExpenseResponse>> GetExpenseById(
         int id,
@@ -198,6 +225,9 @@ public class GroupsController : ControllerBase
         return Ok(MapExpense(expense));
     }
 
+    // POST /api/groups/{id}/expenses – erstellt eine neue Ausgabe mit Splits.
+    // Nutzt BuildExpenseMutationContextAsync für Validierung und Split-Berechnung,
+    // dann ExpenseRepository.CreateGroupExpenseAsync für die DB-Persistenz.
     [HttpPost("{id:int}/expenses")]
     public async Task<ActionResult<ExpenseResponse>> CreateExpense(
         int id,
@@ -234,6 +264,8 @@ public class GroupsController : ControllerBase
         return CreatedAtAction(nameof(GetExpenseById), new { id, expenseId = created.Id }, MapExpense(created));
     }
 
+    // PUT /api/groups/{id}/expenses/{expenseId} – aktualisiert eine bestehende Ausgabe.
+    // Löscht alle alten Splits und erstellt neue; dieselbe Mutations-Validierung wie beim Erstellen.
     [HttpPut("{id:int}/expenses/{expenseId:int}")]
     public async Task<ActionResult<ExpenseResponse>> UpdateExpense(
         int id,
@@ -271,6 +303,7 @@ public class GroupsController : ControllerBase
         return Ok(MapExpense(updated));
     }
 
+    // DELETE /api/groups/{id}/expenses/{expenseId} – löscht eine Ausgabe und ihre Splits (Cascade).
     [HttpDelete("{id:int}/expenses/{expenseId:int}")]
     public async Task<IActionResult> DeleteExpense(
         int id,
@@ -292,6 +325,10 @@ public class GroupsController : ControllerBase
         return NoContent();
     }
 
+    // GET /api/groups/{id}/settlement – berechnet Abrechnung für die Gruppe:
+    // Balances (wer hat wie viel bezahlt/geschuldet) + Transfers (wer muss wem was zahlen).
+    // Daten: alle Expenses der Gruppe → BuildBalances + BuildTransfers → GroupSettlementResponse.
+    // → GroupDetailViewModel zeigt Settlement-Tab an.
     [HttpGet("{id:int}/settlement")]
     public async Task<ActionResult<GroupSettlementResponse>> GetSettlement(
         int id,
@@ -321,6 +358,8 @@ public class GroupsController : ControllerBase
         });
     }
 
+    // POST /api/groups/{id}/settlement/mark-settled – markiert alle offenen Splits zwischen zwei Usern als bezahlt.
+    // Nur Admin oder einer der beiden beteiligten User darf diese Aktion ausführen.
     [HttpPost("{id:int}/settlement/mark-settled")]
     public async Task<IActionResult> MarkSettlementAsSettled(
         int id,
@@ -369,6 +408,10 @@ public class GroupsController : ControllerBase
         return NoContent();
     }
 
+    // Zentrale Validierungs- und Vorbereitungs-Methode für Create und Update einer Ausgabe.
+    // Prüft: Betrag > 0, Titel vorhanden, Gruppe zugänglich, Kategorie gültig, Zahler ist Mitglied,
+    // Split-Modus gültig. Bei Equal: splittet gleichmäßig. Bei Percentage/Amount: nur Admin darf custom split.
+    // Gibt einen fertig befüllten ExpenseMutationContext zurück oder einen Fehler-ActionResult.
     private async Task<(ExpenseMutationContext? context, ActionResult? error)> BuildExpenseMutationContextAsync(
         int groupId,
         CreateExpenseRequest request,
@@ -482,6 +525,9 @@ public class GroupsController : ControllerBase
         }, null);
     }
 
+    // Hilfsmethode: prüft ob der eingeloggte User Zugriff auf eine Gruppe hat
+    // (Gruppe existiert + User ist Mitglied des zugehörigen Trips).
+    // Wird von fast allen Endpoints dieses Controllers verwendet.
     private async Task<(Group? group, int? currentUserId, ActionResult? error)> GetAccessibleGroupAsync(
         int groupId,
         CancellationToken cancellationToken)
@@ -507,6 +553,7 @@ public class GroupsController : ControllerBase
         return (group, currentUserId, null);
     }
 
+    // Wandelt ein Expense-Domainobjekt in ein flaches DTO um; berechnet OwesAmount und IsPaidByUser je Split.
     private static ExpenseResponse MapExpense(Expense expense)
     {
         return new ExpenseResponse
@@ -545,6 +592,7 @@ public class GroupsController : ControllerBase
         };
     }
 
+    // Wandelt ein GroupMember-Domainobjekt in ein DTO (UserId, Username, Email, Role, JoinedAt) um.
     private static GroupMemberResponse MapMember(GroupMember member)
     {
         return new GroupMemberResponse
@@ -557,6 +605,7 @@ public class GroupsController : ControllerBase
         };
     }
 
+    // Gibt die UserId des ältesten Admins der Gruppe zurück (Fallback-Zahler wenn PaidByUserId nicht gesetzt).
     private static int? GetDefaultAdminUserId(Group group)
     {
         var admin = group.Members
@@ -568,6 +617,7 @@ public class GroupsController : ControllerBase
         return admin?.UserId;
     }
 
+    // Normalisiert die Rollen-Eingabe (case-insensitive) auf "Admin" oder "Member"; null bei ungültiger Eingabe.
     private static string? NormalizeGroupRole(string role)
     {
         if (string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase))
@@ -583,6 +633,7 @@ public class GroupsController : ControllerBase
         return null;
     }
 
+    // Normalisiert den Split-Modus (case-insensitive): "Equal", "Percentage" oder "Amount"; null bei ungültig.
     private static string? NormalizeSplitMode(string? splitMode)
     {
         if (string.IsNullOrWhiteSpace(splitMode))
@@ -608,6 +659,10 @@ public class GroupsController : ControllerBase
         return null;
     }
 
+    // Berechnet die Split-Beträge für Percentage- oder Amount-Modus.
+    // Percentage: prüft ob alle Prozente 100% ergeben, berechnet dann Beträge.
+    // Amount: prüft ob Summe dem Gesamtbetrag entspricht.
+    // Gibt splitAmountsByUser (UserId → Betrag) zurück oder eine Fehlermeldung.
     private static (Dictionary<int, decimal>? splitAmountsByUser, string? errorMessage) BuildCustomSplitAmounts(
         string splitMode,
         decimal totalAmount,
@@ -661,6 +716,8 @@ public class GroupsController : ControllerBase
         return EnsureExactAmountTotal(roundedAmountAllocations, totalAmount);
     }
 
+    // Korrigiert Rundungsdifferenzen bei Split-Beträgen: addiert etwaige Cent-Differenz zum ersten Teilnehmer,
+    // sodass die Summe exakt dem Gesamtbetrag entspricht.
     private static (Dictionary<int, decimal>? splitAmountsByUser, string? errorMessage) EnsureExactAmountTotal(
         Dictionary<int, decimal> splitAmountsByUser,
         decimal totalAmount)
@@ -690,6 +747,9 @@ public class GroupsController : ControllerBase
         return (normalized.ToDictionary(item => item.Key, item => item.Value), null);
     }
 
+    // Berechnet pro Mitglied: TotalPaid (hat bezahlt), TotalShare (Schuldenanteil), NetBalance (Differenz).
+    // Settled Splits werden herausgerechnet, sodass bereits bezahlte Schulden nicht mehr zählen.
+    // → Wird von GetSettlement genutzt um den Balance-Tab zu füllen.
     private static List<SettlementBalanceResponse> BuildBalances(Group group, IEnumerable<Expense> expenses)
     {
         var balances = group.Members.ToDictionary(
@@ -705,26 +765,31 @@ public class GroupsController : ControllerBase
 
         foreach (var expense in expenses)
         {
+            // Der Zahler hat den vollen Betrag ausgelegt: erhöht sein TotalPaid und sein Guthaben (NetBalance).
             if (balances.TryGetValue(expense.PaidByUserId, out var payer))
             {
                 payer.TotalPaid += expense.Amount;
                 payer.NetBalance += expense.Amount;
             }
 
+            // Jeder Split ist der Anteil eines Teilnehmers an dieser Ausgabe.
             foreach (var split in expense.Splits)
             {
                 if (!balances.TryGetValue(split.UserId, out var splitUser))
                 {
-                    continue;
+                    continue;  // Split-User ist (nicht mehr) Mitglied → überspringen
                 }
 
+                // Der Teilnehmer schuldet seinen Anteil: erhöht seinen TotalShare und senkt sein NetBalance.
                 splitUser.TotalShare += split.Amount;
                 splitUser.NetBalance -= split.Amount;
 
+                // Ist dieser Anteil bereits BEZAHLT (settled) und der User nicht selbst der Zahler,
+                // wird die Schuld neutralisiert: Saldo wird wieder zurückgebucht, sodass die Salden ausgeglichen wirken.
                 if (split.IsSettled && split.UserId != expense.PaidByUserId && balances.TryGetValue(expense.PaidByUserId, out var settledPayer))
                 {
-                    settledPayer.NetBalance -= split.Amount;
-                    splitUser.NetBalance += split.Amount;
+                    settledPayer.NetBalance -= split.Amount;  // Zahler bekommt das bereits erhaltene Geld nicht doppelt gutgeschrieben
+                    splitUser.NetBalance += split.Amount;     // Schuldner ist seine bereits beglichene Schuld wieder los
                 }
             }
         }
@@ -739,6 +804,9 @@ public class GroupsController : ControllerBase
         return balances.Values.ToList();
     }
 
+    // Aggregiert alle offenen (nicht-settled) Splits zu Transfer-Objekten "User A schuldet User B X€".
+    // Gruppiert nach From/To-User-Paar und summiert alle offenen Beträge.
+    // → Wird von GetSettlement für den Transfer-Tab verwendet.
     private static List<SettlementTransferResponse> BuildTransfers(
         IEnumerable<Expense> expenses)
     {

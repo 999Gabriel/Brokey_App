@@ -1100,7 +1100,7 @@
         "android-x64": {
           "#import": []
         },
-        "ios-arm64": {
+        "iossimulator-arm64": {
           "#import": []
         },
         "maccatalyst-arm64": {

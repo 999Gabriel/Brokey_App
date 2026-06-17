@@ -12,6 +12,9 @@ public class GroupMemberRepository
         _context = context;
     }
 
+    // Fügt einen User als GroupMember hinzu. Existiert er bereits, wird nur die Rolle aktualisiert (Upsert).
+    // Lädt den Member nach dem Speichern mit User-Navigation zurück.
+    // → GroupsController.AddMember und TripsController.CreateGroup nutzen dies.
     public async Task<GroupMember?> AddMemberAsync(
         int groupId,
         int userId,
@@ -47,6 +50,7 @@ public class GroupMemberRepository
             .FirstAsync(gm => gm.Id == member.Id, cancellationToken);
     }
 
+    // Entfernt einen User aus der Gruppe. Gibt false zurück, wenn kein solcher Member gefunden wurde.
     public async Task<bool> RemoveMemberAsync(int groupId, int userId, CancellationToken cancellationToken = default)
     {
         var member = await _context.GroupMembers
@@ -64,6 +68,7 @@ public class GroupMemberRepository
         return true;
     }
 
+    // Gibt alle Mitglieder einer Gruppe zurück: Admin zuerst, danach alphabetisch nach Username.
     public async Task<List<GroupMember>> GetMembersByGroupAsync(int groupId, CancellationToken cancellationToken = default)
     {
         return await _context.GroupMembers
