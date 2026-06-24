@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Brokey_APP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+4b15d6d7e340b37125e53279e2415c264922f525")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+106f73e37e6ca3bd70a636f711933bd9d522801f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Brokey_APP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Brokey_APP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

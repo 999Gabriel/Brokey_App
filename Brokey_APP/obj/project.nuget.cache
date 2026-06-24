@@ -155,5 +155,54 @@
     "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.7/microsoft.netcore.app.ref.10.0.7.nupkg.sha512",
     "/Users/gabriel/.nuget/packages/microsoft.netcore.app.ref/10.0.7/microsoft.netcore.app.ref.10.0.7.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.11 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "projectPath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
+      "targetGraphs": [
+        "net10.0-maccatalyst26.2",
+        "net10.0-maccatalyst26.2/android-arm64",
+        "net10.0-maccatalyst26.2/android-x64",
+        "net10.0-maccatalyst26.2/iossimulator-arm64",
+        "net10.0-maccatalyst26.2/maccatalyst-arm64"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'SQLitePCLRaw.lib.e_sqlite3.android' 2.1.11 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "projectPath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3.android",
+      "targetGraphs": [
+        "net10.0-android36.0",
+        "net10.0-android36.0/android-arm64",
+        "net10.0-android36.0/android-x64",
+        "net10.0-android36.0/iossimulator-arm64",
+        "net10.0-android36.0/maccatalyst-arm64"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'SQLitePCLRaw.lib.e_sqlite3.ios' 2.1.11 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "projectPath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/gabriel/RiderProjects/Brokey_APP/Brokey_APP/Brokey_APP.csproj",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3.ios",
+      "targetGraphs": [
+        "net10.0-ios26.2",
+        "net10.0-ios26.2/android-arm64",
+        "net10.0-ios26.2/android-x64",
+        "net10.0-ios26.2/iossimulator-arm64",
+        "net10.0-ios26.2/maccatalyst-arm64"
+      ]
+    }
+  ]
 }
